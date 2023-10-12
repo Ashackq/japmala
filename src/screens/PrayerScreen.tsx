@@ -10,7 +10,7 @@ import {
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Gifff } from '../components';
+import { Gifff, Sound } from '../components';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
@@ -122,6 +122,9 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           Prayer Count: {prayerCount}
         </Text>
         <Text style={styles.grey2}>Elapsed Time: {elapsedTime}</Text>
+      </View>
+      <View style={{ position: 'absolute', top: 0 }}>
+        <Sound />
       </View>
     </View>
   );
