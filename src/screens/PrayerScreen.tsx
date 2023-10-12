@@ -1,10 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, PanResponder, BackHandler } from 'react-native';
-const Bead = require('../assets/bead.gif');
+import {
+  View,
+  Text,
+  PanResponder,
+  BackHandler,
+  StyleSheet,
+} from 'react-native';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import Gif from 'react-native-gif';
+import { Gifff } from '../components';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
@@ -16,7 +22,14 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const target = route.params.target;
   const mala = route.params.mala;
   const meditime = route.params.meditime;
+  const [isPlaying, setIsPlaying] = useState(false);
 
+  const togglePlayPause = () => {
+    setIsPlaying(true);
+    setTimeout(() => {
+      setIsPlaying(false);
+    }, 3000); // Adjust the time (in milliseconds) as needed
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
@@ -87,47 +100,49 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         if (isInsideImage) {
           setPrayerCount((prevCount) => prevCount + 1);
           setHasDragged(true);
+          togglePlayPause();
         }
       }
     },
     onPanResponderRelease: () => {
       setHasDragged(false);
+      togglePlayPause();
     },
   });
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       <View {...panResponder.panHandlers} style={{ alignItems: 'center' }}>
-        <Gif source={Bead} style={{ width: 400, height: 700 }} />
+        <View>
+          <Gifff togglePlayPause={togglePlayPause} isPlaying={isPlaying} />
+        </View>
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          marginTop: 20,
-          bottom: 0,
-          padding: 50,
-          right: 0,
-          left: 0,
-          backgroundColor: 'grey',
-          position: 'absolute',
-        }}
-      >
+      <View style={styles.greybox}>
         <Text style={{ color: 'white', backgroundColor: 'grey', fontSize: 20 }}>
           Prayer Count: {prayerCount}
         </Text>
-        <Text
-          style={{
-            color: 'white',
-            backgroundColor: 'grey',
-            fontSize: 20,
-            marginTop: 10,
-          }}
-        >
-          Elapsed Time: {elapsedTime}
-        </Text>
+        <Text style={styles.grey2}>Elapsed Time: {elapsedTime}</Text>
       </View>
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  greybox: {
+    alignItems: 'center',
+    marginTop: 20,
+    bottom: 0,
+    padding: 50,
+    right: 0,
+    left: 0,
+    backgroundColor: 'grey',
+    position: 'absolute',
+  },
+  grey2: {
+    color: 'white',
+    backgroundColor: 'grey',
+    fontSize: 20,
+    marginTop: 10,
+  },
+});
 export default PrayerScreen;
