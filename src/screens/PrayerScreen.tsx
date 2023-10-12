@@ -28,7 +28,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     setIsPlaying(true);
     setTimeout(() => {
       setIsPlaying(false);
-    }, 3000); // Adjust the time (in milliseconds) as needed
+    }, 2000); // Adjust the time (in milliseconds) as needed
   };
   useEffect(() => {
     const interval = setInterval(() => {
