@@ -49,7 +49,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       // Resume the timer
       console.log('Resuming timer...');
       if (pauseTimeRef.current !== null) {
-        const elapsedTimeAtPause = calculateElapsedTime();
         const currentTime = new Date().getTime();
         const pausedDuration = currentTime - pauseTimeRef.current;
 
@@ -69,7 +68,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   useEffect(() => {
     startTimer();
-    navigation.setParams({ meditime: elapsedTime });
+    navigation.setParams({ elapsedtime: elapsedTime });
 
     return () => {
       clearInterval(intervalRef.current!);
@@ -135,8 +134,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   ]);
 
   useEffect(() => {
-    console.log('meditime param - ', meditime);
-  }, [meditime]);
+    console.log('meditime param - ', elapsedTime);
+  }, [elapsedTime]);
 
   const calculateElapsedTime = () => {
     let endTime = new Date();
@@ -167,11 +166,9 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       setPrayerCount((prevCount) => prevCount + 1);
 
       const animations = [];
-      const beadCount = 5; // Number of beads in the image
-      const stagger = 100; // Stagger time between animations
+      const beadCount = 5;
 
       for (let i = 0; i < beadCount; i++) {
-        // Stagger the animations for a chain-like effect
         animations.push(
           Animated.timing(imagePosition, {
             toValue: { x: 0, y: -200 },
@@ -182,8 +179,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       }
 
       Animated.sequence(animations).start(() => {
-        // Reset image position when animation sequence completes
-        imagePosition.setValue({ x: 0, y: 0 });
+        imagePosition.setValue({ x: 0, y: 56 });
       });
     }
   };
@@ -205,10 +201,10 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.head}>
         <Head ishome={false} name={'Moksha'} />
       </View>
+      <Text style={styles.prayercount}>
+        {mala} - {prayerCount}
+      </Text>
       <View style={styles.greybox}>
-        <Text style={{ color: 'white', backgroundColor: 'grey', fontSize: 20 }}>
-          Prayer Count: {prayerCount}
-        </Text>
         <View style={styles.timerContainer}>
           <Text style={styles.timerText}>Elapsed Time: {elapsedTime}</Text>
           <TouchableOpacity
@@ -259,7 +255,7 @@ const styles = StyleSheet.create({
     width: 140,
     position: 'absolute',
     zIndex: 2,
-    top: -100,
+    top: -50,
     left: -75,
     right: 0,
   },
@@ -280,6 +276,13 @@ const styles = StyleSheet.create({
   pauseButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  prayercount: {
+    color: 'white',
+    fontSize: 100,
+    position: 'absolute',
+    marginTop: '70%',
+    marginLeft: '25%',
   },
 });
 export default PrayerScreen;

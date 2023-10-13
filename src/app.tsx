@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import { StyleSheet } from 'react-native';
 import { Home, Edit, Player, Help } from './screens';
+import { Loading } from './components';
 
 export type RootStackParamList = {
   Home: {
@@ -43,6 +44,7 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
   };
+  Loading: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -50,8 +52,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Loading">
         <Stack.Group screenOptions={{ headerShown: false, animation: 'fade' }}>
+          <Stack.Screen name="Loading" component={Loading} />
           <Stack.Screen
             name="Home"
             component={Home}
