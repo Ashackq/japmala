@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
-  PanResponder,
+  TouchableWithoutFeedback,
   BackHandler,
   StyleSheet,
   Image,
@@ -162,67 +162,46 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (_, gestureState) => {
-      if (!hasDragged) {
-        const isInsideImage =
-          gestureState.moveX > 0 &&
-          gestureState.moveX < 400 &&
-          gestureState.moveY > 0 &&
-          gestureState.moveY < 500;
+  const handleImagePress = () => {
+    if (!hasDragged) {
+      setPrayerCount((prevCount) => prevCount + 1);
 
-        if (isInsideImage && gestureState.dy < 0) {
-          setPrayerCount((prevCount) => prevCount + 1);
-          setHasDragged(true);
+      const animations = [];
+      const beadCount = 5; // Number of beads in the image
+      const stagger = 100; // Stagger time between animations
 
-          const animations = [];
-          const beadCount = 5; // Number of beads in the image
-          const stagger = 100; // Stagger time between animations
-
-          for (let i = 0; i < beadCount; i++) {
-            // Stagger the animations for a chain-like effect
-            animations.push(
-              Animated.timing(imagePosition, {
-                toValue: { x: 0, y: gestureState.dy - 200 - i * 20 },
-                duration: 200,
-                useNativeDriver: true,
-              })
-            );
-          }
-
-          Animated.sequence(animations).start(() => {
-            // Reset image position when animation sequence completes
-            imagePosition.setValue({ x: 0, y: 0 });
-          });
-        }
+      for (let i = 0; i < beadCount; i++) {
+        // Stagger the animations for a chain-like effect
+        animations.push(
+          Animated.timing(imagePosition, {
+            toValue: { x: 0, y: -200 },
+            duration: 200,
+            useNativeDriver: true,
+          })
+        );
       }
-    },
 
-    onPanResponderRelease: () => {
-      setHasDragged(false);
-
-      // Reset image position
-      Animated.spring(imagePosition, {
-        toValue: { x: 0, y: 0 },
-        useNativeDriver: true,
-      }).start();
-    },
-  });
+      Animated.sequence(animations).start(() => {
+        // Reset image position when animation sequence completes
+        imagePosition.setValue({ x: 0, y: 0 });
+      });
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={{
-          alignItems: 'center',
-          transform: imagePosition.getTranslateTransform(),
-        }}
-      >
-        <View>
-          <Image source={Bead} style={styles.img} />
-        </View>
-      </Animated.View>
+      <TouchableWithoutFeedback onPress={handleImagePress}>
+        <Animated.View
+          style={{
+            alignItems: 'center',
+            transform: imagePosition.getTranslateTransform(),
+          }}
+        >
+          <View>
+            <Image source={Bead} style={styles.img} />
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
       <View style={styles.head}>
         <Head ishome={false} name={'Moksha'} />
       </View>
