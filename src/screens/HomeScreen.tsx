@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
 import { Foot, Head } from '../components';
 const Back = require('../assets/back.jpg');
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const away = target / beadcount - mala;
   const meditime = addTime(route.params.meditime, route.params.elapsedtime);
   const esttime = route.params.esttime;
-
+  const elapsedtime = route.params.elapsedtime;
   const handleBeginPress = () => {
     navigation.push('Player', {
       target: target,
@@ -25,6 +25,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       mala: mala,
       beadcount: beadcount,
       esttime: esttime,
+      elapsedtime: elapsedtime,
     });
   };
   const calculateEstimatedTotalTime = () => {
@@ -41,13 +42,13 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       .toString()
       .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
-  // Calculate the estimated time to complete 'mala' malas
+
   const estimatedTotalTime = calculateEstimatedTotalTime();
   return (
     <View style={styles.container}>
       <Image source={Back} style={styles.img} />
       {/* Header */}
-      <Head />
+      <Head ishome={true} name={'Moksha'} />
       {/* Om */}
       <TouchableOpacity onPress={handleBeginPress}>
         <View style={styles.omContainer}>
@@ -70,7 +71,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.greyBox}>
         <Text style={styles.text}>Mala Completed: {mala}</Text>
         <Text style={styles.text}>
-          You are {away} malas away from your goal
+          You are {Math.ceil(away)} malas away from your goal
         </Text>
         <Text style={styles.text}>
           Time estimation for completion {estimatedTotalTime}

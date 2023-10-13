@@ -8,12 +8,15 @@ import {
   StyleSheet,
   Image,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { Head, Sound } from '../components';
 const Bead = require('../assets/bead.jpg');
+const Pause = require('../assets/pause.png');
+const Play = require('../assets/play.png');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
@@ -21,7 +24,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [hasDragged, setHasDragged] = useState(false);
   const startTimeRef = useRef(new Date());
   const countertimeref = useRef(new Date());
-
+  const pauseTimeRef = useRef<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
@@ -30,15 +34,54 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [esttime, setesttime] = useState('00:00:00');
 
   const imagePosition = useRef(new Animated.ValueXY()).current;
+  const [isTimerRunning, setIsTimerRunning] = useState(true);
+
+  const handlePauseResume = () => {
+    console.log('Play/Pause button pressed');
+    console.log('Current isTimerRunning value:', isTimerRunning);
+
+    if (isTimerRunning) {
+      // Pause the timer
+      console.log('Pausing timer...');
+      pauseTimeRef.current = new Date().getTime();
+      clearInterval(intervalRef.current!);
+    } else {
+      // Resume the timer
+      console.log('Resuming timer...');
+      if (pauseTimeRef.current !== null) {
+        const elapsedTimeAtPause = calculateElapsedTime();
+        const currentTime = new Date().getTime();
+        const pausedDuration = currentTime - pauseTimeRef.current;
+
+        // Adjust the start time to consider the pause duration
+        const adjustedStartTime = new Date(startTimeRef.current);
+        adjustedStartTime.setSeconds(
+          adjustedStartTime.getSeconds() + pausedDuration / 1000
+        );
+        startTimeRef.current = adjustedStartTime;
+      }
+      pauseTimeRef.current = null;
+      startTimer();
+    }
+
+    setIsTimerRunning((prev) => !prev);
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    startTimer();
+    navigation.setParams({ meditime: elapsedTime });
+
+    return () => {
+      clearInterval(intervalRef.current!);
+    };
+  }, [elapsedTime, navigation, startTimer]);
+
+  const startTimer = () => {
+    intervalRef.current = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
       setElapsedTime(elapsedtime);
     }, 1000);
-    navigation.setParams({ meditime: elapsedTime });
-    return () => clearInterval(interval);
-  }, [calculateElapsedTime, elapsedTime, navigation]);
+  };
 
   useEffect(() => {
     if (prayerCount === beadcount) {
@@ -82,20 +125,29 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     };
   }, [
     navigation,
-    calculateElapsedTime,
     prayerCount,
     beadcount,
     mala,
     target,
     meditime,
     esttime,
+    calculateElapsedTime,
   ]);
+
   useEffect(() => {
-    console.log('meditime param - ', route.params.meditime);
-  }, [route.params.meditime]);
+    console.log('meditime param - ', meditime);
+  }, [meditime]);
 
   const calculateElapsedTime = () => {
-    const endTime = new Date();
+    let endTime = new Date();
+
+    if (pauseTimeRef.current !== null) {
+      // Adjust end time when the timer is paused
+      endTime = new Date(
+        endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
+      );
+    }
+
     const elapsedMilliseconds = endTime - startTimeRef.current;
     const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
     return formatTime(elapsedSeconds);
@@ -172,13 +224,25 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         </View>
       </Animated.View>
       <View style={styles.head}>
-        <Head />
+        <Head ishome={false} name={'Moksha'} />
       </View>
       <View style={styles.greybox}>
         <Text style={{ color: 'white', backgroundColor: 'grey', fontSize: 20 }}>
           Prayer Count: {prayerCount}
         </Text>
-        <Text style={styles.grey2}>Elapsed Time: {elapsedTime}</Text>
+        <View style={styles.timerContainer}>
+          <Text style={styles.timerText}>Elapsed Time: {elapsedTime}</Text>
+          <TouchableOpacity
+            onPress={handlePauseResume}
+            style={styles.pauseButton}
+          >
+            {isTimerRunning ? (
+              <Image source={Pause} style={styles.img2} />
+            ) : (
+              <Image source={Play} style={styles.img2} />
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{ position: 'absolute', top: 0 }}>
         <Sound />
@@ -219,6 +283,24 @@ const styles = StyleSheet.create({
     top: -100,
     left: -75,
     right: 0,
+  },
+  timerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+  },
+  timerText: {
+    color: 'white',
+    fontSize: 20,
+  },
+  pauseButton: {
+    marginLeft: 10,
+  },
+  img2: { height: 25, width: 25 },
+  pauseButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 export default PrayerScreen;

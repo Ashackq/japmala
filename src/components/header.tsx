@@ -4,7 +4,7 @@ import React from 'react';
 const Share = require('../assets/share.png');
 const Info = require('../assets/info.jpg');
 
-const header = () => {
+const header = ({ ishome, name }) => {
   const handleSharePress = () => {
     console.log('Share button pressed.');
   };
@@ -17,16 +17,25 @@ const header = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={handleSharePress}
-          style={styles.headerButton}
-        >
-          <Image source={Share} style={styles.icon} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Moksha</Text>
-        <TouchableOpacity onPress={handleInfoPress} style={styles.headerButton}>
-          <Image source={Info} style={styles.icon} />
-        </TouchableOpacity>
+        {ishome && (
+          <TouchableOpacity
+            onPress={handleSharePress}
+            style={styles.headerButton}
+          >
+            <Image source={Share} style={styles.icon} />
+          </TouchableOpacity>
+        )}
+
+        <Text style={styles.headerTitle}>{name}</Text>
+
+        {ishome && (
+          <TouchableOpacity
+            onPress={handleInfoPress}
+            style={styles.headerButton}
+          >
+            <Image source={Info} style={styles.icon} />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -39,10 +48,10 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    padding: 5,
+    height: 60,
     backgroundColor: '#A6D1E6',
     top: 0,
     position: 'absolute',
@@ -52,11 +61,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 20,
   },
   icon: {
     height: 25,
     width: 25,
+    marginHorizontal: 100,
   },
 });
 export default header;

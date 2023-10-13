@@ -5,14 +5,13 @@ const Edit = require('../assets/edit.jpg');
 const Help = require('../assets/help.png');
 
 const footer = ({ navigation, route }) => {
-  const handleDonatePress = () => {
-    console.log('Donate button pressed.');
-  };
   const totalcount = route.params.totalcount;
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const mala = route.params.mala;
+  const elapsedtiem = route.params.elapsedtime;
   const meditime = route.params.meditime;
+  const esttime = route.params.esttime;
   const handleEditPress = () => {
     navigation.push('Edit', {
       target: target,
@@ -20,13 +19,28 @@ const footer = ({ navigation, route }) => {
       meditime: meditime,
       mala: mala,
       beadcount: beadcount,
+      elapsedtiem: elapsedtiem,
+      esttime: esttime,
     });
     console.log('Edit button pressed.');
   };
 
+  const handleDonatePress = () => {
+    console.log('Donate button pressed.');
+  };
   const handleHelpPress = () => {
+    navigation.push('Help', {
+      target: target,
+      totalcount: totalcount,
+      meditime: meditime,
+      mala: mala,
+      beadcount: beadcount,
+      elapsedtiem: elapsedtiem,
+      esttime: esttime,
+    });
     console.log('Help button pressed.');
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.bottomBar}>
@@ -67,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 5,
-    backgroundColor: '#4A403A',
+    backgroundColor: '#EAD2AC',
     marginBottom: 20,
   },
   bottomBarButton: {

@@ -1,11 +1,10 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 //nav
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import { StyleSheet } from 'react-native';
-import { Home, Edit, Player } from './screens';
+import { Home, Edit, Player, Help } from './screens';
 
 export type RootStackParamList = {
   Home: {
@@ -24,6 +23,7 @@ export type RootStackParamList = {
     mala: number;
     beadcount: number;
     esttime: string;
+    elapsedtime: string;
   };
   Player: {
     target: number;
@@ -32,6 +32,16 @@ export type RootStackParamList = {
     mala: number;
     beadcount: number;
     esttime: string;
+    elapsedtime: string;
+  };
+  Help: {
+    target: number;
+    totalcount: number;
+    meditime: string;
+    mala: number;
+    beadcount: number;
+    esttime: string;
+    elapsedtime: string;
   };
 };
 
@@ -67,6 +77,18 @@ function App(): JSX.Element {
           <Stack.Screen
             name="Player"
             component={Player}
+            initialParams={{
+              target: 100000,
+              beadcount: 108,
+              mala: 0,
+              totalcount: 0,
+              meditime: '00:00:00',
+              esttime: '00:00:00',
+            }}
+          />
+          <Stack.Screen
+            name="Help"
+            component={Help}
             initialParams={{
               target: 100000,
               beadcount: 108,
