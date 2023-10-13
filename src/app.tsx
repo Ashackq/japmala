@@ -15,6 +15,7 @@ export type RootStackParamList = {
     mala: number;
     beadcount: number;
     elapsedtime: string;
+    esttime: string;
   };
   Edit: {
     target: number;
@@ -22,6 +23,7 @@ export type RootStackParamList = {
     meditime: string;
     mala: number;
     beadcount: number;
+    esttime: string;
   };
   Player: {
     target: number;
@@ -29,6 +31,7 @@ export type RootStackParamList = {
     meditime: string;
     mala: number;
     beadcount: number;
+    esttime: string;
   };
 };
 
@@ -48,6 +51,7 @@ function App(): JSX.Element {
               mala: 0,
               totalcount: 0,
               meditime: '00:00:00',
+              esttime: '00:00:00',
             }}
           />
           <Stack.Screen
@@ -57,6 +61,7 @@ function App(): JSX.Element {
               target: 100000,
               beadcount: 108,
               meditime: '00:00:00',
+              esttime: '00:00:00',
             }}
           />
           <Stack.Screen
@@ -68,6 +73,7 @@ function App(): JSX.Element {
               mala: 0,
               totalcount: 0,
               meditime: '00:00:00',
+              esttime: '00:00:00',
             }}
           />
         </Stack.Group>

@@ -6,30 +6,31 @@ import {
   PanResponder,
   BackHandler,
   StyleSheet,
+  Image,
+  Animated,
 } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Gifff, Sound } from '../components';
+import { Head, Sound } from '../components';
+const Bead = require('../assets/bead.jpg');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
-  const [prayerCount, setPrayerCount] = useState(0);
+  const [prayerCount, setPrayerCount] = useState(route.params.totalcount);
   const [hasDragged, setHasDragged] = useState(false);
   const startTimeRef = useRef(new Date());
+  const countertimeref = useRef(new Date());
+
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
-  const mala = route.params.mala;
+  const [mala, setMala] = useState(route.params.mala);
   const meditime = route.params.meditime;
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [esttime, setesttime] = useState('00:00:00');
 
-  const togglePlayPause = () => {
-    setIsPlaying(true);
-    setTimeout(() => {
-      setIsPlaying(false);
-    }, 2000); // Adjust the time (in milliseconds) as needed
-  };
+  const imagePosition = useRef(new Animated.ValueXY()).current;
+
   useEffect(() => {
     const interval = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
@@ -38,6 +39,26 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     navigation.setParams({ meditime: elapsedTime });
     return () => clearInterval(interval);
   }, [calculateElapsedTime, elapsedTime, navigation]);
+
+  useEffect(() => {
+    if (prayerCount === beadcount) {
+      setMala((prevMala) => prevMala + 1);
+      setPrayerCount(0);
+      const endTime = new Date();
+      const elapsedMilliseconds = endTime - countertimeref.current;
+      let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+
+      // Calculate the time for one mala from 0 mala count
+      let timeForOneMalaSeconds = elapsedSeconds;
+
+      // Calculate the time for one mala in the format HH:mm:ss
+      let timeForOneMala = formatTime(timeForOneMalaSeconds);
+      console.log('Time for One Mala:', timeForOneMala);
+
+      setesttime(timeForOneMala);
+      countertimeref.current = new Date();
+    }
+  }, [prayerCount, beadcount, mala, setesttime]);
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -50,6 +71,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           beadcount: beadcount,
           target: target,
           elapsedtime: elapsedFormatted,
+          esttime: esttime,
         });
         return true;
       }
@@ -66,6 +88,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     mala,
     target,
     meditime,
+    esttime,
   ]);
   useEffect(() => {
     console.log('meditime param - ', route.params.meditime);
@@ -97,25 +120,59 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           gestureState.moveY > 0 &&
           gestureState.moveY < 500;
 
-        if (isInsideImage) {
+        if (isInsideImage && gestureState.dy < 0) {
           setPrayerCount((prevCount) => prevCount + 1);
           setHasDragged(true);
-          togglePlayPause();
+
+          const animations = [];
+          const beadCount = 5; // Number of beads in the image
+          const stagger = 100; // Stagger time between animations
+
+          for (let i = 0; i < beadCount; i++) {
+            // Stagger the animations for a chain-like effect
+            animations.push(
+              Animated.timing(imagePosition, {
+                toValue: { x: 0, y: gestureState.dy - 200 - i * 20 },
+                duration: 200,
+                useNativeDriver: true,
+              })
+            );
+          }
+
+          Animated.sequence(animations).start(() => {
+            // Reset image position when animation sequence completes
+            imagePosition.setValue({ x: 0, y: 0 });
+          });
         }
       }
     },
+
     onPanResponderRelease: () => {
       setHasDragged(false);
-      togglePlayPause();
+
+      // Reset image position
+      Animated.spring(imagePosition, {
+        toValue: { x: 0, y: 0 },
+        useNativeDriver: true,
+      }).start();
     },
   });
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <View {...panResponder.panHandlers} style={{ alignItems: 'center' }}>
+      <Animated.View
+        {...panResponder.panHandlers}
+        style={{
+          alignItems: 'center',
+          transform: imagePosition.getTranslateTransform(),
+        }}
+      >
         <View>
-          <Gifff togglePlayPause={togglePlayPause} isPlaying={isPlaying} />
+          <Image source={Bead} style={styles.img} />
         </View>
+      </Animated.View>
+      <View style={styles.head}>
+        <Head />
       </View>
       <View style={styles.greybox}>
         <Text style={{ color: 'white', backgroundColor: 'grey', fontSize: 20 }}>
@@ -146,6 +203,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     fontSize: 20,
     marginTop: 10,
+  },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 500,
+  },
+  img: {
+    height: 1000,
+    width: 140,
+    position: 'absolute',
+    zIndex: 2,
+    top: -100,
+    left: -75,
+    right: 0,
   },
 });
 export default PrayerScreen;

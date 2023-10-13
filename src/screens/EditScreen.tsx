@@ -23,8 +23,9 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const [meditime, setMeditime] = useState(
     route.params?.meditime || '00:00:00'
   );
-  const totalcount = route.params.totalcount;
-  const mala = route.params.mala;
+  const esttime = route.params.esttime;
+  const [totalcount, settotalcount] = useState(route.params.totalcount);
+  const [mala, setMala] = useState(route.params.mala);
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -36,6 +37,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           totalcount: totalcount,
           mala: mala,
           elapsedtime: '00:00:00',
+          esttime: esttime,
         });
         return true;
       }
@@ -44,7 +46,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     return () => {
       backHandler.remove();
     };
-  }, [navigation, beadsInMala, meditime, target, mala, totalcount]);
+  }, [navigation, beadsInMala, meditime, target, mala, totalcount, esttime]);
   useEffect(() => {
     if (route.params?.meditime) {
       setMeditime(route.params.meditime);
@@ -56,12 +58,11 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   };
 
   const handleReset = () => {
-    navigation.setParams({
-      target: 100000,
-      beadcount: 108,
-      meditime: '00:00:00',
-    });
+    setBeadsInMala(108);
+    setTarget(100000);
     setMeditime('00:00:00');
+    setMala(0);
+    settotalcount(0);
   };
 
   return (

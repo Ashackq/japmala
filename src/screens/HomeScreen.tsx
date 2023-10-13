@@ -13,8 +13,9 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const mala = route.params.mala;
-  const away = target / beadcount - totalcount;
+  const away = target / beadcount - mala;
   const meditime = addTime(route.params.meditime, route.params.elapsedtime);
+  const esttime = route.params.esttime;
 
   const handleBeginPress = () => {
     navigation.push('Player', {
@@ -23,9 +24,25 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       meditime: meditime,
       mala: mala,
       beadcount: beadcount,
+      esttime: esttime,
     });
   };
-
+  const calculateEstimatedTotalTime = () => {
+    const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
+    const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
+    const estimatedTotalSeconds = totalEstSeconds * away;
+    return formatTime(estimatedTotalSeconds);
+  };
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+  // Calculate the estimated time to complete 'mala' malas
+  const estimatedTotalTime = calculateEstimatedTotalTime();
   return (
     <View style={styles.container}>
       <Image source={Back} style={styles.img} />
@@ -42,18 +59,22 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       </TouchableOpacity>
       {/* Previous meditation details */}
       <View style={styles.meditationDetails}>
-        <Text style={{ color: 'white' }}>Meditation so far: {meditime}</Text>
-        <Text style={{ color: 'white' }}>Total count: {totalcount}</Text>
-        <Text style={{ color: 'white' }}>Target: {target}</Text>
-        <Text style={{ color: 'white' }}>Beads count: {beadcount}</Text>
+        <Text style={styles.text}>Meditation so far: {meditime}</Text>
+        <Text style={styles.text}>
+          Total count: {totalcount + mala * beadcount}
+        </Text>
+        <Text style={styles.text}>Target: {target}</Text>
+        <Text style={styles.text}>Beads count: {beadcount}</Text>
       </View>
       {/* Grey box */}
       <View style={styles.greyBox}>
-        <Text style={{ color: 'white' }}>Mala Completed: {mala}</Text>
-        <Text style={{ color: 'white' }}>
+        <Text style={styles.text}>Mala Completed: {mala}</Text>
+        <Text style={styles.text}>
           You are {away} malas away from your goal
         </Text>
-        <Text style={{ color: 'white' }}>Time estimation for completion</Text>
+        <Text style={styles.text}>
+          Time estimation for completion {estimatedTotalTime}
+        </Text>
       </View>
       {/* Bottom bar */}
       <Foot navigation={navigation} route={route} />
@@ -101,6 +122,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: 300,
+  },
+  text: {
+    color: 'white',
   },
 });
 
