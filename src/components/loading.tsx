@@ -7,7 +7,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 const LoadingScreen = ({ navigation }: HomeProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Home');
+      navigation.replace('Home', { languageindex: 0 });
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -17,7 +17,7 @@ const LoadingScreen = ({ navigation }: HomeProps) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/loading.jpg')}
+        source={require('../devdata/assets/loading.jpg')}
         resizeMode="cover"
       />
       <Text style={styles.appby}>App By ABCOM</Text>

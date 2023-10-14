@@ -10,13 +10,14 @@ import {
   Animated,
   TouchableOpacity,
 } from 'react-native';
+import { lang } from '../devdata/constants/languages';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { Head, Sound } from '../components';
-const Bead = require('../assets/bead.jpg');
-const Pause = require('../assets/pause.png');
-const Play = require('../assets/play.png');
+const Bead = require('../devdata/assets/bead.jpg');
+const Pause = require('../devdata/assets/pause.png');
+const Play = require('../devdata/assets/play.png');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
@@ -32,6 +33,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [mala, setMala] = useState(route.params.mala);
   const meditime = route.params.meditime;
   const [esttime, setesttime] = useState('00:00:00');
+  const i = route.params.languageindex;
 
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
@@ -114,6 +116,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           target: target,
           elapsedtime: elapsedFormatted,
           esttime: esttime,
+          languageindex: i,
         });
         return true;
       }
@@ -131,6 +134,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     meditime,
     esttime,
     calculateElapsedTime,
+    i,
   ]);
 
   useEffect(() => {
@@ -199,14 +203,16 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         </Animated.View>
       </TouchableWithoutFeedback>
       <View style={styles.head}>
-        <Head ishome={false} name={'Moksha'} />
+        <Head ishome={false} name={lang[i].Moksha} route={route} />
       </View>
       <Text style={styles.prayercount}>
         {mala} - {prayerCount}
       </Text>
       <View style={styles.greybox}>
         <View style={styles.timerContainer}>
-          <Text style={styles.timerText}>Elapsed Time: {elapsedTime}</Text>
+          <Text style={styles.timerText}>
+            {lang[i].elapsed}: {elapsedTime}
+          </Text>
           <TouchableOpacity
             onPress={handlePauseResume}
             style={styles.pauseButton}

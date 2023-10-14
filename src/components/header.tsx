@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 
-const Share = require('../assets/share.png');
-const Info = require('../assets/info.jpg');
+import { lang } from '../devdata/constants/languages';
 
-const Header = ({ ishome, name }) => {
+const Share = require('../devdata/assets/share.png');
+const Info = require('../devdata/assets/info.jpg');
+
+const Header = ({ ishome, name, route }) => {
   const handleSharePress = async () => {
     const playStoreUrl =
       'https://play.google.com/store/apps/details?id=your.package.name';
@@ -62,6 +64,7 @@ const Header = ({ ishome, name }) => {
           <CustomAlertDialog
             name={name}
             closeModal={() => setIsInfoModalVisible(false)}
+            route={route}
           />
         </Modal>
       </View>
@@ -69,7 +72,8 @@ const Header = ({ ishome, name }) => {
   );
 };
 
-const CustomAlertDialog = ({ name, closeModal }) => {
+const CustomAlertDialog = ({ name, closeModal, route }) => {
+  const i = route.params.languageindex;
   const handleWebAppsPress = () => {
     const url = 'http://www.abcom.com/iosapps.html';
     const andyurl = 'http://www.abcom.com/androidapps.html';
@@ -107,16 +111,16 @@ const CustomAlertDialog = ({ name, closeModal }) => {
           onPress={handleWebAppsPress}
           style={styles.alertButton}
         >
-          <Text style={{ color: 'red' }}>Web Apps</Text>
+          <Text style={styles.text}>Web Apps</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handlemorePress} style={styles.alertButton}>
-          <Text style={{ color: 'red' }}>More</Text>
+          <Text style={styles.text}>More</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={closeModal} style={styles.alertButton}>
-        <Text style={{ color: 'blue' }}>Ok</Text>
+        <Text style={styles.text}>{lang[i].Ok}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -193,6 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     marginHorizontal: 10,
   },
+  text: { color: 'red' },
 });
 
 export default Header;

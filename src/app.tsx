@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import { StyleSheet } from 'react-native';
 import { Home, Edit, Player, Help } from './screens';
-import { Foot, Loading } from './components';
+import { Loading } from './components';
 
 export type RootStackParamList = {
   Home: {
@@ -16,6 +16,7 @@ export type RootStackParamList = {
     beadcount: number;
     elapsedtime: string;
     esttime: string;
+    languageindex: number;
   };
   Edit: {
     target: number;
@@ -25,6 +26,7 @@ export type RootStackParamList = {
     beadcount: number;
     esttime: string;
     elapsedtime: string;
+    languageindex: number;
   };
   Player: {
     target: number;
@@ -34,6 +36,7 @@ export type RootStackParamList = {
     beadcount: number;
     esttime: string;
     elapsedtime: string;
+    languageindex: number;
   };
   Help: {
     target: number;
@@ -43,6 +46,7 @@ export type RootStackParamList = {
     beadcount: number;
     esttime: string;
     elapsedtime: string;
+    languageindex: number;
   };
   Loading: undefined;
 };

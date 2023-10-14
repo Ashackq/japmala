@@ -7,12 +7,15 @@ import {
   StyleSheet,
   BackHandler,
   Image,
+  ScrollView,
 } from 'react-native';
-const Editback = require('../assets/editback.jpg');
+const Editback = require('../devdata/assets/editback.jpg');
+
+import { lang } from '../devdata/constants/languages';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Foot } from '../components';
+import { Foot, Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
@@ -28,6 +31,11 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const [totalcount, settotalcount] = useState(route.params.totalcount);
   const [mala, setMala] = useState(route.params.mala);
   const beadcount = route.params?.beadcount;
+  const i = route.params.languageindex;
+  const [newlang, setSelectedLanguageIndex] = useState(i);
+  const handleLanguageChange = (value: number) => {
+    setSelectedLanguageIndex(value);
+  };
 
   const away = target / beadcount - mala;
 
@@ -43,6 +51,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           mala: mala,
           elapsedtime: '00:00:00',
           esttime: esttime,
+          languageindex: newlang,
         });
         return true;
       }
@@ -51,7 +60,17 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     return () => {
       backHandler.remove();
     };
-  }, [navigation, beadsInMala, meditime, target, mala, totalcount, esttime]);
+  }, [
+    navigation,
+    beadsInMala,
+    meditime,
+    target,
+    mala,
+    totalcount,
+    esttime,
+    i,
+    newlang,
+  ]);
   useEffect(() => {
     if (route.params?.meditime) {
       setMeditime(route.params.meditime);
@@ -59,7 +78,11 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   }, [route.params?.meditime]);
 
   const handleSave = () => {
-    navigation.setParams({ target, beadcount: beadsInMala });
+    navigation.setParams({
+      target,
+      beadcount: beadsInMala,
+      languageindex: newlang,
+    });
   };
 
   const handleReset = () => {
@@ -88,60 +111,77 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <Image source={Editback} style={styles.img} />
-      {/* Contents */}
-      <View style={styles.container1}>
-        <View style={styles.whiteBox}>
-          <Text style={styles.label}>Set Your Target</Text>
-          <TextInput
-            style={styles.input}
-            value={target.toString()} // Ensure the value is a string for TextInput
-            keyboardType="numeric"
-            onChangeText={(text) => setTarget(parseInt(text, 10))}
-          />
-          <Text style={styles.defaultLabel}>Default: 100000</Text>
+      <ScrollView>
+        <Image source={Editback} style={styles.img} />
+        {/* Contents */}
+        <View style={styles.container1}>
+          <View style={styles.whiteBox}>
+            <Text style={styles.label}>{lang[newlang].selectlanguage}</Text>
+            <Langsel
+              selectedindex={newlang}
+              setSelectedindex={handleLanguageChange}
+            />
+            <Text style={styles.label}>{lang[newlang].setyourtarget}</Text>
+            <TextInput
+              style={styles.input}
+              value={target.toString()} // Ensure the value is a string for TextInput
+              keyboardType="numeric"
+              onChangeText={(text) => setTarget(parseInt(text, 10))}
+            />
+            <Text style={styles.defaultLabel}>
+              {lang[newlang].default}: 100000
+            </Text>
 
-          <Text style={styles.label}>Mala Beads</Text>
-          <TextInput
-            style={styles.input}
-            value={beadsInMala.toString()} // Ensure the value is a string for TextInput
-            keyboardType="numeric"
-            onChangeText={(text) => setBeadsInMala(parseInt(text, 10))}
-          />
-          <Text style={styles.defaultLabel}>Default: 108</Text>
+            <Text style={styles.label}>{lang[newlang].malabeads}</Text>
+            <TextInput
+              style={styles.input}
+              value={beadsInMala.toString()} // Ensure the value is a string for TextInput
+              keyboardType="numeric"
+              onChangeText={(text) => setBeadsInMala(parseInt(text, 10))}
+            />
+            <Text style={styles.defaultLabel}>
+              {lang[newlang].default}: 108
+            </Text>
 
-          <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
-            <Text style={styles.defaultLabel}>Save</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
+              <Text style={styles.defaultLabel}>{lang[newlang].save}</Text>
+            </TouchableOpacity>
+          </View>
+          {/* Previous meditation details */}
+          <View style={styles.greyBox}>
+            <Text style={styles.text}>
+              {lang[newlang].meditaionsofar}: {meditime}
+            </Text>
+            <Text style={styles.text}>
+              {lang[newlang].totalcount}: {totalcount + mala * beadcount}
+            </Text>
+            <Text style={styles.text}>
+              {lang[newlang].target}: {target}
+            </Text>
+            <Text style={styles.text}>
+              {lang[newlang].beadcont}: {beadcount}
+            </Text>
+          </View>
+          {/* Grey box */}
+          <View style={styles.greyBox}>
+            <Text style={styles.text}>
+              {lang[newlang].malascomp}: {mala}
+            </Text>
+            <Text style={styles.text}>
+              {lang[newlang].youare} {Math.ceil(away)} {lang[newlang].goalaway}
+            </Text>
+            <Text style={styles.text}>
+              {lang[newlang].timeforcomp} {estimatedTotalTime}
+            </Text>
+          </View>
+          <View style={styles.resetBox}>
+            <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
+              <Text style={styles.defaultLabel}>{lang[newlang].reset}</Text>
+            </TouchableOpacity>
+            <Text style={styles.warningLabel}>{lang[newlang].warning}</Text>
+          </View>
         </View>
-        {/* Previous meditation details */}
-        <View style={styles.greyBox}>
-          <Text style={styles.text}>Meditation so far: {meditime}</Text>
-          <Text style={styles.text}>
-            Total count: {totalcount + mala * beadcount}
-          </Text>
-          <Text style={styles.text}>Target: {target}</Text>
-          <Text style={styles.text}>Beads count: {beadcount}</Text>
-        </View>
-        {/* Grey box */}
-        <View style={styles.greyBox}>
-          <Text style={styles.text}>Mala Completed: {mala}</Text>
-          <Text style={styles.text}>
-            You are {Math.ceil(away)} malas away from your goal
-          </Text>
-          <Text style={styles.text}>
-            Time estimation for completion {estimatedTotalTime}
-          </Text>
-        </View>
-        <View style={styles.resetBox}>
-          <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
-            <Text style={styles.defaultLabel}>Reset</Text>
-          </TouchableOpacity>
-          <Text style={styles.warningLabel}>
-            Warning: Setting new target resets all counters to zero.
-          </Text>
-        </View>
-      </View>
+      </ScrollView>
       <Foot navigation={navigation} route={route} />
     </View>
   );
@@ -198,6 +238,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     opacity: 0.8,
   },
+
   resetBox: {
     backgroundColor: 'white',
     padding: 20,

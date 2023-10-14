@@ -1,17 +1,9 @@
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Text,
-  Animated,
-  Easing,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
-const Home = require('../assets/Home.png');
-const Edit = require('../assets/edit.jpg');
-const Help = require('../assets/help.png');
-
+const Home = require('../devdata/assets/Home.png');
+const Edit = require('../devdata/assets/edit.jpg');
+const Help = require('../devdata/assets/help.png');
+import { lang } from '../devdata/constants/languages';
 const Footer = ({ navigation, route }) => {
   const totalcount = route.params.totalcount;
   const beadcount = route.params.beadcount;
@@ -20,6 +12,7 @@ const Footer = ({ navigation, route }) => {
   const elapsedtiem = route.params.elapsedtime;
   const meditime = route.params.meditime;
   const esttime = route.params.esttime;
+  const i = route.params.languageindex;
   const [activeIcon, setActiveIcon] = useState('Home');
 
   useEffect(() => {
@@ -54,6 +47,7 @@ const Footer = ({ navigation, route }) => {
       beadcount: beadcount,
       elapsedtiem: elapsedtiem,
       esttime: esttime,
+      languageindex: i,
     });
   };
 
@@ -71,7 +65,9 @@ const Footer = ({ navigation, route }) => {
             source={Home}
             style={[styles.icon, activeIcon === 'Home' && styles.activeIcon]}
           />
-          {activeIcon === 'Home' && <Text style={styles.aftertext}>Home</Text>}
+          {activeIcon === 'Home' && (
+            <Text style={styles.aftertext}>{lang[i].home}</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleIconPress('Edit')}
@@ -84,7 +80,9 @@ const Footer = ({ navigation, route }) => {
             source={Edit}
             style={[styles.icon, activeIcon === 'Edit' && styles.activeIcon]}
           />
-          {activeIcon === 'Edit' && <Text style={styles.aftertext}>Edit</Text>}
+          {activeIcon === 'Edit' && (
+            <Text style={styles.aftertext}>{lang[i].edit}</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleIconPress('Help')}
@@ -97,7 +95,9 @@ const Footer = ({ navigation, route }) => {
             source={Help}
             style={[styles.icon, activeIcon === 'Help' && styles.activeIcon]}
           />
-          {activeIcon === 'Help' && <Text style={styles.aftertext}>Help</Text>}
+          {activeIcon === 'Help' && (
+            <Text style={styles.aftertext}>{lang[i].help}</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>

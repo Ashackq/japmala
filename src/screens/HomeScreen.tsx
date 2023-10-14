@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 import { Foot, Head } from '../components';
-const Back = require('../assets/back.jpg');
+const Back = require('../devdata/assets/back.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import { lang } from '../devdata/constants/languages';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -16,6 +17,8 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const meditime = addTime(route.params.meditime, route.params.elapsedtime);
   const esttime = route.params.esttime;
   const elapsedtime = route.params.elapsedtime;
+  const i = route.params.languageindex;
+  console.log('i - ', i);
   const handleBeginPress = () => {
     navigation.push('Player', {
       target: target,
@@ -25,6 +28,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       beadcount: beadcount,
       esttime: esttime,
       elapsedtime: elapsedtime,
+      languageindex: i,
     });
   };
 
@@ -32,14 +36,14 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
     <View style={styles.container}>
       <Image source={Back} style={styles.img} />
       {/* Header */}
-      <Head ishome={true} name={'Moksha'} />
+      <Head ishome={true} name={lang[i].Moksha} route={route} />
       {/* Om */}
       <TouchableOpacity onPress={handleBeginPress} style={styles.ooom}>
         <View style={styles.omContainer}>
           <Text style={styles.omText}>ॐ</Text>
         </View>
         <View style={styles.beginButton}>
-          <Text style={{ color: 'white', fontSize: 18 }}> Begin / आरम्भ</Text>
+          <Text style={{ color: 'white', fontSize: 18 }}>{lang[i].begin}</Text>
         </View>
       </TouchableOpacity>
 
