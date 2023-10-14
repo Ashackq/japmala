@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, BackHandler, Image } from 'react-native';
 import React, { useEffect } from 'react';
-import { Head } from '../components';
+import { Foot, Head } from '../components';
 const Editback = require('../assets/editback.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -85,6 +85,7 @@ const Help = ({ navigation, route }: HomeProps) => {
           and mindfulness.
         </Text>
       </View>
+      <Foot navigation={navigation} route={route} />
     </View>
   );
 };
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   img: {
     position: 'absolute',
-    top: 0,
+    bottom: 20,
     width: 440,
     height: 900,
   },

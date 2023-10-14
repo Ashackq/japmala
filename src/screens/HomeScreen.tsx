@@ -13,7 +13,6 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const mala = route.params.mala;
-  const away = target / beadcount - mala;
   const meditime = addTime(route.params.meditime, route.params.elapsedtime);
   const esttime = route.params.esttime;
   const elapsedtime = route.params.elapsedtime;
@@ -28,29 +27,14 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       elapsedtime: elapsedtime,
     });
   };
-  const calculateEstimatedTotalTime = () => {
-    const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
-    const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
-    const estimatedTotalSeconds = totalEstSeconds * away;
-    return formatTime(estimatedTotalSeconds);
-  };
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
 
-  const estimatedTotalTime = calculateEstimatedTotalTime();
   return (
     <View style={styles.container}>
       <Image source={Back} style={styles.img} />
       {/* Header */}
       <Head ishome={true} name={'Moksha'} />
       {/* Om */}
-      <TouchableOpacity onPress={handleBeginPress}>
+      <TouchableOpacity onPress={handleBeginPress} style={styles.ooom}>
         <View style={styles.omContainer}>
           <Text style={styles.omText}>ॐ</Text>
         </View>
@@ -58,25 +42,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
           <Text style={{ color: 'white', fontSize: 18 }}> Begin / आरम्भ</Text>
         </View>
       </TouchableOpacity>
-      {/* Previous meditation details */}
-      <View style={styles.meditationDetails}>
-        <Text style={styles.text}>Meditation so far: {meditime}</Text>
-        <Text style={styles.text}>
-          Total count: {totalcount + mala * beadcount}
-        </Text>
-        <Text style={styles.text}>Target: {target}</Text>
-        <Text style={styles.text}>Beads count: {beadcount}</Text>
-      </View>
-      {/* Grey box */}
-      <View style={styles.greyBox}>
-        <Text style={styles.text}>Mala Completed: {mala}</Text>
-        <Text style={styles.text}>
-          You are {Math.ceil(away)} malas away from your goal
-        </Text>
-        <Text style={styles.text}>
-          Time estimation for completion {estimatedTotalTime}
-        </Text>
-      </View>
+
       {/* Bottom bar */}
       <Foot navigation={navigation} route={route} />
     </View>
@@ -89,10 +55,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  ooom: {
+    position: 'absolute',
+    top: 160,
+  },
   img: {
     position: 'absolute',
     top: 0,
-    height: 870,
     zIndex: 0,
   },
   omContainer: {
@@ -104,28 +73,24 @@ const styles = StyleSheet.create({
   beginButton: {
     marginTop: -40,
     marginBottom: 40,
-    backgroundColor: '#2ecc71',
+    backgroundColor: '#d66c23',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
   },
   meditationDetails: {
     marginTop: 20,
-    backgroundColor: '#DC5F00',
-    padding: 20,
+    backgroundColor: '#d66c23',
+    padding: 10,
     borderRadius: 10,
-    width: 300,
+    width: 280,
     marginHorizontal: 0,
   },
   greyBox: {
-    marginTop: 20,
-    backgroundColor: '#DC5F00',
-    padding: 20,
+    backgroundColor: '#d66c23',
+    padding: 10,
     borderRadius: 10,
-    width: 300,
-  },
-  text: {
-    color: 'white',
+    width: 280,
   },
 });
 

@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 60,
-    backgroundColor: '#A6D1E6',
+    backgroundColor: '#8f1c44',
     top: 0,
     position: 'absolute',
   },

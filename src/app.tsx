@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import { StyleSheet } from 'react-native';
 import { Home, Edit, Player, Help } from './screens';
-import { Loading } from './components';
+import { Foot, Loading } from './components';
 
 export type RootStackParamList = {
   Home: {
