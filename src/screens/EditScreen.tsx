@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container1: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
   },
   img: {
@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     opacity: 0.9,
+    marginBottom: 50,
   },
   resetButton: {
     backgroundColor: '#e74c3c',
