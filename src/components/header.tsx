@@ -111,11 +111,11 @@ const CustomAlertDialog = ({ name, closeModal, route }) => {
           onPress={handleWebAppsPress}
           style={styles.alertButton}
         >
-          <Text style={styles.text}>Web Apps</Text>
+          <Text style={styles.text}>{lang[i].web}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handlemorePress} style={styles.alertButton}>
-          <Text style={styles.text}>More</Text>
+          <Text style={styles.text}>{lang[i].more}</Text>
         </TouchableOpacity>
       </View>
 
@@ -138,12 +138,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 60,
-    backgroundColor: '#8f1c44',
-    top: 0,
     position: 'absolute',
+    top: 0,
+    // background: 'transperent',
+    backgroundColor: 'black',
   },
   headerButton: {
     padding: 10,
+    backgroundColor: 'white',
+    elevation: 10,
+    borderRadius: 12,
+    marginHorizontal: 100,
   },
   headerTitle: {
     color: '#fff',
@@ -152,7 +157,6 @@ const styles = StyleSheet.create({
   icon: {
     height: 25,
     width: 25,
-    marginHorizontal: 100,
   },
   alertContainer: {
     backgroundColor: 'white',

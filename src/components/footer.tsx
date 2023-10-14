@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 8,
-    backgroundColor: '#8f1c44',
+    backgroundColor: 'black',
+    // background: 'transperant',
   },
   bottomBarButton: {
     padding: 10,

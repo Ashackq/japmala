@@ -138,8 +138,9 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   ]);
 
   useEffect(() => {
-    console.log('meditime param - ', elapsedTime);
-  }, [elapsedTime]);
+    console.log('elapsed param - ', elapsedTime);
+    console.log('meditime param - ', meditime);
+  }, [elapsedTime, meditime]);
 
   const calculateElapsedTime = () => {
     let endTime = new Date();

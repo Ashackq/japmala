@@ -32,6 +32,8 @@ export const lang = [
     para4:
       '  Welcome to the world of Meditation! Start your journey to inner peace and mindfulness.',
     elapsed: 'Elapsed Time',
+    more: 'More',
+    web: 'Web Apps',
   },
   { begin: 'आरम्भ' },
 ];
