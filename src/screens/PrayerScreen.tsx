@@ -23,6 +23,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [prayerCount, setPrayerCount] = useState(route.params.totalcount);
   const [hasDragged, setHasDragged] = useState(false);
+
   const startTimeRef = useRef(new Date());
   const countertimeref = useRef(new Date());
   const pauseTimeRef = useRef<number | null>(null);
@@ -167,31 +168,34 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   };
 
   const handleImagePress = () => {
-    if (!hasDragged) {
-      setPrayerCount((prevCount) => prevCount + 1);
+    if (isTimerRunning) {
+      if (!hasDragged) {
+        setPrayerCount((prevCount) => prevCount + 1);
 
-      const animations = [];
-      const beadCount = 5;
+        const animations = [];
+        const beadCount = 5;
 
-      for (let i = 0; i < beadCount; i++) {
-        animations.push(
-          Animated.timing(imagePosition, {
-            toValue: { x: 0, y: -200 },
-            duration: 200,
-            useNativeDriver: true,
-          })
-        );
+        for (let i = 0; i < beadCount; i++) {
+          animations.push(
+            Animated.timing(imagePosition, {
+              toValue: { x: 0, y: -200 },
+              duration: 200,
+              useNativeDriver: true,
+            })
+          );
+        }
+
+        Animated.sequence(animations).start(() => {
+          imagePosition.setValue({ x: 0, y: 56 });
+        });
       }
-
-      Animated.sequence(animations).start(() => {
-        imagePosition.setValue({ x: 0, y: 56 });
-      });
     }
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <TouchableWithoutFeedback onPress={handleImagePress}>
+      <TouchableOpacity onPress={handleImagePress} style={styles.overlay} />
+      <TouchableWithoutFeedback>
         <Animated.View
           style={{
             alignItems: 'center',
@@ -290,6 +294,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: '70%',
     marginLeft: '25%',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    height: 700,
   },
 });
 export default PrayerScreen;
