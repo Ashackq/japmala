@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import React, { useState } from 'react';
+import { colors } from '../devdata/constants/lang';
 
 import { lang } from '../devdata/constants/languages';
 
@@ -141,11 +142,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     // background: 'transperent',
-    backgroundColor: 'black',
+    backgroundColor: colors.headfoot,
   },
   headerButton: {
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: colors.headfootbutton,
     elevation: 10,
     borderRadius: 12,
     marginHorizontal: 100,
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
   icon: {
     height: 25,
     width: 25,
+    tintColor: colors.headfootbuttontext,
   },
   alertContainer: {
     backgroundColor: 'white',

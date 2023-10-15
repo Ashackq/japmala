@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Home = require('../devdata/assets/Home.png');
 const Edit = require('../devdata/assets/edit.jpg');
 const Help = require('../devdata/assets/help.png');
+import { colors } from '../devdata/constants/lang';
 import { lang } from '../devdata/constants/languages';
 const Footer = ({ navigation, route }) => {
   const totalcount = route.params.totalcount;
@@ -118,12 +119,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 8,
-    backgroundColor: 'black',
+    backgroundColor: colors.headfoot,
     // background: 'transperant',
   },
   bottomBarButton: {
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: colors.headfootbutton,
+
     elevation: 10,
     borderRadius: 12,
     flexDirection: 'row',
@@ -131,9 +133,10 @@ const styles = StyleSheet.create({
   icon: {
     height: 25,
     width: 25,
+    tintColor: colors.headfootbuttontext,
   },
   activeIcon: {
-    tintColor: '#FF0000',
+    tintColor: colors.tintcolor,
   },
   activeButton: {
     width: 110,
@@ -141,7 +144,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   aftertext: {
-    color: 'black',
+    color: colors.headfootbuttontext,
+
     fontSize: 16,
     marginLeft: 11,
   },
