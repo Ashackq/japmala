@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { languageOptions } from '../devdata/constants/lang';
 
-const LanguageSelectionComponent = ({ selectedindex, setSelectedindex }) => {
+const LanguageSelectionComponent = ({
+  selectedindex,
+  setSelectedindex,
+  navigation,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleLanguageChange = (value: number) => {
@@ -33,6 +37,9 @@ const LanguageSelectionComponent = ({ selectedindex, setSelectedindex }) => {
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
+          navigation.setParams({
+            languageindex: selectedindex,
+          });
         }}
       >
         <View

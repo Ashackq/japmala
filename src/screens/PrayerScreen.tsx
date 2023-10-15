@@ -23,7 +23,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [prayerCount, setPrayerCount] = useState(route.params.totalcount);
   const [hasDragged, setHasDragged] = useState(false);
-
+  const smokeAnim = useRef(new Animated.Value(0)).current;
   const startTimeRef = useRef(new Date());
   const countertimeref = useRef(new Date());
   const pauseTimeRef = useRef<number | null>(null);
@@ -38,6 +38,15 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
+  useEffect(() => {
+    if (isTimerRunning) {
+      Animated.timing(smokeAnim, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: false,
+      }).start();
+    }
+  }, [isTimerRunning, smokeAnim]);
 
   const handlePauseResume = () => {
     console.log('Play/Pause button pressed');
@@ -102,6 +111,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
       setesttime(timeForOneMala);
       countertimeref.current = new Date();
+      console.log('elapsed param - ', timeForOneMala);
     }
   }, [prayerCount, beadcount, mala, setesttime]);
   useEffect(() => {
@@ -140,8 +150,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   useEffect(() => {
     console.log('elapsed param - ', elapsedTime);
-    console.log('meditime param - ', meditime);
-  }, [elapsedTime, meditime]);
+  }, [elapsedTime]);
 
   const calculateElapsedTime = () => {
     let endTime = new Date();
@@ -179,7 +188,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           animations.push(
             Animated.timing(imagePosition, {
               toValue: { x: 0, y: -200 },
-              duration: 200,
+              duration: 1000,
               useNativeDriver: true,
             })
           );
@@ -207,6 +216,29 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </Animated.View>
       </TouchableWithoutFeedback>
+      <Animated.View
+        style={[
+          styles.smokeEffect,
+          {
+            opacity: smokeAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 0.8], // Adjust opacity values as needed
+            }),
+            transform: [
+              {
+                translateY: smokeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [500, 0], // Adjust translateY values as needed
+                }),
+              },
+            ],
+          },
+        ]}
+      >
+        <View style={styles.smoke} />
+        <View style={[styles.smoke, { marginLeft: 30 }]} />
+        <View style={[styles.smoke, { marginLeft: 60 }]} />
+      </Animated.View>
       <View style={styles.head}>
         <Head ishome={false} name={lang[i].Moksha} route={route} />
       </View>
@@ -242,7 +274,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     bottom: 0,
-    padding: 50,
+    padding: 25,
     right: 0,
     left: 0,
     backgroundColor: 'grey',
@@ -299,6 +331,19 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     zIndex: 1,
     height: 700,
+  },
+  smokeEffect: {
+    position: 'absolute',
+    bottom: 0,
+    left: 50,
+    flexDirection: 'row',
+  },
+  smoke: {
+    width: 10,
+    height: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 10,
+    marginRight: 5,
   },
 });
 export default PrayerScreen;

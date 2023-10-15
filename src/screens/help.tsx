@@ -65,7 +65,18 @@ const Help = ({ navigation, route }: HomeProps) => {
 
         <Text style={styles.paragraph}>{lang[i].para4}</Text>
       </View>
-      <Foot navigation={navigation} route={route} />
+      <Foot
+        navigation={navigation}
+        route={route}
+        i={i}
+        target={target}
+        beadcount={beadcount}
+        esttime={esttime}
+        elapsedtiem="00:00:00"
+        mala={mala}
+        meditime={meditime}
+        totalcount={totalcount}
+      />
     </View>
   );
 };

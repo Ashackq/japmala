@@ -30,9 +30,9 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const esttime = route.params.esttime;
   const [totalcount, settotalcount] = useState(route.params.totalcount);
   const [mala, setMala] = useState(route.params.mala);
-  const beadcount = route.params?.beadcount;
-  const i = route.params.languageindex;
-  const [newlang, setSelectedLanguageIndex] = useState(i);
+  const beadcount = route.params.beadcount;
+
+  const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
   };
@@ -51,7 +51,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           mala: mala,
           elapsedtime: '00:00:00',
           esttime: esttime,
-          languageindex: newlang,
+          languageindex: i,
         });
         return true;
       }
@@ -60,29 +60,10 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     return () => {
       backHandler.remove();
     };
-  }, [
-    navigation,
-    beadsInMala,
-    meditime,
-    target,
-    mala,
-    totalcount,
-    esttime,
-    i,
-    newlang,
-  ]);
-  useEffect(() => {
-    if (route.params?.meditime) {
-      setMeditime(route.params.meditime);
-    }
-  }, [route.params?.meditime]);
+  }, [navigation, beadsInMala, meditime, target, mala, totalcount, esttime, i]);
 
   const handleSave = () => {
-    navigation.setParams({
-      target,
-      beadcount: beadsInMala,
-      languageindex: newlang,
-    });
+    console.log(' beads - ', beadcount);
   };
 
   const handleReset = () => {
@@ -91,12 +72,13 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     setMeditime('00:00:00');
     setMala(0);
     settotalcount(0);
+    handleSave();
   };
   const calculateEstimatedTotalTime = () => {
     const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
     const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
     const estimatedTotalSeconds = totalEstSeconds * away;
-    return formatTime(estimatedTotalSeconds);
+    return formatTime(Math.ceil(estimatedTotalSeconds));
   };
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -116,73 +98,81 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
         {/* Contents */}
         <View style={styles.container1}>
           <View style={styles.whiteBox}>
-            <Text style={styles.label}>{lang[newlang].selectlanguage}</Text>
+            <Text style={styles.label}>{lang[i].selectlanguage}</Text>
             <Langsel
-              selectedindex={newlang}
+              selectedindex={i}
               setSelectedindex={handleLanguageChange}
+              navigation={navigation}
             />
-            <Text style={styles.label}>{lang[newlang].setyourtarget}</Text>
+            <Text style={styles.label}>{lang[i].setyourtarget}</Text>
             <TextInput
               style={styles.input}
               value={target.toString()} // Ensure the value is a string for TextInput
               keyboardType="numeric"
               onChangeText={(text) => setTarget(parseInt(text, 10))}
             />
-            <Text style={styles.defaultLabel}>
-              {lang[newlang].default}: 100000
-            </Text>
+            <Text style={styles.defaultLabel}>{lang[i].default}: 100000</Text>
 
-            <Text style={styles.label}>{lang[newlang].malabeads}</Text>
+            <Text style={styles.label}>{lang[i].malabeads}</Text>
             <TextInput
               style={styles.input}
               value={beadsInMala.toString()} // Ensure the value is a string for TextInput
               keyboardType="numeric"
               onChangeText={(text) => setBeadsInMala(parseInt(text, 10))}
             />
-            <Text style={styles.defaultLabel}>
-              {lang[newlang].default}: 108
-            </Text>
+            <Text style={styles.defaultLabel}>{lang[i].default}: 108</Text>
 
             <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
-              <Text style={styles.defaultLabel}>{lang[newlang].save}</Text>
+              <Text style={styles.defaultLabel}>{lang[i].save}</Text>
             </TouchableOpacity>
           </View>
           {/* Previous meditation details */}
           <View style={styles.greyBox}>
             <Text style={styles.text}>
-              {lang[newlang].meditaionsofar}: {meditime}
+              {lang[i].meditaionsofar}: {meditime}
             </Text>
             <Text style={styles.text}>
-              {lang[newlang].totalcount}: {totalcount + mala * beadcount}
+              {lang[i].totalcount}: {totalcount + mala * beadsInMala}
             </Text>
             <Text style={styles.text}>
-              {lang[newlang].target}: {target}
+              {lang[i].target}: {target}
             </Text>
             <Text style={styles.text}>
-              {lang[newlang].beadcont}: {beadcount}
+              {lang[i].beadcont}: {beadsInMala}
             </Text>
           </View>
           {/* Grey box */}
           <View style={styles.greyBox}>
             <Text style={styles.text}>
-              {lang[newlang].malascomp}: {mala}
+              {lang[i].malascomp}: {mala}
             </Text>
             <Text style={styles.text}>
-              {lang[newlang].youare} {Math.ceil(away)} {lang[newlang].goalaway}
+              {lang[i].youare} {Math.ceil(away)} {lang[i].goalaway}
             </Text>
             <Text style={styles.text}>
-              {lang[newlang].timeforcomp} {estimatedTotalTime}
+              {lang[i].timeforcomp} {estimatedTotalTime}
             </Text>
           </View>
           <View style={styles.resetBox}>
             <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
-              <Text style={styles.defaultLabel}>{lang[newlang].reset}</Text>
+              <Text style={styles.defaultLabel}>{lang[i].reset}</Text>
             </TouchableOpacity>
-            <Text style={styles.warningLabel}>{lang[newlang].warning}</Text>
+            <Text style={styles.warningLabel}>{lang[i].warning}</Text>
           </View>
         </View>
       </ScrollView>
-      <Foot navigation={navigation} route={route} />
+      <Foot
+        navigation={navigation}
+        route={route}
+        i={i}
+        target={target}
+        beadcount={beadsInMala}
+        totalcount={totalcount}
+        esttime={esttime}
+        elapsedtiem="00:00:00"
+        mala={mala}
+        meditime={meditime}
+      />
     </View>
   );
 };

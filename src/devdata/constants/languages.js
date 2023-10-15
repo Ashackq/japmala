@@ -37,7 +37,7 @@ export const lang = [
   },
   {
     label: 'भाषा चुनें',
-    selectlanguage: 'भाषा चुनें',
+    selectlanguage: 'Select Language(भाषा चुनें)',
     setyourtarget: 'अपना लक्ष्य सेट करें',
     default: 'डिफ़ॉल्ट',
     malabeads: 'माला बीड्स',
@@ -73,7 +73,7 @@ export const lang = [
   },
   {
     label: 'மொழி தேர்ந்தெடு',
-    selectlanguage: 'மொழி தேர்ந்தெடு',
+    selectlanguage: 'Select Language(மொழி தேர்ந்தெடு)',
     setyourtarget: 'உங்கள் இலக்குக்கை அமை',
     default: 'இயல்புநிலை',
     malabeads: 'மாலா கல்லுக்கள்',
@@ -110,7 +110,7 @@ export const lang = [
   },
   {
     label: 'मराठी',
-    selectlanguage: 'भाषा निवडा',
+    selectlanguage: 'Select Language(भाषा निवडा)',
     setyourtarget: 'आपल्याच्या ध्येयाची सेट करा',
     default: 'नियमित',
     malabeads: 'माला वाळंबे',
@@ -147,7 +147,7 @@ export const lang = [
   },
   {
     label: 'Français',
-    selectlanguage: 'Choisir la langue',
+    selectlanguage: 'Select Language(Choisir la langue)',
     setyourtarget: 'Définissez votre objectif',
     default: 'Défaut',
     malabeads: 'Perles de Mala',
@@ -184,7 +184,7 @@ export const lang = [
   },
   {
     label: 'বাঙালি',
-    selectlanguage: 'ভাষা নির্বাচন করুন',
+    selectlanguage: 'Select Language(ভাষা নির্বাচন করুন)',
     setyourtarget: 'আপনার লক্ষ্য নির্ধারণ করুন',
     default: 'ডিফল্ট',
     malabeads: 'মালা হালুদ',

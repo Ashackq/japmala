@@ -5,15 +5,18 @@ const Edit = require('../devdata/assets/edit.jpg');
 const Help = require('../devdata/assets/help.png');
 import { colors } from '../devdata/constants/lang';
 import { lang } from '../devdata/constants/languages';
-const Footer = ({ navigation, route }) => {
-  const totalcount = route.params.totalcount;
-  const beadcount = route.params.beadcount;
-  const target = route.params.target;
-  const mala = route.params.mala;
-  const elapsedtiem = route.params.elapsedtime;
-  const meditime = route.params.meditime;
-  const esttime = route.params.esttime;
-  const i = route.params.languageindex;
+const Footer = ({
+  navigation,
+  route,
+  i,
+  target,
+  beadcount,
+  totalcount,
+  mala,
+  elapsedtiem,
+  meditime,
+  esttime,
+}) => {
   const [activeIcon, setActiveIcon] = useState('Home');
 
   useEffect(() => {

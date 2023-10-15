@@ -38,17 +38,28 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       {/* Header */}
       <Head ishome={true} name={lang[i].Moksha} route={route} />
       {/* Om */}
-      <TouchableOpacity onPress={handleBeginPress} style={styles.ooom}>
-        <View style={styles.omContainer}>
-          <Text style={styles.omText}>ॐ</Text>
-        </View>
+      <View style={styles.omContainer}>
+        <Text style={styles.omText}>ॐ</Text>
+      </View>
+      <TouchableOpacity onPress={handleBeginPress}>
         <View style={styles.beginButton}>
           <Text style={{ color: 'white', fontSize: 18 }}>{lang[i].begin}</Text>
         </View>
       </TouchableOpacity>
 
       {/* Bottom bar */}
-      <Foot navigation={navigation} route={route} />
+      <Foot
+        navigation={navigation}
+        route={route}
+        i={i}
+        target={target}
+        beadcount={beadcount}
+        esttime={esttime}
+        elapsedtiem="00:00:00"
+        mala={mala}
+        meditime={meditime}
+        totalcount={totalcount}
+      />
     </View>
   );
 };
@@ -59,17 +70,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  ooom: {
-    position: 'absolute',
-    top: 160,
-  },
+
   img: {
     position: 'absolute',
     top: 0,
     zIndex: 0,
   },
   omContainer: {
-    marginTop: 20,
+    position: 'absolute',
+    top: 160,
   },
   omText: {
     fontSize: 200,
