@@ -22,12 +22,12 @@ const Play = require('../devdata/assets/play.png');
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [prayerCount, setPrayerCount] = useState(route.params.totalcount);
-  const [hasDragged, setHasDragged] = useState(false);
-  const smokeAnim = useRef(new Animated.Value(0)).current;
+  const [hasDragged] = useState(false);
   const startTimeRef = useRef(new Date());
   const countertimeref = useRef(new Date());
   const pauseTimeRef = useRef<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const prevelapsed = useState(route.params.elapsedtime);
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
@@ -35,36 +35,21 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const meditime = route.params.meditime;
   const [esttime, setesttime] = useState('00:00:00');
   const i = route.params.languageindex;
-
+  const [timeForOneMala, settimeforonemala] = useState(route.params.malatime);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
-  useEffect(() => {
-    if (isTimerRunning) {
-      Animated.timing(smokeAnim, {
-        toValue: 1,
-        duration: 5000,
-        useNativeDriver: false,
-      }).start();
-    }
-  }, [isTimerRunning, smokeAnim]);
 
   const handlePauseResume = () => {
-    console.log('Play/Pause button pressed');
-    console.log('Current isTimerRunning value:', isTimerRunning);
-
     if (isTimerRunning) {
-      // Pause the timer
       console.log('Pausing timer...');
       pauseTimeRef.current = new Date().getTime();
       clearInterval(intervalRef.current!);
     } else {
-      // Resume the timer
       console.log('Resuming timer...');
       if (pauseTimeRef.current !== null) {
         const currentTime = new Date().getTime();
         const pausedDuration = currentTime - pauseTimeRef.current;
 
-        // Adjust the start time to consider the pause duration
         const adjustedStartTime = new Date(startTimeRef.current);
         adjustedStartTime.setSeconds(
           adjustedStartTime.getSeconds() + pausedDuration / 1000
@@ -78,15 +63,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     setIsTimerRunning((prev) => !prev);
   };
 
-  useEffect(() => {
-    startTimer();
-    navigation.setParams({ elapsedtime: elapsedTime });
-
-    return () => {
-      clearInterval(intervalRef.current!);
-    };
-  }, [elapsedTime, navigation, startTimer]);
-
   const startTimer = () => {
     intervalRef.current = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
@@ -95,25 +71,49 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   };
 
   useEffect(() => {
+    startTimer();
+    return () => {
+      clearInterval(intervalRef.current!);
+    };
+  }, [elapsedTime, startTimer]);
+
+  const calculateElapsedTime = () => {
+    let endTime = new Date();
+
+    if (pauseTimeRef.current !== null) {
+      // Adjust end time when the timer is paused
+      endTime = new Date(
+        endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
+      );
+    }
+
+    let elapsedMilliseconds = endTime - startTimeRef.current;
+    if (prevelapsed[0] !== '00:00:00') {
+      elapsedMilliseconds += parseInt(prevelapsed[0].split(':')[2]) * 1000;
+    }
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+    return addTime(prevelapsed[0], formatTime(elapsedSeconds));
+  };
+
+  useEffect(() => {
     if (prayerCount === beadcount) {
       setMala((prevMala) => prevMala + 1);
       setPrayerCount(0);
+      console.log('Time for One Mala:', timeForOneMala);
+      setesttime(timeForOneMala);
+      countertimeref.current = new Date();
+      settimeforonemala('00:00:00');
+    } else {
       const endTime = new Date();
       const elapsedMilliseconds = endTime - countertimeref.current;
       let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-
-      // Calculate the time for one mala from 0 mala count
       let timeForOneMalaSeconds = elapsedSeconds;
+      settimeforonemala(formatTime(timeForOneMalaSeconds));
 
-      // Calculate the time for one mala in the format HH:mm:ss
-      let timeForOneMala = formatTime(timeForOneMalaSeconds);
-      console.log('Time for One Mala:', timeForOneMala);
-
-      setesttime(timeForOneMala);
-      countertimeref.current = new Date();
-      console.log('elapsed param - ', timeForOneMala);
+      console.log('secnd  - ', timeForOneMalaSeconds);
     }
-  }, [prayerCount, beadcount, mala, setesttime]);
+  }, [prayerCount, beadcount, mala, setesttime, timeForOneMala]);
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -127,6 +127,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           target: target,
           elapsedtime: elapsedFormatted,
           esttime: esttime,
+          malatime: timeForOneMala,
           languageindex: i,
         });
         return true;
@@ -146,26 +147,12 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     esttime,
     calculateElapsedTime,
     i,
+    timeForOneMala,
   ]);
 
   useEffect(() => {
     console.log('elapsed param - ', elapsedTime);
   }, [elapsedTime]);
-
-  const calculateElapsedTime = () => {
-    let endTime = new Date();
-
-    if (pauseTimeRef.current !== null) {
-      // Adjust end time when the timer is paused
-      endTime = new Date(
-        endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
-      );
-    }
-
-    const elapsedMilliseconds = endTime - startTimeRef.current;
-    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    return formatTime(elapsedSeconds);
-  };
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -216,29 +203,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </Animated.View>
       </TouchableWithoutFeedback>
-      <Animated.View
-        style={[
-          styles.smokeEffect,
-          {
-            opacity: smokeAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 0.8], // Adjust opacity values as needed
-            }),
-            transform: [
-              {
-                translateY: smokeAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [500, 0], // Adjust translateY values as needed
-                }),
-              },
-            ],
-          },
-        ]}
-      >
-        <View style={styles.smoke} />
-        <View style={[styles.smoke, { marginLeft: 30 }]} />
-        <View style={[styles.smoke, { marginLeft: 60 }]} />
-      </Animated.View>
+
+      {/* Ads */}
       <Ads />
       <View style={styles.head}>
         <Head ishome={false} name={lang[i].Moksha} route={route} />
@@ -331,18 +297,29 @@ const styles = StyleSheet.create({
     zIndex: 1,
     height: 700,
   },
-  smokeEffect: {
-    position: 'absolute',
-    bottom: 0,
-    left: 50,
-    flexDirection: 'row',
-  },
-  smoke: {
-    width: 10,
-    height: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 10,
-    marginRight: 5,
-  },
 });
+
+const addTime = (time1: string = '00:00:00', time2: string = '00:00:00') => {
+  const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
+  const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
+
+  let totalSeconds = seconds1 + seconds2;
+  let totalMinutes = minutes1 + minutes2;
+  let totalHours = hours1 + hours2;
+
+  if (totalSeconds >= 60) {
+    totalMinutes += Math.floor(totalSeconds / 60);
+    totalSeconds %= 60;
+  }
+
+  if (totalMinutes >= 60) {
+    totalHours += Math.floor(totalMinutes / 60);
+    totalMinutes %= 60;
+  }
+
+  return `${totalHours.toString().padStart(2, '0')}:${totalMinutes
+    .toString()
+    .padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
+};
+
 export default PrayerScreen;

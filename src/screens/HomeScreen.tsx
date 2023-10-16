@@ -18,6 +18,8 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const esttime = route.params.esttime;
   const elapsedtime = route.params.elapsedtime;
   const i = route.params.languageindex;
+  const malatime = route.params.malatime;
+
   console.log('i - ', i);
   const handleBeginPress = () => {
     navigation.push('Player', {
@@ -29,6 +31,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       esttime: esttime,
       elapsedtime: elapsedtime,
       languageindex: i,
+      malatime: malatime,
     });
   };
 

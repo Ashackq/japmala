@@ -36,6 +36,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
   };
+  const malatime = route.params.malatime;
 
   const away = target / beadcount - mala;
 
@@ -52,6 +53,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           elapsedtime: '00:00:00',
           esttime: esttime,
           languageindex: i,
+          malatime: malatime,
         });
         return true;
       }
@@ -60,7 +62,17 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     return () => {
       backHandler.remove();
     };
-  }, [navigation, beadsInMala, meditime, target, mala, totalcount, esttime, i]);
+  }, [
+    navigation,
+    beadsInMala,
+    meditime,
+    target,
+    mala,
+    totalcount,
+    esttime,
+    i,
+    malatime,
+  ]);
 
   const handleSave = () => {
     console.log(' beads - ', beadcount);
