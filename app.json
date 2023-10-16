@@ -1,4 +1,9 @@
 {
   "name": "japmala",
-  "displayName": "japmala"
+  "displayName": "japmala",
+
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-2593193101544456~4997553146",
+    "ios_app_id": "ca-app-pub-2593193101544456~3492899787"
+  }
 }

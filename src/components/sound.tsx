@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Sound from 'react-native-sound';
-
+const Music = require('../devdata/assets/sound.png');
 const SoundComponent = () => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -45,14 +45,13 @@ const SoundComponent = () => {
 
   return (
     <View>
-      <TouchableOpacity
-        onPress={playSound}
-        style={{ backgroundColor: 'white' }}
-      >
-        <Text>{isPlaying ? 'Pause Sound' : 'Play Sound'}</Text>
+      <TouchableOpacity onPress={playSound}>
+        <Image source={Music} style={styles.img2} />
       </TouchableOpacity>
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  img2: { height: 25, width: 25 },
+});
 export default SoundComponent;

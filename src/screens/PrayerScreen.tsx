@@ -14,7 +14,7 @@ import { lang } from '../devdata/constants/languages';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Head, Sound } from '../components';
+import { Ads, Head, Sound } from '../components';
 const Bead = require('../devdata/assets/bead.jpg');
 const Pause = require('../devdata/assets/pause.png');
 const Play = require('../devdata/assets/play.png');
@@ -239,6 +239,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         <View style={[styles.smoke, { marginLeft: 30 }]} />
         <View style={[styles.smoke, { marginLeft: 60 }]} />
       </Animated.View>
+      <Ads />
       <View style={styles.head}>
         <Head ishome={false} name={lang[i].Moksha} route={route} />
       </View>
@@ -260,10 +261,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
               <Image source={Play} style={styles.img2} />
             )}
           </TouchableOpacity>
+          <Sound />
         </View>
-      </View>
-      <View style={{ position: 'absolute', top: 0 }}>
-        <Sound />
       </View>
     </View>
   );

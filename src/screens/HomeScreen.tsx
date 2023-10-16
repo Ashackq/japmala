@@ -41,8 +41,8 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.omContainer}>
         <Text style={styles.omText}>ॐ</Text>
       </View>
-      <TouchableOpacity onPress={handleBeginPress}>
-        <View style={styles.beginButton}>
+      <TouchableOpacity onPress={handleBeginPress} style={styles.beginButton}>
+        <View>
           <Text style={{ color: 'white', fontSize: 18 }}>{lang[i].begin}</Text>
         </View>
       </TouchableOpacity>
