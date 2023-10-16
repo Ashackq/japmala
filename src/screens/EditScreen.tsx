@@ -37,6 +37,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     setSelectedLanguageIndex(value);
   };
   const malatime = route.params.malatime;
+  const displaytime = route.params.displaytime;
 
   const away = target / beadcount - mala;
 
@@ -54,6 +55,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           esttime: esttime,
           languageindex: i,
           malatime: malatime,
+          displaytime: displaytime,
         });
         return true;
       }
@@ -72,6 +74,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     esttime,
     i,
     malatime,
+    displaytime,
   ]);
 
   const handleSave = () => {

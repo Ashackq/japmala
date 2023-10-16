@@ -27,7 +27,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const countertimeref = useRef(new Date());
   const pauseTimeRef = useRef<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const prevelapsed = useState(route.params.elapsedtime);
+  const [prevelapsed] = useState(route.params.elapsedtime);
+
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
@@ -38,6 +39,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [timeForOneMala, settimeforonemala] = useState(route.params.malatime);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const [displaytime, setdisplayTime] = useState('00:00:00');
 
   const handlePauseResume = () => {
     if (isTimerRunning) {
@@ -66,16 +68,39 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const startTimer = () => {
     intervalRef.current = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
+      const displaytime = calculatedisplayElapsedTime();
       setElapsedTime(elapsedtime);
+      setdisplayTime(displaytime);
     }, 1000);
   };
 
   useEffect(() => {
-    startTimer();
+    intervalRef.current = setInterval(() => {
+      const elapsedtime = calculateElapsedTime();
+      const displaytime = calculatedisplayElapsedTime();
+      setElapsedTime(elapsedtime);
+      setdisplayTime(displaytime);
+    }, 1000);
     return () => {
       clearInterval(intervalRef.current!);
     };
-  }, [elapsedTime, startTimer]);
+  }, [calculateElapsedTime, calculatedisplayElapsedTime, elapsedTime]);
+
+  const calculatedisplayElapsedTime = () => {
+    let endTime = new Date();
+
+    if (pauseTimeRef.current !== null) {
+      // Adjust end time when the timer is paused
+      endTime = new Date(
+        endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
+      );
+    }
+
+    let elapsedMilliseconds = endTime - startTimeRef.current;
+
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+    return formatTime(elapsedSeconds);
+  };
 
   const calculateElapsedTime = () => {
     let endTime = new Date();
@@ -88,11 +113,12 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     }
 
     let elapsedMilliseconds = endTime - startTimeRef.current;
-    if (prevelapsed[0] !== '00:00:00') {
-      elapsedMilliseconds += parseInt(prevelapsed[0].split(':')[2]) * 1000;
+    if (prevelapsed && prevelapsed !== '00:00:00') {
+      elapsedMilliseconds += parseInt(prevelapsed.split(':')[2]) * 1000;
     }
+
     const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    return addTime(prevelapsed[0], formatTime(elapsedSeconds));
+    return formatTime(elapsedSeconds);
   };
 
   useEffect(() => {
@@ -128,6 +154,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           elapsedtime: elapsedFormatted,
           esttime: esttime,
           malatime: timeForOneMala,
+          displaytime: displaytime,
           languageindex: i,
         });
         return true;
@@ -148,6 +175,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     calculateElapsedTime,
     i,
     timeForOneMala,
+    displaytime,
   ]);
 
   useEffect(() => {
@@ -215,7 +243,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.greybox}>
         <View style={styles.timerContainer}>
           <Text style={styles.timerText}>
-            {lang[i].elapsed}: {elapsedTime}
+            {lang[i].elapsed}: {displaytime}
           </Text>
           <TouchableOpacity
             onPress={handlePauseResume}
@@ -298,28 +326,5 @@ const styles = StyleSheet.create({
     height: 700,
   },
 });
-
-const addTime = (time1: string = '00:00:00', time2: string = '00:00:00') => {
-  const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
-  const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
-
-  let totalSeconds = seconds1 + seconds2;
-  let totalMinutes = minutes1 + minutes2;
-  let totalHours = hours1 + hours2;
-
-  if (totalSeconds >= 60) {
-    totalMinutes += Math.floor(totalSeconds / 60);
-    totalSeconds %= 60;
-  }
-
-  if (totalMinutes >= 60) {
-    totalHours += Math.floor(totalMinutes / 60);
-    totalMinutes %= 60;
-  }
-
-  return `${totalHours.toString().padStart(2, '0')}:${totalMinutes
-    .toString()
-    .padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
-};
 
 export default PrayerScreen;

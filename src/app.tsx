@@ -17,6 +17,7 @@ export type RootStackParamList = {
     elapsedtime: string;
     esttime: string;
     malatime: string;
+    displaytime: string;
     languageindex: number;
   };
   Edit: {
@@ -28,7 +29,7 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
     malatime: string;
-
+    displaytime: string;
     languageindex: number;
   };
   Player: {
@@ -40,7 +41,7 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
     malatime: string;
-
+    displaytime: string;
     languageindex: number;
   };
   Help: {
@@ -52,7 +53,7 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
     malatime: string;
-
+    displaytime: string;
     languageindex: number;
   };
   Loading: undefined;
@@ -76,6 +77,7 @@ function App(): JSX.Element {
               totalcount: 0,
               meditime: '00:00:00',
               esttime: '00:00:00',
+              displaytime: '00:00:00',
               malatime: '00:00:00',
             }}
           />

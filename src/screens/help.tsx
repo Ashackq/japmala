@@ -18,6 +18,8 @@ const Help = ({ navigation, route }: HomeProps) => {
   const esttime = route.params.esttime;
   const i = route.params.languageindex;
   const malatime = route.params.malatime;
+  const displaytime = route.params.displaytime;
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -32,6 +34,7 @@ const Help = ({ navigation, route }: HomeProps) => {
           esttime: esttime,
           languageindex: i,
           malatime: malatime,
+          displaytime: displaytime,
         });
         return true;
       }
@@ -51,6 +54,7 @@ const Help = ({ navigation, route }: HomeProps) => {
     elapsedtiem,
     i,
     malatime,
+    displaytime,
   ]);
   return (
     <View style={styles.container1}>
