@@ -38,18 +38,18 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <Image source={Back} style={styles.img} />
-      {/* Header */}
+      <TouchableOpacity
+        onPress={handleBeginPress}
+        style={styles.img}
+        activeOpacity={1}
+      >
+        <Image source={Back} />
+      </TouchableOpacity>
       <Head ishome={true} name={lang[i].Moksha} route={route} />
-      {/* Om */}
+
       <View style={styles.omContainer}>
         <Text style={styles.omText}>ॐ</Text>
       </View>
-      <TouchableOpacity onPress={handleBeginPress} style={styles.beginButton}>
-        <View>
-          <Text style={{ color: 'white', fontSize: 18 }}>{lang[i].begin}</Text>
-        </View>
-      </TouchableOpacity>
 
       {/* Bottom bar */}
       <Foot
@@ -87,14 +87,7 @@ const styles = StyleSheet.create({
   omText: {
     fontSize: 200,
   },
-  beginButton: {
-    marginTop: -40,
-    marginBottom: 40,
-    backgroundColor: '#d66c23',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
+
   meditationDetails: {
     marginTop: 20,
     backgroundColor: '#d66c23',

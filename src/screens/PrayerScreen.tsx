@@ -266,6 +266,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           <Text style={styles.timerText}>
             {lang[i].elapsed}: {elapsedTime}
           </Text>
+        </View>
+        <View style={styles.timerContainer}>
           <TouchableOpacity
             onPress={handlePauseResume}
             style={styles.pauseButton}
@@ -320,7 +322,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: 6,
   },
   timerText: {
     color: 'white',

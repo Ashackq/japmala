@@ -15,7 +15,7 @@ import { lang } from '../devdata/constants/languages';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Foot, Langsel } from '../components';
+import { Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
@@ -122,18 +122,34 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
             <Text style={styles.label}>{lang[i].setyourtarget}</Text>
             <TextInput
               style={styles.input}
-              value={target.toString()} // Ensure the value is a string for TextInput
+              value={target.toString()}
               keyboardType="numeric"
-              onChangeText={(text) => setTarget(parseInt(text, 10))}
+              onChangeText={(text) => {
+                let value = parseInt(text, 10);
+                if (!isNaN(value)) {
+                  setBeadsInMala(value);
+                } else {
+                  value = 0;
+                  setBeadsInMala(value);
+                }
+              }}
             />
             <Text style={styles.defaultLabel}>{lang[i].default}: 100000</Text>
 
             <Text style={styles.label}>{lang[i].malabeads}</Text>
             <TextInput
               style={styles.input}
-              value={beadsInMala.toString()} // Ensure the value is a string for TextInput
+              value={beadsInMala.toString()}
               keyboardType="numeric"
-              onChangeText={(text) => setBeadsInMala(parseInt(text, 10))}
+              onChangeText={(text) => {
+                let value = parseInt(text, 10);
+                if (!isNaN(value)) {
+                  setBeadsInMala(value);
+                } else {
+                  value = 0;
+                  setBeadsInMala(value);
+                }
+              }}
             />
             <Text style={styles.defaultLabel}>{lang[i].default}: 108</Text>
 
@@ -176,7 +192,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </View>
       </ScrollView>
-      <Foot
+      {/* <Foot
         navigation={navigation}
         route={route}
         i={i}
@@ -187,7 +203,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
         elapsedtiem="00:00:00"
         mala={mala}
         meditime={meditime}
-      />
+      /> */}
     </View>
   );
 };

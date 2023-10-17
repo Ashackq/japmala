@@ -30,7 +30,7 @@ export const lang = [
     para3:
       'The app allows you to meditate with your eyes closed. A beep sound indicates the completion of a Mala, and a different tone signifies when you have reached your goal. The completed Mala count is always displayed on the main screen.',
     para4:
-      '  Welcome to the world of Meditation! Start your journey to inner peace and mindfulness.',
+      'Welcome to the world of Meditation! Start your journey to inner peace and mindfulness.',
     elapsed: 'Elapsed Time',
     more: 'More',
     web: 'Web Apps',
