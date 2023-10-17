@@ -8,13 +8,14 @@ import {
   StyleSheet,
   Image,
   Animated,
+  //Vibration,
   TouchableOpacity,
 } from 'react-native';
 import { lang } from '../devdata/constants/languages';
-
+import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Ads, Head, Sound } from '../components';
+import { Ads, Head, Soundback } from '../components';
 const Bead = require('../devdata/assets/bead.jpg');
 const Pause = require('../devdata/assets/pause.png');
 const Play = require('../devdata/assets/play.png');
@@ -40,6 +41,19 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [displaytime, setdisplayTime] = useState('00:00:00');
+
+  const [sound] = useState(
+    new Sound('maladone.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('Failed to load the sound', error);
+      }
+    })
+  );
+  useEffect(() => {
+    return () => {
+      sound.release();
+    };
+  }, [sound]);
 
   const handlePauseResume = () => {
     if (isTimerRunning) {
@@ -124,6 +138,12 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   useEffect(() => {
     if (prayerCount === beadcount) {
       setMala((prevMala) => prevMala + 1);
+
+      sound.play((success) => {
+        if (!success) {
+          console.log('Failed to play the beep sound');
+        }
+      });
       setPrayerCount(0);
       console.log('Time for One Mala:', timeForOneMala);
       setesttime(timeForOneMala);
@@ -138,7 +158,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
       console.log('secnd  - ', timeForOneMalaSeconds);
     }
-  }, [prayerCount, beadcount, mala, setesttime, timeForOneMala]);
+  }, [prayerCount, beadcount, mala, setesttime, timeForOneMala, sound]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -213,6 +233,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           imagePosition.setValue({ x: 0, y: 56 });
         });
       }
+      //Vibration.vibrate(500);
     }
   };
 
@@ -243,7 +264,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.greybox}>
         <View style={styles.timerContainer}>
           <Text style={styles.timerText}>
-            {lang[i].elapsed}: {displaytime}
+            {lang[i].elapsed}: {elapsedTime}
           </Text>
           <TouchableOpacity
             onPress={handlePauseResume}
@@ -255,7 +276,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
               <Image source={Play} style={styles.img2} />
             )}
           </TouchableOpacity>
-          <Sound />
+          <Soundback />
         </View>
       </View>
     </View>
