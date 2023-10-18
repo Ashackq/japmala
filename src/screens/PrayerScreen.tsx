@@ -256,7 +256,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       {/* Ads */}
       <Ads />
       <View style={styles.head}>
-        <Head ishome={false} name={lang[i].Moksha} route={route} />
+        <Head ishome={false} name={lang[i].Moksha} i={i} />
       </View>
       <Text style={styles.prayercount}>
         {mala} - {prayerCount}

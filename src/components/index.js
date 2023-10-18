@@ -5,3 +5,4 @@ export { default as Loading } from './loading';
 export { default as Langsel } from './langselector';
 export { default as Ads } from './adsfullscreen';
 export { default as Smoke } from './smoke';
+export { default as Sidemenu } from './sidemenu';

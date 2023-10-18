@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const i = route.params.languageindex;
   const malatime = route.params.malatime;
   const displaytime = route.params.displaytime;
-  console.log('i - ', i);
+
   const handleBeginPress = () => {
     navigation.push('Player', {
       target: target,
@@ -38,19 +38,15 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={handleBeginPress}
-        style={styles.img}
-        activeOpacity={1}
-      >
+      <View style={styles.head}>
+        <Head ishome={true} name={lang[i].Moksha} i={i} />
+      </View>
+      <TouchableOpacity onPress={handleBeginPress} activeOpacity={1}>
         <Image source={Back} />
       </TouchableOpacity>
-      <Head ishome={true} name={lang[i].Moksha} route={route} />
-
       <View style={styles.omContainer}>
         <Text style={styles.omText}>ॐ</Text>
       </View>
-
       {/* Bottom bar */}
       <Foot
         navigation={navigation}
@@ -75,14 +71,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  img: {
-    position: 'absolute',
-    top: 0,
-    zIndex: 0,
-  },
   omContainer: {
     position: 'absolute',
     top: 160,
+    zIndex: 1,
   },
   omText: {
     fontSize: 200,
@@ -101,6 +93,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     width: 280,
+  },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 10,
   },
 });
 

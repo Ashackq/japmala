@@ -34,6 +34,9 @@ export const lang = [
     elapsed: 'Elapsed Time',
     more: 'More',
     web: 'Web Apps',
+    tnc: 'Terms and Conditions',
+    info: 'Info',
+    share: 'Share',
   },
   {
     label: 'भाषा चुनें',

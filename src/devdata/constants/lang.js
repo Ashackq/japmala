@@ -14,3 +14,7 @@ export const colors = {
   headfootbuttontext: 'white',
   tintcolor: 'white',
 };
+
+export const env = {
+  version: '1.1.1',
+};

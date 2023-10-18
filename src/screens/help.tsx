@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, BackHandler, Image } from 'react-native';
 import React, { useEffect } from 'react';
-import { Foot, Head } from '../components';
+import { Head } from '../components';
 const Editback = require('../devdata/assets/editback.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -59,7 +59,10 @@ const Help = ({ navigation, route }: HomeProps) => {
   return (
     <View style={styles.container1}>
       <Image source={Editback} style={styles.img} />
-      <Head ishome={false} name={lang[i].help} route={route} />
+      <View style={styles.head}>
+        <Head ishome={false} name={lang[i].help} i={i} />
+      </View>
+
       <View style={styles.container}>
         <Text style={styles.header}>{lang[i].helphead}</Text>
 
@@ -71,18 +74,6 @@ const Help = ({ navigation, route }: HomeProps) => {
 
         <Text style={styles.paragraph}>{lang[i].para4}</Text>
       </View>
-      <Foot
-        navigation={navigation}
-        route={route}
-        i={i}
-        target={target}
-        beadcount={beadcount}
-        esttime={esttime}
-        elapsedtiem="00:00:00"
-        mala={mala}
-        meditime={meditime}
-        totalcount={totalcount}
-      />
     </View>
   );
 };
@@ -96,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: -30,
   },
   header: {
     marginTop: -150,
@@ -114,6 +106,13 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: 440,
     height: 900,
+  },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 500,
   },
 });
 

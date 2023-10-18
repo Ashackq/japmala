@@ -192,18 +192,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </View>
       </ScrollView>
-      {/* <Foot
-        navigation={navigation}
-        route={route}
-        i={i}
-        target={target}
-        beadcount={beadsInMala}
-        totalcount={totalcount}
-        esttime={esttime}
-        elapsedtiem="00:00:00"
-        mala={mala}
-        meditime={meditime}
-      /> */}
     </View>
   );
 };
@@ -220,7 +208,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 440,
     height: 900,
-    bottom: 20,
     left: -15,
   },
   whiteBox: {
@@ -265,7 +252,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     opacity: 0.9,
-    marginBottom: 50,
+    marginBottom: 20,
   },
   resetButton: {
     backgroundColor: '#e74c3c',
