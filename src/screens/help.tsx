@@ -60,7 +60,12 @@ const Help = ({ navigation, route }: HomeProps) => {
     <View style={styles.container1}>
       <Image source={Editback} style={styles.img} />
       <View style={styles.head}>
-        <Head ishome={false} name={lang[i].help} i={i} />
+        <Head
+          ishome={false}
+          name={lang[i].help}
+          navigation={navigation}
+          route={route}
+        />
       </View>
 
       <View style={styles.container}>

@@ -14,10 +14,45 @@ import {
 import { lang } from '../devdata/constants/languages';
 import { env } from '../devdata/constants/lang';
 
-const SideMenu = ({ toggleSideMenu, i, isMenuOpen }) => {
+const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const [slideAnim] = useState(new Animated.Value(-300));
   const [isInfoModalVisible, setIsInfoModalVisible] = useState(false);
 
+  const totalcount = route.params.totalcount;
+  const beadcount = route.params.beadcount;
+  const target = route.params.target;
+  const mala = route.params.mala;
+  const elapsedtiem = route.params.elapsedtime;
+  const meditime = route.params.meditime;
+  const esttime = route.params.esttime;
+  const i = route.params.languageindex;
+  const malatime = route.params.malatime;
+  const displaytime = route.params.displaytime;
+
+  const handleIconPress = (iconName: string) => {
+    console.log(`${iconName} button pressed.`);
+    let targetRoute = '';
+    if (iconName === 'Home') {
+      targetRoute = 'Home';
+    } else if (iconName === 'Edit') {
+      targetRoute = 'Edit';
+    } else if (iconName === 'Help') {
+      targetRoute = 'Help';
+    }
+
+    navigation.push(targetRoute, {
+      target: target,
+      totalcount: totalcount,
+      meditime: meditime,
+      mala: mala,
+      beadcount: beadcount,
+      elapsedtiem: elapsedtiem,
+      esttime: esttime,
+      malatime: malatime,
+      displaytime: displaytime,
+      languageindex: i,
+    });
+  };
   useEffect(() => {
     Animated.timing(slideAnim, {
       toValue: isMenuOpen ? 0 : -300,
@@ -50,7 +85,10 @@ const SideMenu = ({ toggleSideMenu, i, isMenuOpen }) => {
       <TouchableOpacity onPress={toggleSideMenu} activeOpacity={1}>
         <View style={styles.sideMenu}>
           <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleIconPress('Edit')}
+            >
               <Text style={styles.buttonText}>{lang[i].edit}</Text>
             </TouchableOpacity>
 
@@ -58,7 +96,10 @@ const SideMenu = ({ toggleSideMenu, i, isMenuOpen }) => {
               <Text style={styles.buttonText}>{lang[i].tnc}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleIconPress('Help')}
+            >
               <Text style={styles.buttonText}>{lang[i].help}</Text>
             </TouchableOpacity>
 

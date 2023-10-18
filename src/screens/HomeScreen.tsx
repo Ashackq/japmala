@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-import { Foot, Head } from '../components';
+import { Head } from '../components';
 const Back = require('../devdata/assets/back.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -39,27 +39,19 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <Head ishome={true} name={lang[i].Moksha} i={i} />
+        <Head
+          ishome={true}
+          name={lang[i].Moksha}
+          navigation={navigation}
+          route={route}
+        />
       </View>
       <TouchableOpacity onPress={handleBeginPress} activeOpacity={1}>
-        <Image source={Back} />
+        <Image source={Back} style={styles.img} />
       </TouchableOpacity>
       <View style={styles.omContainer}>
         <Text style={styles.omText}>ॐ</Text>
       </View>
-      {/* Bottom bar */}
-      <Foot
-        navigation={navigation}
-        route={route}
-        i={i}
-        target={target}
-        beadcount={beadcount}
-        esttime={esttime}
-        elapsedtiem="00:00:00"
-        mala={mala}
-        meditime={meditime}
-        totalcount={totalcount}
-      />
     </View>
   );
 };
@@ -70,7 +62,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  img: {
+    top: 20,
+  },
   omContainer: {
     position: 'absolute',
     top: 160,

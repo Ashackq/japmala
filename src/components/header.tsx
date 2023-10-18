@@ -5,9 +5,10 @@ import Sidemenu from './sidemenu';
 
 const Ham = require('../devdata/assets/ham.png');
 
-const Header = ({ ishome, name, i }) => {
+const Header = ({ ishome, name, navigation, route }) => {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [isMenuOpen, setmenuopen] = useState(false);
+
   const toggleSideMenu = () => {
     setmenuopen(!isMenuOpen);
     setTimeout(() => {
@@ -32,8 +33,9 @@ const Header = ({ ishome, name, i }) => {
         {showSideMenu && (
           <Sidemenu
             toggleSideMenu={toggleSideMenu}
-            i={i}
             isMenuOpen={isMenuOpen}
+            navigation={navigation}
+            route={route}
           />
         )}
       </View>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    height: 60,
+    height: 70,
     // background: 'transperent',
     backgroundColor: colors.headfoot,
     justifyContent: 'center',
