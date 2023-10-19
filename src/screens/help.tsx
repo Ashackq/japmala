@@ -9,33 +9,12 @@ import { lang } from '../devdata/constants/languages';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Help'>;
 
 const Help = ({ navigation, route }: HomeProps) => {
-  const totalcount = route.params.totalcount;
-  const beadcount = route.params.beadcount;
-  const target = route.params.target;
-  const mala = route.params.mala;
-  const elapsedtiem = route.params.elapsedtime;
-  const meditime = route.params.meditime;
-  const esttime = route.params.esttime;
   const i = route.params.languageindex;
-  const malatime = route.params.malatime;
-  const displaytime = route.params.displaytime;
-
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        navigation.replace('Home', {
-          target: target,
-          meditime: meditime,
-          beadcount: beadcount,
-          totalcount: totalcount,
-          mala: mala,
-          elapsedtime: elapsedtiem,
-          esttime: esttime,
-          languageindex: i,
-          malatime: malatime,
-          displaytime: displaytime,
-        });
+        navigation.goBack();
         return true;
       }
     );
@@ -43,19 +22,7 @@ const Help = ({ navigation, route }: HomeProps) => {
     return () => {
       backHandler.remove();
     };
-  }, [
-    navigation,
-    meditime,
-    target,
-    mala,
-    totalcount,
-    esttime,
-    beadcount,
-    elapsedtiem,
-    i,
-    malatime,
-    displaytime,
-  ]);
+  }, [navigation]);
   return (
     <View style={styles.container1}>
       <Image source={Editback} style={styles.img} />

@@ -52,6 +52,6 @@ const SoundComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-  img2: { height: 25, width: 25 },
+  img2: { height: 45, width: 45 },
 });
 export default SoundComponent;

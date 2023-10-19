@@ -17,7 +17,6 @@ export type RootStackParamList = {
     elapsedtime: string;
     esttime: string;
     malatime: string;
-    displaytime: string;
     languageindex: number;
   };
   Edit: {
@@ -29,7 +28,6 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
     malatime: string;
-    displaytime: string;
     languageindex: number;
   };
   Player: {
@@ -41,19 +39,9 @@ export type RootStackParamList = {
     esttime: string;
     elapsedtime: string;
     malatime: string;
-    displaytime: string;
     languageindex: number;
   };
   Help: {
-    target: number;
-    totalcount: number;
-    meditime: string;
-    mala: number;
-    beadcount: number;
-    esttime: string;
-    elapsedtime: string;
-    malatime: string;
-    displaytime: string;
     languageindex: number;
   };
   Loading: undefined;
@@ -67,54 +55,10 @@ function App(): JSX.Element {
       <Stack.Navigator initialRouteName="Loading">
         <Stack.Group screenOptions={{ headerShown: false, animation: 'fade' }}>
           <Stack.Screen name="Loading" component={Loading} />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            initialParams={{
-              target: 100000,
-              beadcount: 108,
-              mala: 0,
-              totalcount: 0,
-              meditime: '00:00:00',
-              esttime: '00:00:00',
-              displaytime: '00:00:00',
-              malatime: '00:00:00',
-            }}
-          />
-          <Stack.Screen
-            name="Edit"
-            component={Edit}
-            initialParams={{
-              target: 100000,
-              beadcount: 108,
-              meditime: '00:00:00',
-              esttime: '00:00:00',
-            }}
-          />
-          <Stack.Screen
-            name="Player"
-            component={Player}
-            initialParams={{
-              target: 100000,
-              beadcount: 108,
-              mala: 0,
-              totalcount: 0,
-              meditime: '00:00:00',
-              esttime: '00:00:00',
-            }}
-          />
-          <Stack.Screen
-            name="Help"
-            component={Help}
-            initialParams={{
-              target: 100000,
-              beadcount: 108,
-              mala: 0,
-              totalcount: 0,
-              meditime: '00:00:00',
-              esttime: '00:00:00',
-            }}
-          />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Edit" component={Edit} />
+          <Stack.Screen name="Player" component={Player} />
+          <Stack.Screen name="Help" component={Help} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

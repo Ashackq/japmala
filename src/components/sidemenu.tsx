@@ -1,22 +1,25 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  Modal,
   StyleSheet,
   Linking,
   Animated,
   Easing,
   Platform,
+  Image,
 } from 'react-native';
 import { lang } from '../devdata/constants/languages';
-import { env } from '../devdata/constants/lang';
+import { env, colors } from '../devdata/constants/lang';
+
+const Set = require('../devdata/assets/edit.jpg');
+const Help = require('../devdata/assets/help.png');
+const Info = require('../devdata/assets/info.jpg');
+const Share = require('../devdata/assets/share.png');
 
 const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const [slideAnim] = useState(new Animated.Value(-300));
-  const [isInfoModalVisible, setIsInfoModalVisible] = useState(false);
 
   const totalcount = route.params.totalcount;
   const beadcount = route.params.beadcount;
@@ -30,16 +33,16 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const displaytime = route.params.displaytime;
 
   const handleIconPress = (iconName: string) => {
+    toggleSideMenu();
     console.log(`${iconName} button pressed.`);
     let targetRoute = '';
-    if (iconName === 'Home') {
-      targetRoute = 'Home';
-    } else if (iconName === 'Edit') {
+    if (iconName === 'Edit') {
       targetRoute = 'Edit';
     } else if (iconName === 'Help') {
       targetRoute = 'Help';
+    } else if (iconName === 'Tnc') {
+      targetRoute = 'Help';
     }
-
     navigation.push(targetRoute, {
       target: target,
       totalcount: totalcount,
@@ -62,11 +65,6 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     }).start();
   }, [isMenuOpen, slideAnim]);
 
-  const handleInfoPress = () => {
-    console.log('Info button pressed.');
-    setIsInfoModalVisible(true);
-  };
-
   const handleSharePress = async () => {
     const playStoreUrl =
       'https://play.google.com/store/apps/details?id=your.package.name';
@@ -80,58 +78,6 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     }
   };
 
-  return (
-    <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
-      <TouchableOpacity onPress={toggleSideMenu} activeOpacity={1}>
-        <View style={styles.sideMenu}>
-          <View style={styles.container}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleIconPress('Edit')}
-            >
-              <Text style={styles.buttonText}>{lang[i].edit}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>{lang[i].tnc}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleIconPress('Help')}
-            >
-              <Text style={styles.buttonText}>{lang[i].help}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button} onPress={handleInfoPress}>
-              <Text style={styles.buttonText}>{lang[i].info}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleSharePress}>
-              <Text style={styles.buttonText}>{lang[i].share}</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Modal
-              transparent
-              visible={isInfoModalVisible}
-              animationType="slide"
-            >
-              <CustomAlertDialog
-                closeModal={() => setIsInfoModalVisible(false)}
-                i={i}
-              />
-            </Modal>
-          </View>
-          <Text style={{ position: 'absolute', bottom: 10, right: 10 }}>
-            Version: {env.version}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </Animated.View>
-  );
-};
-
-const CustomAlertDialog = ({ closeModal, i }) => {
   const handleWebAppsPress = () => {
     const url = 'http://www.abcom.com/iosapps.html';
     const andyurl = 'http://www.abcom.com/androidapps.html';
@@ -142,6 +88,7 @@ const CustomAlertDialog = ({ closeModal, i }) => {
       Linking.openURL(url);
     }
   };
+
   const handlemorePress = () => {
     const andyurl =
       'https://play.google.com/store/apps/developer?id=ABCOM&hl=en&gl=US';
@@ -153,34 +100,65 @@ const CustomAlertDialog = ({ closeModal, i }) => {
     }
   };
   return (
-    <View style={styles.alertContainer}>
-      <Text style={styles.alertTitle}>{lang[i].Moksha}</Text>
-      <Text style={styles.alertVersion}>(Version 1.4.1)</Text>
+    <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
+      <TouchableOpacity onPress={toggleSideMenu} activeOpacity={1}>
+        <View style={styles.sideMenu}>
+          <Text style={styles.alertTitle}>{lang[i].Moksha}</Text>
+          <Text style={styles.alertContent}>
+            Copyright@2015-21
+            {'\n'}
+            ABCOM Information Systems Pvt Ltd
+          </Text>
+          <View style={styles.container}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleIconPress('Edit')}
+            >
+              <Image source={Set} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].settings}</Text>
+            </TouchableOpacity>
 
-      <Text style={styles.alertContent}>
-        {'\n'}
-        Copyright@2015-21
-        {'\n'}
-        ABCOM Information Systems Pvt Ltd
-      </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleIconPress('Tnc')}
+            >
+              <Image source={Info} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].tnc}</Text>
+            </TouchableOpacity>
 
-      <View style={styles.alertButtonContainer}>
-        <TouchableOpacity
-          onPress={handleWebAppsPress}
-          style={styles.alertButton}
-        >
-          <Text style={styles.text}>{lang[i].web}</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleIconPress('Help')}
+            >
+              <Image source={Help} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].help}</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity onPress={handlemorePress} style={styles.alertButton}>
-          <Text style={styles.text}>{lang[i].more}</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity style={styles.button} onPress={handleSharePress}>
+              <Image source={Share} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].share}</Text>
+            </TouchableOpacity>
+          </View>
 
-      <TouchableOpacity onPress={closeModal} style={styles.alertButton}>
-        <Text style={styles.text}>{lang[i].Ok}</Text>
+          <View style={styles.alertButtonContainer}>
+            <TouchableOpacity
+              onPress={handleWebAppsPress}
+              style={styles.alertButton}
+            >
+              <Text style={styles.text}>{lang[i].web}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={handlemorePress}
+              style={styles.alertButton}
+            >
+              <Text style={styles.text}>{lang[i].more}</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.alertVersion}>Version: {env.version}</Text>
+        </View>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -189,27 +167,34 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: 100,
   },
-
+  icon: {
+    height: 25,
+    width: 25,
+    tintColor: colors.headfootbuttontext,
+    position: 'absolute',
+    left: 10,
+  },
   button: {
     width: 200,
     height: 50,
     borderRadius: 10,
     backgroundColor: '#D9D9D9',
     marginBottom: 15,
-    justifyContent: 'center',
     paddingLeft: 10,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   buttonText: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  logout: { color: '#A81919' },
 
   sideMenu: {
     backgroundColor: '#FFFFFF',
     width: 250,
-    height: 1000,
+    height: 870,
     alignItems: 'center',
     position: 'absolute',
     top: 0,
@@ -222,38 +207,33 @@ const styles = StyleSheet.create({
     left: -40,
   },
   alertContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    width: 300,
-    marginTop: '50%',
-    alignSelf: 'center',
+    position: 'absolute',
+    top: 0,
   },
   alertTitle: {
     textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 10,
   },
   alertVersion: {
     textAlign: 'center',
-    marginTop: -5,
+    position: 'absolute',
+    bottom: 12,
+    right: 75,
     fontSize: 12,
-  },
-  alertDivider: {
-    height: 1,
-    backgroundColor: 'gray',
-    marginVertical: 10,
   },
   alertContent: {
     textAlign: 'center',
   },
   alertButtonContainer: {
-    flexDirection: 'column',
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
-    marginTop: 10,
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 5,
+    width: 250,
   },
   alertButton: {
+    marginLeft: -80,
     height: 30,
     width: '100%',
     alignItems: 'center',

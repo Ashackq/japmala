@@ -22,7 +22,7 @@ const Play = require('../devdata/assets/play.png');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
-  const [prayerCount, setPrayerCount] = useState(route.params.totalcount);
+  const [prayerCount, setPrayerCount] = useState(route.params?.totalcount || 0);
   const [hasDragged] = useState(false);
   const startTimeRef = useRef(new Date());
   const countertimeref = useRef(new Date());
@@ -33,14 +33,13 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
-  const [mala, setMala] = useState(route.params.mala);
+  const [mala, setMala] = useState(route.params.mala || 0);
   const meditime = route.params.meditime;
   const [esttime, setesttime] = useState('00:00:00');
   const i = route.params.languageindex;
   const [timeForOneMala, settimeforonemala] = useState(route.params.malatime);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
-  const [displaytime, setdisplayTime] = useState('00:00:00');
 
   const [sound] = useState(
     new Sound('maladone.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -88,34 +87,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     }, 1000);
   };
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      const elapsedtime = calculateElapsedTime();
-      const displaytime = calculatedisplayElapsedTime();
-      setElapsedTime(elapsedtime);
-      setdisplayTime(displaytime);
-    }, 1000);
-    return () => {
-      clearInterval(intervalRef.current!);
-    };
-  }, [calculateElapsedTime, calculatedisplayElapsedTime, elapsedTime]);
-
-  const calculatedisplayElapsedTime = () => {
-    let endTime = new Date();
-
-    if (pauseTimeRef.current !== null) {
-      // Adjust end time when the timer is paused
-      endTime = new Date(
-        endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
-      );
-    }
-
-    let elapsedMilliseconds = endTime - startTimeRef.current;
-
-    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    return formatTime(elapsedSeconds);
-  };
-
   const calculateElapsedTime = () => {
     let endTime = new Date();
 
@@ -125,15 +96,23 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         endTime.getTime() - (endTime.getTime() - pauseTimeRef.current)
       );
     }
-
     let elapsedMilliseconds = endTime - startTimeRef.current;
     if (prevelapsed && prevelapsed !== '00:00:00') {
       elapsedMilliseconds += parseInt(prevelapsed.split(':')[2]) * 1000;
     }
-
     const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
     return formatTime(elapsedSeconds);
   };
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      const elapsedtime = calculateElapsedTime();
+      setElapsedTime(elapsedtime);
+    }, 1000);
+    return () => {
+      clearInterval(intervalRef.current!);
+    };
+  }, [calculateElapsedTime, elapsedTime]);
 
   useEffect(() => {
     if (prayerCount === beadcount) {
@@ -174,7 +153,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           elapsedtime: elapsedFormatted,
           esttime: esttime,
           malatime: timeForOneMala,
-          displaytime: displaytime,
           languageindex: i,
         });
         return true;
@@ -195,7 +173,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     calculateElapsedTime,
     i,
     timeForOneMala,
-    displaytime,
   ]);
 
   useEffect(() => {
@@ -217,20 +194,16 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         setPrayerCount((prevCount) => prevCount + 1);
 
         const animations = [];
-        const beadCount = 5;
-
-        for (let i = 0; i < beadCount; i++) {
-          animations.push(
-            Animated.timing(imagePosition, {
-              toValue: { x: 0, y: -200 },
-              duration: 1000,
-              useNativeDriver: true,
-            })
-          );
-        }
+        animations.push(
+          Animated.timing(imagePosition, {
+            toValue: { x: 0, y: -270 },
+            duration: 1000,
+            useNativeDriver: true,
+          })
+        );
 
         Animated.sequence(animations).start(() => {
-          imagePosition.setValue({ x: 0, y: 56 });
+          imagePosition.setValue({ x: 0, y: 0 });
         });
       }
       //Vibration.vibrate(500);
@@ -315,19 +288,19 @@ const styles = StyleSheet.create({
     zIndex: 500,
   },
   img: {
-    height: 1000,
-    width: 140,
+    height: 1050,
+    width: 150,
     position: 'absolute',
     zIndex: 2,
-    top: -50,
-    left: -75,
+    top: -20,
+    left: -80,
     right: 0,
   },
   timerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 6,
+    padding: 1,
   },
   timerText: {
     color: 'white',
@@ -336,17 +309,17 @@ const styles = StyleSheet.create({
   pauseButton: {
     marginLeft: 10,
   },
-  img2: { height: 25, width: 25 },
+  img2: { height: 45, width: 45 },
   pauseButtonText: {
     color: 'white',
     fontSize: 16,
   },
   prayercount: {
     color: 'white',
-    fontSize: 100,
+    fontSize: 90,
     position: 'absolute',
     marginTop: '70%',
-    marginLeft: '25%',
+    marginLeft: '29%',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

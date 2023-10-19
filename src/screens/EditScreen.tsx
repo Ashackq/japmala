@@ -19,27 +19,20 @@ import { Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
-  const [target, setTarget] = useState(route.params?.target || 100000);
-  const [beadsInMala, setBeadsInMala] = useState(
-    route.params?.beadcount || 108
-  );
+  const target = route.params?.target || 100000;
+  const beadsInMala = route.params?.beadcount || 108;
 
-  const [meditime, setMeditime] = useState(
-    route.params?.meditime || '00:00:00'
-  );
+  const [meditime, setMeditime] = useState(route.params.meditime || '00');
   const esttime = route.params.esttime;
-  const [totalcount, settotalcount] = useState(route.params.totalcount);
-  const [mala, setMala] = useState(route.params.mala);
-  const beadcount = route.params.beadcount;
+  const [totalcount, settotalcount] = useState(route.params.totalcount || 0);
+  const mala = route.params.mala || 0;
+  const beadcount = route.params.beadcount || 108;
 
   const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
   };
   const malatime = route.params.malatime;
-  const displaytime = route.params.displaytime;
-
-  const away = target / beadcount - mala;
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -55,7 +48,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           esttime: esttime,
           languageindex: i,
           malatime: malatime,
-          displaytime: displaytime,
         });
         return true;
       }
@@ -74,27 +66,31 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     esttime,
     i,
     malatime,
-    displaytime,
   ]);
 
   const handleSave = () => {
     console.log(' beads - ', beadcount);
+    console.log(' Target - ', target);
+    console.log(' Total Count - ', totalcount);
+    console.log(' Mala - ', mala);
   };
 
   const handleReset = () => {
-    setBeadsInMala(108);
-    setTarget(100000);
+    navigation.setParams({ beadcount: 108 });
+    navigation.setParams({ target: 100000 });
     setMeditime('00:00:00');
-    setMala(0);
+    navigation.setParams({ mala: 0 });
     settotalcount(0);
     handleSave();
   };
+
   const calculateEstimatedTotalTime = () => {
     const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
     const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
-    const estimatedTotalSeconds = totalEstSeconds * away;
+    const estimatedTotalSeconds = totalEstSeconds * (target / beadcount - mala);
     return formatTime(Math.ceil(estimatedTotalSeconds));
   };
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -127,10 +123,10 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
               onChangeText={(text) => {
                 let value = parseInt(text, 10);
                 if (!isNaN(value)) {
-                  setBeadsInMala(value);
+                  navigation.setParams({ target: value });
                 } else {
                   value = 0;
-                  setBeadsInMala(value);
+                  navigation.setParams({ target: value });
                 }
               }}
             />
@@ -144,10 +140,10 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
               onChangeText={(text) => {
                 let value = parseInt(text, 10);
                 if (!isNaN(value)) {
-                  setBeadsInMala(value);
+                  navigation.setParams({ beadcount: value });
                 } else {
                   value = 0;
-                  setBeadsInMala(value);
+                  navigation.setParams({ beadcount: value });
                 }
               }}
             />
@@ -178,7 +174,8 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
               {lang[i].malascomp}: {mala}
             </Text>
             <Text style={styles.text}>
-              {lang[i].youare} {Math.ceil(away)} {lang[i].goalaway}
+              {lang[i].youare} {Math.ceil(target / beadcount - mala)}{' '}
+              {lang[i].goalaway}
             </Text>
             <Text style={styles.text}>
               {lang[i].timeforcomp} {estimatedTotalTime}
