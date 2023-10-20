@@ -4,14 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import { StyleSheet } from 'react-native';
-import { Home, Edit, Player, Help } from './screens';
+import { Home, Edit, Player, Help, Tnc, About } from './screens';
 import { Loading } from './components';
 
 export type RootStackParamList = {
   Home: {
     target: number;
     totalcount: number;
-    meditime: string;
     mala: number;
     beadcount: number;
     elapsedtime: string;
@@ -22,7 +21,6 @@ export type RootStackParamList = {
   Edit: {
     target: number;
     totalcount: number;
-    meditime: string;
     mala: number;
     beadcount: number;
     esttime: string;
@@ -33,7 +31,6 @@ export type RootStackParamList = {
   Player: {
     target: number;
     totalcount: number;
-    meditime: string;
     mala: number;
     beadcount: number;
     esttime: string;
@@ -44,21 +41,43 @@ export type RootStackParamList = {
   Help: {
     languageindex: number;
   };
+  About: {
+    languageindex: number;
+  };
+  Tnc: {
+    languageindex: number;
+  };
   Loading: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
+  const initialRouteParams: RootStackParamList['Home'] = {
+    target: 100000,
+    totalcount: 0,
+    mala: 0,
+    beadcount: 10,
+    languageindex: 0,
+    elapsedtime: '00:00:00',
+    esttime: '00:00:00',
+    malatime: '00:00:00',
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading">
         <Stack.Group screenOptions={{ headerShown: false, animation: 'fade' }}>
           <Stack.Screen name="Loading" component={Loading} />
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            initialParams={initialRouteParams}
+          />
           <Stack.Screen name="Edit" component={Edit} />
           <Stack.Screen name="Player" component={Player} />
           <Stack.Screen name="Help" component={Help} />
+          <Stack.Screen name="Tnc" component={Tnc} />
+          <Stack.Screen name="About" component={About} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

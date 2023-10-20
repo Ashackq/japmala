@@ -7,7 +7,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 const LoadingScreen = ({ navigation }: HomeProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Home', { languageindex: 0 });
+      navigation.replace('Home', {});
     }, 2000);
 
     return () => clearTimeout(timer);

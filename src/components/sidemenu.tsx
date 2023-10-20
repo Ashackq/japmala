@@ -17,6 +17,8 @@ const Set = require('../devdata/assets/edit.jpg');
 const Help = require('../devdata/assets/help.png');
 const Info = require('../devdata/assets/info.jpg');
 const Share = require('../devdata/assets/share.png');
+const Moreapps = require('../devdata/assets/moreapps.png');
+const Appspolicy = require('../devdata/assets/appspolicy.png');
 
 const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const [slideAnim] = useState(new Animated.Value(-300));
@@ -25,12 +27,11 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const mala = route.params.mala;
-  const elapsedtiem = route.params.elapsedtime;
-  const meditime = route.params.meditime;
+  const elapsedtime = route.params.elapsedtime;
   const esttime = route.params.esttime;
   const i = route.params.languageindex;
-  const malatime = route.params.malatime;
   const displaytime = route.params.displaytime;
+  const malatime = route.params.malatime;
 
   const handleIconPress = (iconName: string) => {
     toggleSideMenu();
@@ -41,19 +42,19 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     } else if (iconName === 'Help') {
       targetRoute = 'Help';
     } else if (iconName === 'Tnc') {
-      targetRoute = 'Help';
+      targetRoute = 'Tnc';
+    } else if (iconName === 'About') {
+      targetRoute = 'About';
     }
     navigation.push(targetRoute, {
       target: target,
       totalcount: totalcount,
-      meditime: meditime,
       mala: mala,
       beadcount: beadcount,
-      elapsedtiem: elapsedtiem,
-      esttime: esttime,
-      malatime: malatime,
-      displaytime: displaytime,
       languageindex: i,
+      elapsedtiem: elapsedtime,
+      esttime: esttime,
+      displaytime: displaytime,
     });
   };
   useEffect(() => {
@@ -78,17 +79,6 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     }
   };
 
-  const handleWebAppsPress = () => {
-    const url = 'http://www.abcom.com/iosapps.html';
-    const andyurl = 'http://www.abcom.com/androidapps.html';
-
-    if (Platform.OS === 'android') {
-      Linking.openURL(andyurl);
-    } else {
-      Linking.openURL(url);
-    }
-  };
-
   const handlemorePress = () => {
     const andyurl =
       'https://play.google.com/store/apps/developer?id=ABCOM&hl=en&gl=US';
@@ -99,16 +89,14 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
       Linking.openURL(url);
     }
   };
+
+  console.log('TImes e- ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
   return (
     <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
       <TouchableOpacity onPress={toggleSideMenu} activeOpacity={1}>
         <View style={styles.sideMenu}>
-          <Text style={styles.alertTitle}>{lang[i].Moksha}</Text>
-          <Text style={styles.alertContent}>
-            Copyright@2015-21
-            {'\n'}
-            ABCOM Information Systems Pvt Ltd
-          </Text>
+          <Text style={styles.alertTitle}>{lang[i].appname}</Text>
+
           <View style={styles.container}>
             <TouchableOpacity
               style={styles.button}
@@ -122,7 +110,7 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
               style={styles.button}
               onPress={() => handleIconPress('Tnc')}
             >
-              <Image source={Info} style={styles.icon} />
+              <Image source={Appspolicy} style={styles.icon} />
               <Text style={styles.buttonText}>{lang[i].tnc}</Text>
             </TouchableOpacity>
 
@@ -138,23 +126,21 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
               <Image source={Share} style={styles.icon} />
               <Text style={styles.buttonText}>{lang[i].share}</Text>
             </TouchableOpacity>
-          </View>
 
-          <View style={styles.alertButtonContainer}>
-            <TouchableOpacity
-              onPress={handleWebAppsPress}
-              style={styles.alertButton}
-            >
-              <Text style={styles.text}>{lang[i].web}</Text>
+            <TouchableOpacity style={styles.button} onPress={handlemorePress}>
+              <Image source={Moreapps} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].more}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={handlemorePress}
-              style={styles.alertButton}
+              style={styles.button}
+              onPress={() => handleIconPress('About')}
             >
-              <Text style={styles.text}>{lang[i].more}</Text>
+              <Image source={Info} style={styles.icon} />
+              <Text style={styles.buttonText}>{lang[i].info}</Text>
             </TouchableOpacity>
           </View>
+
           <Text style={styles.alertVersion}>Version: {env.version}</Text>
         </View>
       </TouchableOpacity>
@@ -172,7 +158,7 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: colors.headfootbuttontext,
     position: 'absolute',
-    left: 10,
+    right: 20,
   },
   button: {
     width: 200,
@@ -181,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     marginBottom: 15,
     paddingLeft: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -206,16 +192,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     left: -40,
   },
-  alertContainer: {
-    position: 'absolute',
-    top: 0,
-  },
-  alertTitle: {
-    textAlign: 'center',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
   alertVersion: {
     textAlign: 'center',
     position: 'absolute',
@@ -223,26 +199,11 @@ const styles = StyleSheet.create({
     right: 75,
     fontSize: 12,
   },
-  alertContent: {
+  alertTitle: {
     textAlign: 'center',
-  },
-  alertButtonContainer: {
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: 5,
-    width: 250,
-  },
-  alertButton: {
-    marginLeft: -80,
-    height: 30,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  alertButtonDivider: {
-    width: 1,
-    backgroundColor: 'gray',
-    marginHorizontal: 10,
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
   text: { color: 'red' },
 });

@@ -14,7 +14,7 @@ const Footer = ({
   totalcount,
   mala,
   elapsedtiem,
-  meditime,
+
   esttime,
 }) => {
   const [activeIcon, setActiveIcon] = useState('Home');
@@ -46,7 +46,6 @@ const Footer = ({
     navigation.push(targetRoute, {
       target: target,
       totalcount: totalcount,
-      meditime: meditime,
       mala: mala,
       beadcount: beadcount,
       elapsedtiem: elapsedtiem,

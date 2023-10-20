@@ -14,17 +14,17 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const mala = route.params.mala;
-  const meditime = addTime(route.params.meditime, route.params.elapsedtime);
   const esttime = route.params.esttime;
   const elapsedtime = route.params.elapsedtime;
   const i = route.params.languageindex;
   const malatime = route.params.malatime;
 
+  console.log('TImes - ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
+
   const handleBeginPress = () => {
     navigation.push('Player', {
       target: target,
       totalcount: totalcount,
-      meditime: meditime,
       mala: mala,
       beadcount: beadcount,
       esttime: esttime,

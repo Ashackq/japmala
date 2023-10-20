@@ -6,10 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   BackHandler,
-  Image,
   ScrollView,
 } from 'react-native';
-const Editback = require('../devdata/assets/editback.jpg');
 
 import { lang } from '../devdata/constants/languages';
 
@@ -19,20 +17,20 @@ import { Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
-  const target = route.params?.target || 100000;
-  const beadsInMala = route.params?.beadcount || 108;
-
-  const [meditime, setMeditime] = useState(route.params.meditime || '00');
-  const esttime = route.params.esttime;
-  const [totalcount, settotalcount] = useState(route.params.totalcount || 0);
-  const mala = route.params.mala || 0;
-  const beadcount = route.params.beadcount || 108;
-
+  const target = route.params.target;
+  const beadsInMala = route.params.beadcount;
+  const [totalcount, settotalcount] = useState(route.params.totalcount);
+  const mala = route.params.mala;
+  const beadcount = route.params.beadcount;
   const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
   };
+
   const malatime = route.params.malatime;
+  const elapsedtime = route.params.elapsedtime;
+  const esttime = route.params.esttime;
+  console.log('TImes e- ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -40,11 +38,10 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       () => {
         navigation.replace('Home', {
           target: target,
-          meditime: meditime,
           beadcount: beadsInMala,
           totalcount: totalcount,
           mala: mala,
-          elapsedtime: '00:00:00',
+          elapsedtime: elapsedtime,
           esttime: esttime,
           languageindex: i,
           malatime: malatime,
@@ -59,13 +56,13 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   }, [
     navigation,
     beadsInMala,
-    meditime,
     target,
     mala,
     totalcount,
     esttime,
     i,
     malatime,
+    elapsedtime,
   ]);
 
   const handleSave = () => {
@@ -78,7 +75,8 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const handleReset = () => {
     navigation.setParams({ beadcount: 108 });
     navigation.setParams({ target: 100000 });
-    setMeditime('00:00:00');
+    navigation.setParams({ elapsedtime: '00:00:00' });
+
     navigation.setParams({ mala: 0 });
     settotalcount(0);
     handleSave();
@@ -104,8 +102,8 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Image source={Editback} style={styles.img} />
+      <ScrollView style={styles.img}>
+        {/* <Image source={Editback} style={styles.img} /> */}
         {/* Contents */}
         <View style={styles.container1}>
           <View style={styles.whiteBox}>
@@ -156,7 +154,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           {/* Previous meditation details */}
           <View style={styles.greyBox}>
             <Text style={styles.text}>
-              {lang[i].meditaionsofar}: {meditime}
+              {lang[i].meditaionsofar}: {elapsedtime}
             </Text>
             <Text style={styles.text}>
               {lang[i].totalcount}: {totalcount + mala * beadsInMala}
@@ -202,10 +200,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   img: {
-    position: 'absolute',
-    width: 440,
-    height: 900,
-    left: -15,
+    backgroundColor: '#333333',
   },
   whiteBox: {
     backgroundColor: 'white',

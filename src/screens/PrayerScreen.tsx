@@ -15,7 +15,7 @@ import { lang } from '../devdata/constants/languages';
 import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Ads, Head, Soundback } from '../components';
+import { Ads, Head } from '../components';
 const Bead = require('../devdata/assets/bead.jpg');
 const Pause = require('../devdata/assets/pause.png');
 const Play = require('../devdata/assets/play.png');
@@ -29,18 +29,25 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const pauseTimeRef = useRef<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [prevelapsed] = useState(route.params.elapsedtime);
-
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const [mala, setMala] = useState(route.params.mala || 0);
-  const meditime = route.params.meditime;
-  const [esttime, setesttime] = useState('00:00:00');
+  const [esttime, setesttime] = useState(route.params.esttime);
   const i = route.params.languageindex;
   const [timeForOneMala, settimeforonemala] = useState(route.params.malatime);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
+  console.log(
+    'TImes e- ',
+    '\n',
+    timeForOneMala,
+    '\n',
+    esttime,
+    '\n',
+    elapsedTime
+  );
   const [sound] = useState(
     new Sound('maladone.mp3', Sound.MAIN_BUNDLE, (error) => {
       if (error) {
@@ -145,7 +152,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       () => {
         const elapsedFormatted = calculateElapsedTime();
         navigation.replace('Home', {
-          meditime: meditime,
           totalcount: prayerCount,
           mala: mala,
           beadcount: beadcount,
@@ -168,7 +174,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     beadcount,
     mala,
     target,
-    meditime,
     esttime,
     calculateElapsedTime,
     i,
@@ -227,7 +232,9 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       </TouchableWithoutFeedback>
 
       {/* Ads */}
-      <Ads />
+      <View style={styles.container}>
+        <Ads />
+      </View>
       <View style={styles.head}>
         <Head
           ishome={false}
@@ -245,34 +252,34 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
             {lang[i].elapsed}: {elapsedTime}
           </Text>
         </View>
-        <View style={styles.timerContainer}>
-          <TouchableOpacity
-            onPress={handlePauseResume}
-            style={styles.pauseButton}
-          >
-            {isTimerRunning ? (
-              <Image source={Pause} style={styles.img2} />
-            ) : (
-              <Image source={Play} style={styles.img2} />
-            )}
-          </TouchableOpacity>
-          <Soundback />
-        </View>
+
+        <TouchableOpacity
+          onPress={handlePauseResume}
+          style={styles.pauseButton}
+        >
+          {isTimerRunning ? (
+            <Image source={Pause} style={styles.img2} />
+          ) : (
+            <Image source={Play} style={styles.img2} />
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    top: 70,
+  },
   greybox: {
     alignItems: 'center',
-    marginTop: 20,
+    position: 'absolute',
     bottom: 0,
-    padding: 25,
+    padding: 5,
     right: 0,
     left: 0,
     backgroundColor: 'grey',
-    position: 'absolute',
   },
   grey2: {
     color: 'white',
@@ -292,15 +299,14 @@ const styles = StyleSheet.create({
     width: 150,
     position: 'absolute',
     zIndex: 2,
-    top: -20,
+    top: 10,
     left: -80,
     right: 0,
   },
   timerContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 1,
   },
   timerText: {
     color: 'white',
@@ -323,8 +329,11 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
+    top: 150,
     zIndex: 1,
-    height: 700,
+    marginLeft: '8%',
+    width: 340,
+    marginBottom: 110,
   },
 });
 

@@ -1,5 +1,6 @@
 export const lang = [
   {
+    appname: 'Japmala',
     label: 'Select Language',
     selectlanguage: 'Select Language',
     setyourtarget: 'Set Your Target',
@@ -32,7 +33,7 @@ export const lang = [
     para4:
       'Welcome to the world of Meditation! Start your journey to inner peace and mindfulness.',
     elapsed: 'Elapsed Time',
-    more: 'More',
+    more: 'More Apps',
     web: 'Web Apps',
     tnc: 'Apps Policy',
     info: 'About',

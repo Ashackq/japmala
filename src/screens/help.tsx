@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, BackHandler, Image } from 'react-native';
+import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import React, { useEffect } from 'react';
 import { Head } from '../components';
-const Editback = require('../devdata/assets/editback.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
@@ -25,7 +24,7 @@ const Help = ({ navigation, route }: HomeProps) => {
   }, [navigation]);
   return (
     <View style={styles.container1}>
-      <Image source={Editback} style={styles.img} />
+      {/* <Image source={Editback} style={styles.img} /> */}
       <View style={styles.head}>
         <Head
           ishome={false}
@@ -56,6 +55,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   container1: {
+    backgroundColor: '#333333',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
