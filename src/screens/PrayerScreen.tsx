@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Image,
   Animated,
-  //Vibration,
+  // Vibration,
   TouchableOpacity,
 } from 'react-native';
 import { lang } from '../devdata/constants/languages';
@@ -29,13 +29,14 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const pauseTimeRef = useRef<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [prevelapsed] = useState(route.params.elapsedtime);
+  const [prevmala] = useState(route.params.malatime);
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const [mala, setMala] = useState(route.params.mala || 0);
-  const [esttime, setesttime] = useState(route.params.esttime);
+  const esttime = route.params.esttime;
   const i = route.params.languageindex;
-  const [timeForOneMala, settimeforonemala] = useState(route.params.malatime);
+  const timeForOneMala = route.params.malatime;
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
@@ -48,6 +49,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     '\n',
     elapsedTime
   );
+
   const [sound] = useState(
     new Sound('maladone.mp3', Sound.MAIN_BUNDLE, (error) => {
       if (error) {
@@ -132,19 +134,44 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       });
       setPrayerCount(0);
       console.log('Time for One Mala:', timeForOneMala);
-      setesttime(timeForOneMala);
+      navigation.setParams({ esttime: timeForOneMala });
       countertimeref.current = new Date();
-      settimeforonemala('00:00:00');
+      navigation.setParams({ malatime: '00:00:00' });
     } else {
-      const endTime = new Date();
-      const elapsedMilliseconds = endTime - countertimeref.current;
-      let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-      let timeForOneMalaSeconds = elapsedSeconds;
-      settimeforonemala(formatTime(timeForOneMalaSeconds));
+      if (prevmala && prevmala !== '00:00:00') {
+        const endTime = new Date();
+        const elapsedMilliseconds = endTime - countertimeref.current;
+        let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+        let timeForOneMalaSeconds = elapsedSeconds;
+        navigation.setParams({ malatime: formatTime(timeForOneMalaSeconds) });
+      } else {
+        const endTime = new Date();
+        const elapsedMilliseconds = endTime - countertimeref.current;
+        let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+        // Parse the existing prevmala time to extract seconds
+        const prevmalaSeconds = parseInt(prevmala.split(':')[2], 10);
 
-      console.log('secnd  - ', timeForOneMalaSeconds);
+        // Add the calculated seconds to the existing prevmala seconds
+        elapsedSeconds += prevmalaSeconds * 1000;
+
+        // Convert the total seconds back to the time format
+        const totalSeconds = addTime(
+          formatTime(elapsedSeconds) + timeForOneMala
+        );
+        navigation.setParams({ malatime: totalSeconds });
+      }
+
+      console.log('secnd  - ', timeForOneMala);
     }
-  }, [prayerCount, beadcount, mala, setesttime, timeForOneMala, sound]);
+  }, [
+    prayerCount,
+    beadcount,
+    mala,
+    timeForOneMala,
+    sound,
+    navigation,
+    prevmala,
+  ]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -180,10 +207,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     timeForOneMala,
   ]);
 
-  useEffect(() => {
-    console.log('elapsed param - ', elapsedTime);
-  }, [elapsedTime]);
-
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -211,7 +234,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           imagePosition.setValue({ x: 0, y: 0 });
         });
       }
-      //Vibration.vibrate(500);
+      // Vibration.vibrate(500);
     }
   };
 
@@ -338,3 +361,26 @@ const styles = StyleSheet.create({
 });
 
 export default PrayerScreen;
+
+const addTime = (time1: string = '00:00:00', time2: string = '00:00:00') => {
+  const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
+  const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
+
+  let totalSeconds = seconds1 + seconds2;
+  let totalMinutes = minutes1 + minutes2;
+  let totalHours = hours1 + hours2;
+
+  if (totalSeconds >= 60) {
+    totalMinutes += Math.floor(totalSeconds / 60);
+    totalSeconds %= 60;
+  }
+
+  if (totalMinutes >= 60) {
+    totalHours += Math.floor(totalMinutes / 60);
+    totalMinutes %= 60;
+  }
+
+  return `${totalHours.toString().padStart(2, '0')}:${totalMinutes
+    .toString()
+    .padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
+};

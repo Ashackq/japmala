@@ -101,27 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const addTime = (time1: string = '00:00:00', time2: string = '00:00:00') => {
-  const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
-  const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
-
-  let totalSeconds = seconds1 + seconds2;
-  let totalMinutes = minutes1 + minutes2;
-  let totalHours = hours1 + hours2;
-
-  if (totalSeconds >= 60) {
-    totalMinutes += Math.floor(totalSeconds / 60);
-    totalSeconds %= 60;
-  }
-
-  if (totalMinutes >= 60) {
-    totalHours += Math.floor(totalMinutes / 60);
-    totalMinutes %= 60;
-  }
-
-  return `${totalHours.toString().padStart(2, '0')}:${totalMinutes
-    .toString()
-    .padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
-};
-
 export default HomeScreen;

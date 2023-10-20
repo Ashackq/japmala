@@ -52,9 +52,10 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
       mala: mala,
       beadcount: beadcount,
       languageindex: i,
-      elapsedtiem: elapsedtime,
+      elapsedtime: elapsedtime,
       esttime: esttime,
       displaytime: displaytime,
+      malatime: malatime,
     });
   };
   useEffect(() => {
