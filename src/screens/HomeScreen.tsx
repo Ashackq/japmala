@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 import { Head } from '../components';
-const Back = require('../devdata/assets/back.jpg');
+const Back = require('../devdata/assets/back.png');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
@@ -19,8 +19,23 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
   const i = route.params.languageindex;
   const malatime = route.params.malatime;
 
-  console.log('TImes - ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
+  const calculateEstimatedTotalTime = () => {
+    const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
+    const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
+    const estimatedTotalSeconds = totalEstSeconds * (target / beadcount - mala);
+    return formatTime(Math.ceil(estimatedTotalSeconds));
+  };
 
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  const estimatedTotalTime = calculateEstimatedTotalTime();
   const handleBeginPress = () => {
     navigation.push('Player', {
       target: target,
@@ -47,15 +62,35 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
       <TouchableOpacity onPress={handleBeginPress} activeOpacity={1}>
         <Image source={Back} style={styles.img} />
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={handleBeginPress}
-        activeOpacity={1}
-        style={styles.omContainer}
-      >
-        <View>
-          <Text style={styles.omText}>ॐ</Text>
+      <View style={styles.omContainer}>
+        <View style={styles.greyBox}>
+          <Text style={styles.text}>
+            {lang[i].meditaionsofar}: {elapsedtime}
+          </Text>
+          <Text style={styles.text}>
+            {lang[i].totalcount}: {totalcount + mala * beadcount}
+          </Text>
+          <Text style={styles.text}>
+            {lang[i].target}: {target}
+          </Text>
+          <Text style={styles.text}>
+            {lang[i].beadcont}: {beadcount}
+          </Text>
         </View>
-      </TouchableOpacity>
+
+        <View style={styles.greyBox}>
+          <Text style={styles.text}>
+            {lang[i].malascomp}: {mala}
+          </Text>
+          <Text style={styles.text}>
+            {lang[i].youare} {Math.ceil(target / beadcount - mala)}{' '}
+            {lang[i].goalaway}
+          </Text>
+          <Text style={styles.text}>
+            {lang[i].timeforcomp} {estimatedTotalTime}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -66,16 +101,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  greyBox: {
+    backgroundColor: '#d3d3d3',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 20,
+    opacity: 0.8,
+  },
+  text: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
   img: {
-    top: 20,
+    height: 870,
   },
   omContainer: {
     position: 'absolute',
-    top: 160,
+    bottom: -10,
     zIndex: 1,
-  },
-  omText: {
-    fontSize: 200,
   },
 
   meditationDetails: {
@@ -86,12 +130,7 @@ const styles = StyleSheet.create({
     width: 280,
     marginHorizontal: 0,
   },
-  greyBox: {
-    backgroundColor: '#d66c23',
-    padding: 10,
-    borderRadius: 10,
-    width: 280,
-  },
+
   head: {
     position: 'absolute',
     top: 0,

@@ -84,24 +84,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     handleSave();
   };
 
-  const calculateEstimatedTotalTime = () => {
-    const [estHours, estMinutes, estSeconds] = esttime.split(':').map(Number);
-    const totalEstSeconds = estHours * 3600 + estMinutes * 60 + estSeconds;
-    const estimatedTotalSeconds = totalEstSeconds * (target / beadcount - mala);
-    return formatTime(Math.ceil(estimatedTotalSeconds));
-  };
-
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const estimatedTotalTime = calculateEstimatedTotalTime();
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.img}>
@@ -153,34 +135,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
               <Text style={styles.defaultLabel}>{lang[i].save}</Text>
             </TouchableOpacity>
           </View>
-          {/* Previous meditation details */}
-          <View style={styles.greyBox}>
-            <Text style={styles.text}>
-              {lang[i].meditaionsofar}: {elapsedtime}
-            </Text>
-            <Text style={styles.text}>
-              {lang[i].totalcount}: {totalcount + mala * beadsInMala}
-            </Text>
-            <Text style={styles.text}>
-              {lang[i].target}: {target}
-            </Text>
-            <Text style={styles.text}>
-              {lang[i].beadcont}: {beadsInMala}
-            </Text>
-          </View>
-          {/* Grey box */}
-          <View style={styles.greyBox}>
-            <Text style={styles.text}>
-              {lang[i].malascomp}: {mala}
-            </Text>
-            <Text style={styles.text}>
-              {lang[i].youare} {Math.ceil(target / beadcount - mala)}{' '}
-              {lang[i].goalaway}
-            </Text>
-            <Text style={styles.text}>
-              {lang[i].timeforcomp} {estimatedTotalTime}
-            </Text>
-          </View>
+
           <View style={styles.resetBox}>
             <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
               <Text style={styles.defaultLabel}>{lang[i].reset}</Text>
@@ -233,13 +188,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
-  greyBox: {
-    backgroundColor: '#d3d3d3',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-    opacity: 0.8,
-  },
 
   resetBox: {
     backgroundColor: 'white',
@@ -258,11 +206,6 @@ const styles = StyleSheet.create({
   warningLabel: {
     fontSize: 12,
     color: 'red',
-  },
-  text: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 17,
   },
 });
 

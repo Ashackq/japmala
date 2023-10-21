@@ -5,7 +5,7 @@ import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
-
+import { env } from '../devdata/constants/lang';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'About'>;
 
 const About = ({ navigation, route }: HomeProps) => {
@@ -21,10 +21,12 @@ const About = ({ navigation, route }: HomeProps) => {
         />
       </View>
       <Text style={[styles.alertTitle, styles.text]}>{lang[i].appname}</Text>
+      <Text style={[styles.alertVersion, styles.text]}>
+        (Version: {env.version})
+      </Text>
       <Text style={[styles.alertContent, styles.text]}>
-        Copyright@2015-21
-        {'\n'}
-        ABCOM Information Systems Pvt Ltd
+        Copyright@2023 {'\n'}
+        ABCOM Information Systems Pvt. Ltd.
       </Text>
     </View>
   );
@@ -56,6 +58,13 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     zIndex: 500,
+  },
+  alertVersion: {
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: 12,
+    right: 75,
+    fontSize: 12,
   },
   text: { color: 'white' },
 });

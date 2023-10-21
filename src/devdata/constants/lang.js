@@ -16,5 +16,5 @@ export const colors = {
 };
 
 export const env = {
-  version: '1.1.1',
+  version: '1.1',
 };
