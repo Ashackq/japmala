@@ -29,7 +29,7 @@ const Header = ({ ishome, name, navigation, route }) => {
           activeOpacity={1}
         />
       )}
-      <View>
+      <View style={styles.side}>
         {showSideMenu && (
           <Sidemenu
             toggleSideMenu={toggleSideMenu}
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   sideMenuOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-
     width: 500,
     height: 1000,
   },
@@ -75,10 +74,18 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: '#fff',
     fontSize: 20,
+    zIndex: 1,
   },
   icon: {
     width: 25,
     height: 25,
+  },
+  side: {
+    zIndex: 100,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
   },
 });
 

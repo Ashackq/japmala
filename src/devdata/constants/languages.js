@@ -39,6 +39,22 @@ export const lang = [
     info: 'About',
     share: 'Share',
     settings: 'Settings',
+    appshead: 'Apps Privacy Policy',
+    appspara1:
+      'By using this app you agree to the terms of this privacy policy.',
+    appspare2:
+      'Our app "Aarti Sangraha" does not collect nor transmit the user\'s personal information.',
+    appspare3:
+      'No personal information is used, stored, secured or disclosed by services this application works with.',
+    appspara4: 'Internet is only used to connect and display Advertisements.',
+    appspara5:
+      'This app does not warrant the completeness, timeliness or accuracy of any of the data contained in the app.',
+    appspara6:
+      'All information conveyed hereby is provided to users "AS IS". In no event shall “ABCOM” be liable for any damages of any kind related to the use or misuse of information provided hereby.',
+    appspara7:
+      'ABCOM makes no warranty that the results may be obtained from the use of the service will be accurate or reliable, the service will meet your requirements, the service will be uninterrupted, timely, secure, or error-free or any errors in the service will be corrected.',
+    appspara8:
+      'If you have any questions about this app, or if you require any support, you can send us an email at support@abcom. com including the app name.',
   },
   {
     label: 'भाषा चुनें',

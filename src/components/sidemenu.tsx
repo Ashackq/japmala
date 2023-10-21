@@ -72,8 +72,8 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     try {
       const shareOptions = {
         title: 'Share via',
-        message: 'Check out this awesome app!',
-        url: 'https://your-app-url.com', // Replace with your app's URL
+        message: 'Japa Mala is available at GooglePlay for free.',
+        url: 'https://your-app-url.com',
       };
 
       const result = await Give.share(shareOptions);
@@ -105,7 +105,6 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
     }
   };
 
-  console.log('TImes e- ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
   return (
     <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
       <TouchableOpacity onPress={toggleSideMenu} activeOpacity={1}>
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: colors.headfootbuttontext,
     position: 'absolute',
-    right: 20,
+    left: 10,
   },
   button: {
     width: 200,
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#D9D9D9',
     marginBottom: 15,
-    paddingLeft: 10,
+    paddingLeft: 45,
     justifyContent: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Image,
   Animated,
-  // Vibration,
+  Vibration,
   TouchableOpacity,
 } from 'react-native';
 import { lang } from '../devdata/constants/languages';
@@ -214,7 +214,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           imagePosition.setValue({ x: 0, y: 0 });
         });
       }
-      // Vibration.vibrate(500);
+      Vibration.vibrate(500);
     }
   };
 

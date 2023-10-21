@@ -20,19 +20,21 @@ const AppPolicy = ({ navigation, route }: HomeProps) => {
       />
       <ScrollView contentContainerStyle={styles.scontainer}>
         <View style={styles.content}>
-          <Text style={styles.contentText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec
-            arcu nec velit pharetra malesuada. Vestibulum laoreet nisi quis
-            tellus congue, vel venenatis libero efficitur. Sed tincidunt non
-            libero at bibendum.
-          </Text>
-          <Text style={styles.contentText}>
-            Vestibulum euismod, velit eget cursus facilisis, augue dolor
-            suscipit purus, quis accumsan felis quam id dui. Proin in elit a
-            nunc vulputate auctor. Duis et nibh a purus laoreet feugiat nec vel
-            nulla.
-          </Text>
-          {/* Add more policy content as needed */}
+          <Text style={styles.header}>{lang[i].appshead}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara1}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspare2}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspare3}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara4}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara5}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara6}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara7}</Text>
         </View>
       </ScrollView>
     </View>
@@ -48,20 +50,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 20,
   },
-  headerText: {
-    fontSize: 24,
-    color: '#fff',
-    textAlign: 'center',
-  },
+
   content: {
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
+    marginBottom: 40,
   },
-  contentText: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 20,
+
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  paragraph: {
+    fontSize: 20,
+    marginBottom: 10,
   },
 });
 

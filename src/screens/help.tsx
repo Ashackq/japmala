@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, BackHandler, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
 import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -23,68 +23,60 @@ const Help = ({ navigation, route }: HomeProps) => {
     };
   }, [navigation]);
   return (
-    <View style={styles.container1}>
+    <View style={styles.container}>
       {/* <Image source={Editback} style={styles.img} /> */}
-      <View style={styles.head}>
-        <Head
-          ishome={false}
-          name={lang[i].help}
-          navigation={navigation}
-          route={route}
-        />
-      </View>
+      <Head
+        ishome={false}
+        name={lang[i].help}
+        navigation={navigation}
+        route={route}
+      />
+      <ScrollView contentContainerStyle={styles.scontainer}>
+        <View style={styles.content}>
+          <Text style={styles.header}>{lang[i].helphead}</Text>
 
-      <View style={styles.container}>
-        <Text style={styles.header}>{lang[i].helphead}</Text>
+          <Text style={styles.paragraph}>{lang[i].para1}</Text>
 
-        <Text style={styles.paragraph}>{lang[i].para1}</Text>
+          <Text style={styles.paragraph}>{lang[i].para2}</Text>
 
-        <Text style={styles.paragraph}>{lang[i].para2}</Text>
+          <Text style={styles.paragraph}>{lang[i].para3}</Text>
 
-        <Text style={styles.paragraph}>{lang[i].para3}</Text>
-
-        <Text style={styles.paragraph}>{lang[i].para4}</Text>
-      </View>
+          <Text style={styles.paragraph}>{lang[i].para4}</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 20,
-    position: 'absolute',
+  scontainer: {
+    marginHorizontal: 15,
+    marginTop: 20,
   },
-  container1: {
+  container: {
     backgroundColor: '#333333',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: -30,
+  },
+  content: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 40,
   },
   header: {
-    marginTop: -150,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'white',
   },
   paragraph: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 10,
-    color: 'white',
   },
   img: {
     position: 'absolute',
     bottom: 20,
     width: 440,
     height: 900,
-  },
-  head: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    zIndex: 500,
   },
 });
 
