@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 import { Head } from '../components';
-const Back = require('../devdata/assets/back.png');
+const Om = require('../devdata/assets/om.png');
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
@@ -59,9 +60,11 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
           route={route}
         />
       </View>
-      <TouchableOpacity onPress={handleBeginPress} activeOpacity={1}>
-        <Image source={Back} style={styles.img} />
-      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={handleBeginPress}
+        activeOpacity={1}
+        style={styles.img}
+      />
       <View style={styles.omContainer}>
         <View style={styles.greyBox}>
           <Text style={styles.text}>
@@ -95,6 +98,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
           )}
         </View>
       </View>
+      <Image source={Om} style={styles.img2} />
     </View>
   );
 };
@@ -104,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0b78ee',
   },
   greyBox: {
     backgroundColor: '#d3d3d3',
@@ -118,7 +123,18 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   img: {
-    height: 870,
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 900,
+  },
+  img2: {
+    position: 'absolute',
+    top: 10,
   },
   omContainer: {
     position: 'absolute',

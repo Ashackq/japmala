@@ -56,6 +56,8 @@ export const lang = [
     appspara8:
       'If you have any questions about this app, or if you require any support, you can send us an email at support@abcom. com including the app name.',
     cannot: 'Cannot estimate goal time now',
+    snack1: 'Japa Mala:\n Minimum number of beads is 11',
+    snack2: 'Japa Mala:\n Minimum Target is 108',
   },
   {
     label: 'भाषा चुनें',

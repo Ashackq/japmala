@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { lang } from '../devdata/constants/languages';
+import { Snackbar } from 'react-native-paper';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -21,7 +22,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const beadsInMala = route.params.beadcount;
   const totalcount = route.params.totalcount;
   const mala = route.params.mala;
-  const beadcount = route.params.beadcount;
   const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
@@ -66,10 +66,22 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   ]);
 
   const handleSave = () => {
-    console.log(' beads - ', beadcount);
-    console.log(' Target - ', target);
-    console.log(' Total Count - ', totalcount);
-    console.log(' Mala - ', mala);
+    const newTarget = parseInt(inputTarget, 10);
+    const newBead = parseInt(inputbead, 10);
+    if (newBead < 11) {
+      setShowSnackbar(true);
+      navigation.setParams({ beadcount: 108 });
+    } else {
+      navigation.setParams({ beadcount: newBead });
+      setShowSnackbar(false);
+    }
+    if (newTarget <= 108) {
+      setShowSnackbar2(true);
+      navigation.setParams({ target: 100000 });
+    } else {
+      navigation.setParams({ target: newTarget });
+      setShowSnackbar2(false);
+    }
   };
 
   const handleReset = () => {
@@ -83,6 +95,11 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
 
     handleSave();
   };
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [showSnackbar2, setShowSnackbar2] = useState(false);
+
+  const [inputbead, setInputbead] = useState(beadsInMala.toString());
+  const [inputTarget, setInputTarget] = useState(target.toString());
 
   return (
     <View style={styles.container}>
@@ -100,35 +117,20 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
             <Text style={styles.label}>{lang[i].setyourtarget}</Text>
             <TextInput
               style={styles.input}
-              value={target.toString()}
+              value={inputTarget}
               keyboardType="numeric"
-              onChangeText={(text) => {
-                let value = parseInt(text, 10);
-                if (!isNaN(value)) {
-                  navigation.setParams({ target: value });
-                } else {
-                  value = 0;
-                  navigation.setParams({ target: value });
-                }
-              }}
+              onChangeText={(text) => setInputTarget(text)}
             />
             <Text style={styles.defaultLabel}>{lang[i].default}: 100000</Text>
 
             <Text style={styles.label}>{lang[i].malabeads}</Text>
             <TextInput
               style={styles.input}
-              value={beadsInMala.toString()}
+              value={inputbead}
               keyboardType="numeric"
-              onChangeText={(text) => {
-                let value = parseInt(text, 10);
-                if (!isNaN(value)) {
-                  navigation.setParams({ beadcount: value });
-                } else {
-                  value = 0;
-                  navigation.setParams({ beadcount: value });
-                }
-              }}
+              onChangeText={(text) => setInputbead(text)}
             />
+
             <Text style={styles.defaultLabel}>{lang[i].default}: 108</Text>
 
             <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
@@ -144,6 +146,26 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </View>
       </ScrollView>
+      <Snackbar
+        visible={showSnackbar}
+        onDismiss={() => setShowSnackbar(false)}
+        action={{
+          label: 'Dismiss',
+          onPress: () => setShowSnackbar(false),
+        }}
+      >
+        {lang[i].snack1}
+      </Snackbar>
+      <Snackbar
+        visible={showSnackbar2}
+        onDismiss={() => setShowSnackbar2(false)}
+        action={{
+          label: 'Dismiss',
+          onPress: () => setShowSnackbar2(false),
+        }}
+      >
+        {lang[i].snack2}
+      </Snackbar>
     </View>
   );
 };
