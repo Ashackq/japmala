@@ -19,7 +19,7 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 const EditScreen = ({ navigation, route }: HomeProps) => {
   const target = route.params.target;
   const beadsInMala = route.params.beadcount;
-  const [totalcount, settotalcount] = useState(route.params.totalcount);
+  const totalcount = route.params.totalcount;
   const mala = route.params.mala;
   const beadcount = route.params.beadcount;
   const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
@@ -76,9 +76,11 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     navigation.setParams({ beadcount: 108 });
     navigation.setParams({ target: 100000 });
     navigation.setParams({ elapsedtime: '00:00:00' });
-
+    navigation.setParams({ malatime: 0 });
+    navigation.setParams({ esttime: '00:00:00' });
+    navigation.setParams({ totalcount: 0 });
     navigation.setParams({ mala: 0 });
-    settotalcount(0);
+
     handleSave();
   };
 

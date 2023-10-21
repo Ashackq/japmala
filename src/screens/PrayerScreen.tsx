@@ -29,21 +29,21 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const pauseTimeRef = useRef<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [prevelapsed] = useState(route.params.elapsedtime);
-  const [prevmala] = useState(route.params.malatime);
+  const prevmalatime = route.params.malatime;
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const beadcount = route.params.beadcount;
   const target = route.params.target;
   const [mala, setMala] = useState(route.params.mala || 0);
   const esttime = route.params.esttime;
   const i = route.params.languageindex;
-  const timeForOneMala = route.params.malatime;
+  const [timeForOneMala, setTimemala] = useState(0);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
   console.log(
     'TImes e- ',
     '\n',
-    timeForOneMala,
+    prevmalatime,
     '\n',
     esttime,
     '\n',
@@ -134,44 +134,25 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       });
       setPrayerCount(0);
       console.log('Time for One Mala:', timeForOneMala);
-      navigation.setParams({ esttime: timeForOneMala });
+      navigation.setParams({ malatime: 0 });
+      navigation.setParams({ esttime: formatTime(timeForOneMala) });
       countertimeref.current = new Date();
-      navigation.setParams({ malatime: '00:00:00' });
     } else {
-      if (prevmala && prevmala !== '00:00:00') {
-        const endTime = new Date();
-        const elapsedMilliseconds = endTime - countertimeref.current;
-        let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-        let timeForOneMalaSeconds = elapsedSeconds;
-        navigation.setParams({ malatime: formatTime(timeForOneMalaSeconds) });
+      const endTime = new Date();
+      const elapsedMilliseconds = endTime - countertimeref.current;
+      let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+
+      if (prevmalatime === 0) {
+        setTimemala(elapsedSeconds);
       } else {
-        const endTime = new Date();
-        const elapsedMilliseconds = endTime - countertimeref.current;
-        let elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-        // Parse the existing prevmala time to extract seconds
-        const prevmalaSeconds = parseInt(prevmala.split(':')[2], 10);
+        const totalSeconds = prevmalatime + elapsedSeconds;
 
-        // Add the calculated seconds to the existing prevmala seconds
-        elapsedSeconds += prevmalaSeconds * 1000;
-
-        // Convert the total seconds back to the time format
-        const totalSeconds = addTime(
-          formatTime(elapsedSeconds) + timeForOneMala
-        );
-        navigation.setParams({ malatime: totalSeconds });
+        setTimemala(totalSeconds);
       }
 
       console.log('secnd  - ', timeForOneMala);
     }
-  }, [
-    prayerCount,
-    beadcount,
-    mala,
-    timeForOneMala,
-    sound,
-    navigation,
-    prevmala,
-  ]);
+  }, [beadcount, navigation, prayerCount, prevmalatime, sound, timeForOneMala]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -220,7 +201,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     if (isTimerRunning) {
       if (!hasDragged) {
         setPrayerCount((prevCount) => prevCount + 1);
-
         const animations = [];
         animations.push(
           Animated.timing(imagePosition, {
@@ -361,26 +341,3 @@ const styles = StyleSheet.create({
 });
 
 export default PrayerScreen;
-
-const addTime = (time1: string = '00:00:00', time2: string = '00:00:00') => {
-  const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
-  const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
-
-  let totalSeconds = seconds1 + seconds2;
-  let totalMinutes = minutes1 + minutes2;
-  let totalHours = hours1 + hours2;
-
-  if (totalSeconds >= 60) {
-    totalMinutes += Math.floor(totalSeconds / 60);
-    totalSeconds %= 60;
-  }
-
-  if (totalMinutes >= 60) {
-    totalHours += Math.floor(totalMinutes / 60);
-    totalMinutes %= 60;
-  }
-
-  return `${totalHours.toString().padStart(2, '0')}:${totalMinutes
-    .toString()
-    .padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
-};

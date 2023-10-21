@@ -9,6 +9,7 @@ import {
   Easing,
   Platform,
   Image,
+  Share as Give,
 } from 'react-native';
 import { lang } from '../devdata/constants/languages';
 import { env, colors } from '../devdata/constants/lang';
@@ -68,15 +69,28 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   }, [isMenuOpen, slideAnim]);
 
   const handleSharePress = async () => {
-    const playStoreUrl =
-      'https://play.google.com/store/apps/details?id=your.package.name';
-    const appstoreurl =
-      'https://apps.apple.com/sg/app/japa-mala/id984477920?platform=ipad';
+    try {
+      const shareOptions = {
+        title: 'Share via',
+        message: 'Check out this awesome app!',
+        url: 'https://your-app-url.com', // Replace with your app's URL
+      };
 
-    if (Platform.OS === 'android') {
-      Linking.openURL(playStoreUrl);
-    } else {
-      Linking.openURL(appstoreurl);
+      const result = await Give.share(shareOptions);
+
+      if (result.action === Give.sharedAction) {
+        if (result.activityType) {
+          // Shared via an activity type (e.g., email, message)
+          console.log(`Shared via ${result.activityType}`);
+        } else {
+          // Shared directly
+          console.log('Shared directly');
+        }
+      } else if (result.action === Give.dismissedAction) {
+        console.log('Share sheet dismissed');
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
