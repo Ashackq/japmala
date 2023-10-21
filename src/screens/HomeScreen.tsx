@@ -86,9 +86,13 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
             {lang[i].youare} {Math.ceil(target / beadcount - mala)}{' '}
             {lang[i].goalaway}
           </Text>
-          <Text style={styles.text}>
-            {lang[i].timeforcomp} {estimatedTotalTime}
-          </Text>
+          {esttime === '00:00:00' ? (
+            <Text style={styles.text}>{lang[i].cannot}</Text>
+          ) : (
+            <Text style={styles.text}>
+              {lang[i].timeforcomp} {estimatedTotalTime}
+            </Text>
+          )}
         </View>
       </View>
     </View>

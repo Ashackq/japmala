@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 
   alertContent: {
     textAlign: 'center',
+    marginVertical: 10,
   },
   head: {
     position: 'absolute',
@@ -61,10 +62,9 @@ const styles = StyleSheet.create({
   },
   alertVersion: {
     textAlign: 'center',
-    position: 'absolute',
-    bottom: 12,
-    right: 75,
+    position: 'relative',
     fontSize: 12,
+    marginTop: 5,
   },
   text: { color: 'white' },
 });

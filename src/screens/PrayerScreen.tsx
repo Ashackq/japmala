@@ -5,7 +5,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   BackHandler,
-  StyleSheet,
+  StyleSheet as Query,
   Image,
   Animated,
   Vibration,
@@ -16,6 +16,8 @@ import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { Ads, Head } from '../components';
+import StyleSheet from 'react-native-media-query';
+
 const Bead = require('../devdata/assets/bead.jpg');
 const Pause = require('../devdata/assets/pause.png');
 const Play = require('../devdata/assets/play.png');
@@ -107,7 +109,16 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
     }
     let elapsedMilliseconds = endTime - startTimeRef.current;
     if (prevelapsed && prevelapsed !== '00:00:00') {
-      elapsedMilliseconds += parseInt(prevelapsed.split(':')[2]) * 1000;
+      const prevelapsedParts = prevelapsed.split(':');
+      const prevelapsedHours = parseInt(prevelapsedParts[0], 10);
+      const prevelapsedMinutes = parseInt(prevelapsedParts[1], 10);
+      const prevelapsedSeconds = parseInt(prevelapsedParts[2], 10);
+
+      // Add the parsed hours, minutes, and seconds to the elapsed time
+      elapsedMilliseconds +=
+        prevelapsedHours * 3600000 +
+        prevelapsedMinutes * 60000 +
+        prevelapsedSeconds * 1000;
     }
     const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
     return formatTime(elapsedSeconds);
@@ -271,7 +282,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   );
 };
 
-const styles = StyleSheet.create({
+const { styles } = StyleSheet.create({
   container: {
     top: 70,
   },
@@ -305,6 +316,10 @@ const styles = StyleSheet.create({
     top: 10,
     left: -80,
     right: 0,
+    '@media (min-height: 1920px)': {
+      height: 850,
+      width: 120,
+    },
   },
   timerContainer: {
     flexDirection: 'column',
@@ -318,7 +333,14 @@ const styles = StyleSheet.create({
   pauseButton: {
     marginLeft: 10,
   },
-  img2: { height: 45, width: 45 },
+  img2: {
+    height: 45,
+    width: 45,
+    '@media (min-height: 1920px)': {
+      height: 35,
+      width: 35,
+    },
+  },
   pauseButtonText: {
     color: 'white',
     fontSize: 16,
@@ -329,9 +351,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: '70%',
     marginLeft: '29%',
+    '@media (min-height: 1920px)': {
+      fontSize: 70,
+    },
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...Query.absoluteFillObject,
     top: 150,
     zIndex: 1,
     marginLeft: '8%',

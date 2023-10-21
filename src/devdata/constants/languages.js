@@ -1,6 +1,6 @@
 export const lang = [
   {
-    appname: 'Japmala',
+    appname: 'Japa Mala',
     label: 'Select Language',
     selectlanguage: 'Select Language',
     setyourtarget: 'Set Your Target',
@@ -23,15 +23,15 @@ export const lang = [
     begin: 'Begin',
     home: 'Home',
     edit: 'Edit',
-    helphead: 'Welcome to the Meditation Tracker App!',
-    para1:
-      'This app helps you track your meditation progress. The default goal is set to 1,00,000 (One lac), and the number of beads in a Mala is set to 108. You can customize your preferred goal and Mala bead count on the Settings screen. The app instantly calculates the total number of Malas required to achieve your goal whenever you modify these figures.',
+    helphead: 'Welcome to the Japa Mala',
+    para1: 'This App helps you track your meditation. ',
     para2:
-      ' When you start your meditation, the timer begins automatically. If you need a break, simply tap the Pause button. The timer will resume automatically when you restart your meditation. If you have finished for the day, tap the Back button to return to the opening screen, which displays statistics of your meditation progress so far. It also provides an estimate of the remaining time to achieve your goal, based on your average meditation duration.',
+      ' The default goal is set to 1,00,000 (One lac) and the number of beads in Mala is set to 108. You may set your preferred goal with a Mala bead count of your choice on the Settings screen. Whenever you change these figures, the total number of Malas required to achieve the goal is instantaneously computed. ',
     para3:
-      'The app allows you to meditate with your eyes closed. A beep sound indicates the completion of a Mala, and a different tone signifies when you have reached your goal. The completed Mala count is always displayed on the main screen.',
+      'As you start your meditation, the timer starts ticking automatically. If you need a break, just hit the Pause button. The timer would continue automatically when you restart meditation. If you are done for the day, just hit Back button and you will come to the opening screen which displays the statistics of your meditation so far. It also estimates the time remaining to achieve your goal by considering the average time you took so far. ',
     para4:
       'Welcome to the world of Meditation! Start your journey to inner peace and mindfulness.',
+    para5: 'Welcome to the world of Meditation!',
     elapsed: 'Elapsed Time',
     more: 'More Apps',
     web: 'Web Apps',
@@ -43,7 +43,7 @@ export const lang = [
     appspara1:
       'By using this app you agree to the terms of this privacy policy.',
     appspare2:
-      'Our app "Aarti Sangraha" does not collect nor transmit the user\'s personal information.',
+      'Our app "Japa Mala" does not collect nor transmit the user\'s personal information.',
     appspare3:
       'No personal information is used, stored, secured or disclosed by services this application works with.',
     appspara4: 'Internet is only used to connect and display Advertisements.',
@@ -55,6 +55,7 @@ export const lang = [
       'ABCOM makes no warranty that the results may be obtained from the use of the service will be accurate or reliable, the service will meet your requirements, the service will be uninterrupted, timely, secure, or error-free or any errors in the service will be corrected.',
     appspara8:
       'If you have any questions about this app, or if you require any support, you can send us an email at support@abcom. com including the app name.',
+    cannot: 'Cannot estimate goal time now',
   },
   {
     label: 'भाषा चुनें',
@@ -91,6 +92,28 @@ export const lang = [
     elapsed: 'बिता हुआ समय',
     more: 'और भी',
     web: 'वेब ऐप्स',
+    tnc: 'ऐप्स नीति',
+    info: 'से संबंधित',
+    share: 'साझा करें',
+    settings: 'सेटिंग्स',
+    appshead: 'ऐप्स गोपनीयता नीति',
+    appspara1:
+      'इस ऐप का उपयोग करके आप इस गोपनीयता नीति के शर्तों से सहमत होते हैं।',
+    appspare2:
+      'हमारा ऐप "आरती संग्रह" उपयोगकर्ता की व्यक्तिगत जानकारी को न तो जमा करता है और न ही प्रेषित करता है।',
+    appspare3:
+      'सेवाओं द्वारा इस ऐप्लिकेशन का उपयोग करने के द्वारा उपयोगकर्ता की व्यक्तिगत जानकारी का उपयोग नहीं किया जाता, संग्रहित नहीं किया जाता, सुरक्षित नहीं किया जाता है, या प्रकट नहीं किया जाता है।',
+    appspara4:
+      'इंटरनेट केवल विज्ञापन कनेक्ट और प्रदर्शन करने के लिए उपयोग होता है।',
+    appspara5:
+      'यह ऐप इस ऐप में शामिल डेटा की पूर्ति, समय-समय पर या सटीकता की गारंटी नहीं देता है।',
+    appspara6:
+      'यहां पहुंचाए गए सभी जानकारी उपयोगकर्ताओं को "जैसा है" के रूप में प्रदान की जाती है। किसी भी प्रकार की जानकारी का इस ऐप द्वारा प्रदान किए जाने के उपयोग या दुरुपयोग से संबंधित किसी भी प्रकार के हानि के लिए "एबीकॉम" जिम्मेदार नहीं है।',
+    appspara7:
+      'एबीकॉम कोई वारंटी नहीं देता है कि सेवा के उपयोग से प्राप्त परिणाम सटीक या विश्वसनीय होगा, सेवा आपकी आवश्यकताओं को पूरा करेगा, सेवा बिना रुकावट के, समय पर, सुरक्षित, या त्रुटि-मुक्त होगी या सेवा में कोई त्रुटियाँ सुधारी जाएंगी।',
+    appspara8:
+      'यदि आपके पास इस ऐप के बारे में कोई सवाल है, या यदि आपको किसी प्रकार की सहायता चाहिए, तो आप हमें सपोर्ट@एबीकॉम. कॉम पर ईमेल कर सकते हैं, जिसमें ऐप का नाम शामिल है।',
+    cannot: 'अभी लक्ष्य समय का अनुमान नहीं किया जा सकता है।',
   },
   {
     label: 'மொழி தேர்ந்தெடு',
@@ -128,6 +151,27 @@ export const lang = [
     elapsed: 'கழிந்த நேரம்',
     more: 'மேலும்',
     web: 'வலை வலைப்பதிவுகள்',
+    tnc: 'பயன்பாடு கொள்கை',
+    info: 'பற்றி',
+    share: 'பகிர்',
+    settings: 'அமைப்புகள்',
+    appshead: 'பயன்பாடு தனியுறத்தை குறித்த கொள்கை',
+    appspara1: 'இந்த பயன்பாடு கொள்கைகளின் பரப்பளவில் உபயோகிக்கிறீர்கள்.',
+    appspare2:
+      'எங்கள் பயன்பாடு "ஆரதி சங்கிரஹ" பயனரின் தனிப்பட்ட தகவலை சேகரிக்கவும் அல்லாது அனுப்பக்கூடாது.',
+    appspare3:
+      'சேவைகளால் இந்த பயன்பாடு பயனரின் தனிப்பட்ட தகவலை பயன்பாடு செய்யாது, சேமிக்காது, பாதுகாத்திக்காது அல்லது வெளிப்படுத்தாது.',
+    appspara4:
+      'இணையம் விளக்குதல் மற்றும் விளக்கம் செய்ய மாத்திக்கைக்கு மட்டும் பயன்பாடு செய்யப்படுகிறது.',
+    appspara5:
+      'இந்த பயன்பாடு பயனரின் தற்போதைய அல்லது நேரம், சட்டாமாடிக்கப்பட்ட எந்த தகவலின் முழுத்தை உறுதிப்படுத்தாது.',
+    appspara6:
+      'இந்த பயன்பாடு பயனருக்கு "எப்படியோ உள்ளது" என்று கொள்ளப்படும் என்பதில் உள்ள எந்த விவாதங்களுக்கு பொருளில்லை. எந்த விவாதங்களுக்கும் "ABCOM" கைக்குறிப்பிடமாக இருக்காது.',
+    appspara7:
+      'ABCOM சேவையைப் பயன்பாடு செய்ய உள்ள உறுதிப்படுத்த வேண்டும், சேவை உங்கள் விசேஷணைகளை பெற வேண்டும், சேவை நிலந்திட வேண்டாது, சேவை நிரந்தரம், நேரம், பாதுகாத்திக்காது அல்லது சேவையில் உள்ள எந்த விவாதங்களை திருத்துவதில்லை.',
+    appspara8:
+      'இந்த பயன்பாடு பற்றி உங்களிடம் எந்த கேள்விகளும் உள்ளடக்கம் இல்லை, அல்லது உங்களுக்கு உதவி தேவை என்றால், நீங்கள் எங்களுக்கு மின்னஞ்சல் அனுப்பலாம் support@abcom.com என்ற மின்னஞ்சல் மூலம் கேட்டிக்கொள்ளலாம், அதில் பயன்பாடு பொய்க்கு என்பது அடிப்படை ஆக்கப்பட்டுள்ளது.',
+    cannot: 'இப்போது இல்லை: லக்ஷ்ய நேரம் கருத முடியாது.',
   },
   {
     label: 'मराठी',
@@ -165,7 +209,29 @@ export const lang = [
     elapsed: 'काढलेला वेळ',
     more: 'आणखी',
     web: 'वेब अ‍ॅप्स',
+    tnc: 'अॅप नीति',
+    info: 'अधिक माहिती',
+    share: 'सामायिक करा',
+    settings: 'सेटिंग्ज',
+    appshead: 'अॅप गोपनीयता धोरण',
+    appspara1: 'या अॅपच्या गोपनीयता धोरणाच्या अटीमध्ये आपल्याला सहमती आहे.',
+    appspare2:
+      'आमचे अॅप "आरती संग्रह" वापरणारे वापरकर्त्याच्या व्यक्तिगत माहिती आकलन किंवा प्रेषित करणार नाही.',
+    appspare3:
+      'या अॅपलिकेशनसोबत वापरकर्त्याच्या व्यक्तिगत माहितीचा उपयोग केला, संग्रहित, सुरक्षित किंवा व्यक्त केला नाही.',
+    appspara4:
+      'इंटरनेटचा वापर किंवा विज्ञापन दाखविण्याच्या उद्देशानासाठीच आहे.',
+    appspara5:
+      'या अॅपमध्ये आहे त्याच्यावरील कोणत्याही डेटाच्या पूर्णपणे, वेळेवर किंवा आकलनाच्या विश्वसनीयतेची गारंटी दिलेली नाही.',
+    appspara6:
+      'येथील सर्व माहिती वापरकर्त्याला "येथे आहे" म्हणून प्रदान केली जाते. इथे अधिक माहितीला उपयोगकर्त्याच्या "असं आहे" म्हणून प्रदान केल्याची कोणत्याही आपत्तिची नाही. "ABCOM" कुठल्या डेटाच्या वापर किंवा वापरण्याची गोष्ट देणार नाही.',
+    appspara7:
+      'ABCOM म्हणजे वापराच्या सेवेच्या वापराचा परिणाम सटीक किंवा विश्वसनीय असेल, सेवा आपल्या आवश्यकतेला पूर्ण करेल, सेवा अडचणीत, समयानुसार, सुरक्षित किंवा त्रुटिमुक्त असेल किंवा सेवेतील अशा कोणत्याही त्रुटी दुरुस्त केल्या जाईल, हे गोष्टी वाचवणार नाही.',
+    appspara8:
+      'जर आपल्याला या अॅपबद्दल कोणत्याही किंवा संदेशाची विचारणा असल्यास, आपण समर्थन आवश्यक आहे, तरी तुम्ही समर्थन असल्यास आपल्याला एक ईमेल लिहू शकता support@abcom.com अंतर्गत अॅपचे नाव समावित करू शकता.',
+    cannot: 'आत्ताच लक्ष्याचा वेळ किंवा मूल्यमापण संभाव्य नाही.',
   },
+
   {
     label: 'Français',
     selectlanguage: 'Select Language(Choisir la langue)',
@@ -202,7 +268,30 @@ export const lang = [
     elapsed: 'Temps écoulé',
     more: 'Plus',
     web: 'Applications Web',
+    tnc: 'Politique des Applications',
+    info: 'À Propos',
+    share: 'Partager',
+    settings: 'Paramètres',
+    appshead: 'Politique de Confidentialité des Applications',
+    appspara1:
+      'En utilisant cette application, vous acceptez les termes de cette politique de confidentialité.',
+    appspare2:
+      'Notre application "Japa Mala" ne collecte ni ne transmet les informations personnelles de l\'utilisateur.',
+    appspare3:
+      'Aucune information personnelle n’est utilisée, stockée, sécurisée ou divulguée par les services avec lesquels cette application fonctionne.',
+    appspara4:
+      'Internet est utilisé uniquement pour se connecter et afficher des publicités.',
+    appspara5:
+      "Cette application ne garantit pas l'exhaustivité, l'actualité ou l'exactitude des données qu'elle contient.",
+    appspara6:
+      'Toutes les informations transmises ici sont fournies aux utilisateurs "TELLES QUELLES". En aucun cas, "ABCOM" ne pourra être tenu responsable de tout dommage de quelque nature que ce soit lié à l\'utilisation ou à la mauvaise utilisation des informations fournies ici.',
+    appspara7:
+      "ABCOM ne garantit en aucun cas que les résultats obtenus grâce à l'utilisation du service seront précis ou fiables, que le service répondra à vos exigences, que le service sera ininterrompu, opportun, sécurisé ou exempt d'erreurs, ou que les erreurs dans le service seront corrigées.",
+    appspara8:
+      "Si vous avez des questions concernant cette application, ou si vous avez besoin de soutien, vous pouvez nous envoyer un e-mail à support@abcom.com en indiquant le nom de l'application.",
+    cannot: "Impossible d'estimer le temps de l'objectif pour le moment.",
   },
+
   {
     label: 'বাঙালি',
     selectlanguage: 'Select Language(ভাষা নির্বাচন করুন)',
@@ -239,6 +328,82 @@ export const lang = [
     elapsed: 'কাটানো সময়',
     more: 'অধিক',
     web: 'ওয়েব অ্যাপস',
+    tnc: 'অ্যাপ নীতি',
+    info: 'সম্পর্কে',
+    share: 'শেয়ার করুন',
+    settings: 'সেটিংস',
+    appshead: 'অ্যাপ গোপনীয়তা নীতি',
+    appspara1:
+      'এই অ্যাপটি ব্যবহার করে আপনি এই গোপনীয়তা নীতির শর্তগুলি গ্রহণ করেন।',
+    appspare2:
+      'আমাদের অ্যাপ "আরতি সংগ্রহ" ব্যবহারকারীর ব্যক্তিগত তথ্য সংগ্রহ করে না এবং সাপেক্ষে না প্রেরণ করে।',
+    appspara4:
+      'ইন্টারনেট কেবল সংযোগ করার জন্য এবং বিজ্ঞাপন প্রদর্শনে ব্যবহৃত হয়।',
+    appspara5:
+      'এই অ্যাপটি কোনও তথ্যের সম্পূর্ণতা, সময়োপযুক্ততা বা সঠিকতা নিশ্চিত করে না।',
+    appspara6:
+      'এখানে প্রেরণা করা সমস্ত তথ্যটি ব্যবহারকারীদের "যেমনটি আছে" হিসেবে সরবরাহ করা হয়। কোনও অবস্থে "ABCOM" কোনও প্রকারের ক্ষয় দেয় না, এটি এখানে প্রদান করা তথ্যের ব্যবহার বা ব্যবহারের সংক্ষেপে যে কোনও ধরণের ক্ষয় সংক্ষেপ করতে।',
+    appspara7:
+      'ABCOM কোনও ওয়ারেন্টি দেয় না যে সেবার ব্যবহার থেকে প্রাপ্ত ফলাফল সঠিক অথবা নির্ভরণী হবে, সেবা আপনার চাহিদাগুলি পূরণ করবে, সেবা বিচ্ছিন্ন, সময়োপযুক্ত, নিরাপদ অথবা ত্রুটিমুক্ত হবে না, বা সেবা সংক্ষেপে ত্রুটি থাকবে না।',
+    appspara8:
+      'যদি আপনার এই অ্যাপ সম্পর্কে কোনও প্রশ্ন থাকে বা যদি আপনি কোনও সাহায্যের প্রয়োজন পেতেন, তবে আপনি আমাদের এই ইমেল পাঠাতে পারেন support@abcom.com এখানে অ্যাপ নামটি সহ উল্লেখ করে।',
+    cannot: 'এখন লক্ষ্যের সময় মূল্যায়ন করা সম্ভব নয়।',
   },
-  // Add more languages here
+  {
+    appname: 'જપમાલા',
+    label: 'ભાષા પસંદ કરો',
+    selectlanguage: 'ભાષા પસંદ કરો',
+    setyourtarget: 'તમારી લક્ષ્યો સેટ કરો',
+    default: 'મૂળભૂત',
+    malabeads: 'માળા બીડ્સ',
+    save: 'સાચવો',
+    meditaionsofar: 'ધ્યાન અત્યંત',
+    totalcount: 'કુલ ગણાય',
+    target: 'લક્ષ્ય',
+    beadcont: 'માળાના બીડ્સ',
+    malascomp: 'માળા પૂર્ણ થયો',
+    timeforcomp: 'પૂર્ણ થવાનો સમય અંદાજ',
+    reset: 'રીસેટ',
+    warning: 'ચેતવણી: નવો લક્ષ્ય સેટ કરવાથી તમામ ગણતરીઓ શૂન્ય થયો છે.',
+    youare: 'તમે',
+    goalaway: 'તમારા લક્ષ્યથી માળા દૂર છો',
+    Moksha: 'મોક્ષ',
+    help: 'મદદ',
+    Ok: 'ઠીક છે',
+    begin: 'શરૂ',
+    home: 'ઘર',
+    edit: 'ફેરફાર કરો',
+    helphead: 'ધ્યાન ટ્રેકર એપ્લિકેશનમાં આપનું સ્વાગત છે!',
+    para1:
+      'આ એપ્લિકેશન તમારી ધ્યાન પ્રગતિને ટ્રેક કરવામાં મદદ કરે છે. મૂળભૂત લક્ષ્ય 1,00,000 (એક લાખ) પર સેટ કર્યો છે, અને માળામાંના બીડ્સની સંખ્યા 108 પર સેટ કર્યી છે. તમે સેટિંગ્સ સ્ક્રીન પર તમારો પસંદીદો લક્ષ્ય અને માળાના બીડ્સની સંખ્યાને કસ્ટમાઇઝ કરી શકો છો. આ એપ્લિકેશન તમારો લક્ષ્ય પ્રાપ્ત કરવાની માટે જ્યારેતે આ આંકડાઓને સંશોધી છો ત્યારે તમારી પાસેથી આવશ્યક માળાઓની કુલ સંખ્યાને તત્વને કરે છે.',
+    para2:
+      'જ્યારે તમે તમારું ધ્યાન શરૂ કરો છો, ત્યારે ટાઇમર ઓટોમેટિક રીતે ચાલશે. જો તમારી વિશ્રામની આવશ્યકતા હોય, તો ફક્કો બટન દબાવો. જ્યારે તમે તમારો ધ્યાન ફરીથી શરૂ કરો છો, ત્યારે ટાઇમર ઓટોમેટિક રીતે મળશે. જો તમે દિવસ માટે સમાપ્ત થયા છો, તો પીછેનું બટન દબાવીને પ્રવેશ સ્ક્રીનને પરત જવાની જરૂર છે, જે તમારી ધ્યાન પ્રગતિનો આकર્ષક આંકડા દર્શાવે છે. તે તમારા લક્ષ્ય પ્રાપ્ત કરવાનો બાકી સમયનો અંદાજ પણ આપે છે, તમારી ઔસત ધ્યાન અવધિને આધાર રાખીને.',
+    para3:
+      'આ એપ્લિકેશન તમને આપની આંખો બંધ કરીને ધ્યાન કરવાની મંજૂરી આપે છે. માળાનું પૂર્ણતાને સૂચિત કરવા માટે એક બીપ ધ્વનિનો ઉપયોગ કરે છે, અને આંય ધ્વનિનો ઉપયોગ કરે છે કે તમે તમારો લક્ષ્ય પ્રાપ્ત કર્યો છો. પૂર્ણ થયેલ માળાની ગણતરી હંમેશા મુખ્ય સ્ક્રીન પર દર્શાવાય છે.',
+    para4:
+      'ધ્યાન દુનિયામાં આપનું સ્વાગત છે! આપની આંતરિક શાંતિ અને સજગતાની યાત્રા શરૂ કરો.',
+    elapsed: 'કામ થયેલ સમય',
+    more: 'વધુ એપ્લિકેશન્સ',
+    web: 'વેબ એપ્લિકેશન્સ',
+    tnc: 'એપ્લિકેશન નીતિ',
+    info: 'વિગતો',
+    share: 'શેર કરો',
+    settings: 'સેટિંગ્સ',
+    appshead: 'એપ્લિકેશન્સ ગોપન નીતિ',
+    appspara1: 'આ એપ્લિકેશન વપરાશ કરીને તમે આ ગોપન નીતિના શરતોથી સંમત થયા છો.',
+    appspare2: 'આમાં આપની વ્યક્તિગત માહિતી એકત્ર કરવી અથવા સંવાદ ન કરે છે.',
+    appspare3:
+      'આ એપ્લિકેશન દ્વારા વપરાશ થતી કોઈ વ્યક્તિગત માહિતીનો ઉપયોગ, સંગ્રહણ, સુરક્ષિત કરવો અથવા પ્રગટવો ન થયો છે.',
+    appspara4:
+      'ઇન્ટરનેટ માત્ર જોડાવવા અને વિજ્ઞાપન દર્શાવવા માટે વપરાશ થતો છે.',
+    appspara5:
+      'આ એપ્લિકેશન માં સંગ્રહિત ડેટાની પૂરતા, સમયનું અથવા સટીકતાની ખાતર ન લેવાનો ગૅરંટી આપે છે.',
+    appspara6:
+      'આંગેઠી કોઈ માહિતી વપરાશકર્તાઓને "જેમ છે, તેમ છે" રીતે આપી ગઈ છે. કોઈ સંદર્ભમાં “ABCOM” માંથી આપેલી કોઈ પ્રકારની કોઈ અવરોધો સાથે સંકટો સાથે રિલેટેડ છે.',
+    appspara7:
+      'ABCOM કોઈ ગૅરંટી આપતું નથી કે સેવાનો ઉપયોગ થી પ્રાપ્ત પરિણામો સટીક અથવા વિશ્વાસુય થયો શકે, સેવા તમારી આવશ્યકતાઓને પૂરી કરે, સેવા અનબ્રેકબલ, સમયનું, સુરક્ષિત, અથવા ત्रુતિરહીત ન રહે, અને સેવામાંની કોઈ ત્રુતિઓ દૂર કરવામાં આવે.',
+    appspara8:
+      'જો આપની આ એપ્લિકેશન વિશે કોઈ પ્રશ્નો છે, અથવા જો આપનું સપોર્ટ જરૂરી છે, તો આપ અમને આ ઇમેઇલ support@abcom.com પર એપ્લિકેશનનું નામ સાથે ઇમેઇલ કરી શકો છો.',
+    cannot: 'હમણાં લક્ષ્ય સમય આંકવું શક્ય નથી.',
+  },
 ];

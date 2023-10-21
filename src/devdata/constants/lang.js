@@ -5,6 +5,7 @@ export const languageOptions = [
   { label: 'मराठी(Marathi)', value: 'mr', id: 3 },
   { label: 'Français(French)', value: 'fr', id: 4 },
   { label: 'বাঙালি(Bengali)', value: 'bn', id: 5 },
+  { label: 'ગુજરાતી(Gujarati)', value: 'gj', id: 6 },
   // Add more languages to this list
 ];
 

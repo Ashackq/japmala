@@ -42,6 +42,8 @@ const Help = ({ navigation, route }: HomeProps) => {
           <Text style={styles.paragraph}>{lang[i].para3}</Text>
 
           <Text style={styles.paragraph}>{lang[i].para4}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].para5}</Text>
         </View>
       </ScrollView>
     </View>

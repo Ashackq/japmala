@@ -14,14 +14,12 @@ const AppPolicy = ({ navigation, route }: HomeProps) => {
     <View style={styles.container}>
       <Head
         ishome={false}
-        name={lang[i].tnc}
+        name={lang[i].appshead}
         navigation={navigation}
         route={route}
       />
       <ScrollView contentContainerStyle={styles.scontainer}>
         <View style={styles.content}>
-          <Text style={styles.header}>{lang[i].appshead}</Text>
-
           <Text style={styles.paragraph}>{lang[i].appspara1}</Text>
 
           <Text style={styles.paragraph}>{lang[i].appspare2}</Text>
@@ -35,6 +33,8 @@ const AppPolicy = ({ navigation, route }: HomeProps) => {
           <Text style={styles.paragraph}>{lang[i].appspara6}</Text>
 
           <Text style={styles.paragraph}>{lang[i].appspara7}</Text>
+
+          <Text style={styles.paragraph}>{lang[i].appspara8}</Text>
         </View>
       </ScrollView>
     </View>
