@@ -10,11 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
+    "@types/react-native": "^0.72.5",
     "@types/react-native-vector-icons": "^6.4.15",
     "react": "18.2.0",
-    "react-native": "0.72.5",
+    "react-native": "^0.72.5",
     "react-native-fast-image": "^8.6.3",
     "react-native-google-mobile-ads": "^12.3.0",
     "react-native-linear-gradient": "^2.8.3",

@@ -47,7 +47,16 @@ export type RootStackParamList = {
   Tnc: {
     languageindex: number;
   };
-  Loading: undefined;
+  Loading: {
+    target: number;
+    totalcount: number;
+    mala: number;
+    beadcount: number;
+    elapsedtime: string;
+    esttime: string;
+    malatime: number;
+    languageindex: number;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -67,12 +76,12 @@ function App(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading">
         <Stack.Group screenOptions={{ headerShown: false, animation: 'fade' }}>
-          <Stack.Screen name="Loading" component={Loading} />
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="Loading"
+            component={Loading}
             initialParams={initialRouteParams}
           />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Edit" component={Edit} />
           <Stack.Screen name="Player" component={Player} />
           <Stack.Screen name="Help" component={Help} />

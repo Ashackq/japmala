@@ -2,12 +2,41 @@ import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import { UAS } from '.';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
-const LoadingScreen = ({ navigation }: HomeProps) => {
+const LoadingScreen = ({ navigation, route }: HomeProps) => {
+  const totalcount = route.params.totalcount;
+  const beadcount = route.params.beadcount;
+  const target = route.params.target;
+  const mala = route.params.mala;
+  const esttime = route.params.esttime;
+  const elapsedtime = route.params.elapsedtime;
+  const i = route.params.languageindex;
+  const malatime = route.params.malatime;
+
+  const { loadSettings } = UAS('appSettings');
+
+  useEffect(() => {
+    const loadAndNavigate = async () => {
+      const loadedSettings = await loadSettings();
+    };
+
+    loadAndNavigate();
+  }, [navigation, loadSettings]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Home', {});
+      navigation.replace('Home', {
+        totalcount: totalcount,
+        beadcount: beadcount,
+        target: target,
+        mala: mala,
+        esttime: esttime,
+        elapsedtime: elapsedtime,
+        languageindex: i,
+        malatime: malatime,
+      });
     }, 2000);
 
     return () => clearTimeout(timer);

@@ -230,7 +230,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black' }}>
+    <View style={{ flex: 1, backgroundColor: '#0b78ee' }}>
       <TouchableOpacity onPress={handleImagePress} style={styles.overlay} />
       <TouchableWithoutFeedback>
         <Animated.View
