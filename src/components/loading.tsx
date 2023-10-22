@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { UAS } from '.';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
 const LoadingScreen = ({ navigation, route }: HomeProps) => {
@@ -14,16 +13,6 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
   const elapsedtime = route.params.elapsedtime;
   const i = route.params.languageindex;
   const malatime = route.params.malatime;
-
-  const { loadSettings } = UAS('appSettings');
-
-  useEffect(() => {
-    const loadAndNavigate = async () => {
-      const loadedSettings = await loadSettings();
-    };
-
-    loadAndNavigate();
-  }, [navigation, loadSettings]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
