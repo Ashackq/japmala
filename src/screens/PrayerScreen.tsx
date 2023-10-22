@@ -11,6 +11,8 @@ import {
   Vibration,
   TouchableOpacity,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lang } from '../devdata/constants/languages';
 import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -42,6 +44,15 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
+  const storeProgressData = async (data) => {
+    try {
+      await AsyncStorage.setItem('progress', JSON.stringify(data));
+      console.log('Progress data saved successfully.');
+      console.log('Progress', data);
+    } catch (error) {
+      console.error('Error saving progress data:', error);
+    }
+  };
   console.log(
     'TImes e- ',
     '\n',
@@ -170,6 +181,16 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       'hardwareBackPress',
       () => {
         const elapsedFormatted = calculateElapsedTime();
+        storeProgressData({
+          target: target,
+          totalcount: prayerCount,
+          mala: mala,
+          beadcount: beadcount,
+          esttime: esttime,
+          elapsedtime: elapsedFormatted,
+          languageindex: i,
+          malatime: timeForOneMala,
+        });
         navigation.replace('Home', {
           totalcount: prayerCount,
           mala: mala,

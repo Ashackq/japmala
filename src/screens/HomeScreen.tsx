@@ -7,10 +7,21 @@ const Om = require('../devdata/assets/om.png');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({ navigation, route }: HomeProps) => {
+  const storeProgressData = async (data) => {
+    try {
+      await AsyncStorage.setItem('progress', JSON.stringify(data));
+      console.log('Progress data saved successfully.');
+      console.log('Progress', data);
+    } catch (error) {
+      console.error('Error saving progress data:', error);
+    }
+  };
+
   const totalcount = route.params.totalcount;
   const beadcount = route.params.beadcount;
   const target = route.params.target;
@@ -38,6 +49,16 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
 
   const estimatedTotalTime = calculateEstimatedTotalTime();
   const handleBeginPress = () => {
+    storeProgressData({
+      target: target,
+      totalcount: totalcount,
+      mala: mala,
+      beadcount: beadcount,
+      esttime: esttime,
+      elapsedtime: elapsedtime,
+      languageindex: i,
+      malatime: malatime,
+    });
     navigation.push('Player', {
       target: target,
       totalcount: totalcount,

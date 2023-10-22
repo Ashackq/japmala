@@ -58,20 +58,19 @@ export type RootStackParamList = {
     languageindex: number;
   };
 };
+const initialRouteParams = {
+  target: 100000,
+  totalcount: 0,
+  mala: 0,
+  beadcount: 108,
+  languageindex: 0,
+  elapsedtime: '00:00:00',
+  esttime: '00:00:00',
+  malatime: 0,
+};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 function App(): JSX.Element {
-  const initialRouteParams: RootStackParamList['Home'] = {
-    target: 100000,
-    totalcount: 0,
-    mala: 0,
-    beadcount: 108,
-    languageindex: 0,
-    elapsedtime: '00:00:00',
-    esttime: '00:00:00',
-    malatime: 0,
-  };
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading">
