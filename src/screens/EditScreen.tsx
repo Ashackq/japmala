@@ -117,8 +117,31 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       navigation.setParams({ target: newTarget });
       setShowSnackbar2(false);
     }
+    handleSaveReset();
   };
+  const handleSaveReset = () => {
+    const newTarget = parseInt(inputTarget, 10);
+    const newBead = parseInt(inputbead, 10);
 
+    navigation.setParams({ beadcount: newBead });
+    navigation.setParams({ target: newTarget });
+    navigation.setParams({ elapsedtime: '00:00:00' });
+    navigation.setParams({ malatime: 0 });
+    navigation.setParams({ esttime: '00:00:00' });
+    navigation.setParams({ totalcount: 0 });
+    navigation.setParams({ mala: 0 });
+
+    storeProgressData({
+      target: newTarget,
+      totalcount: 0,
+      mala: 0,
+      beadcount: newBead,
+      esttime: '00:00:00',
+      languageindex: i,
+      malatime: '00:00:00',
+      elapsedtime: '00:00:00',
+    });
+  };
   const handleReset = () => {
     navigation.setParams({ beadcount: 108 });
     navigation.setParams({ target: 100000 });
@@ -139,7 +162,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       malatime: '00:00:00',
       elapsedtime: '00:00:00',
     });
-    handleSave();
   };
 
   return (

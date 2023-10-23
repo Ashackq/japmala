@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   img2: {
     position: 'absolute',
-    top: -10,
+    top: -50,
   },
   omContainer: {
     position: 'absolute',

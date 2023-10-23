@@ -264,9 +264,11 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.head}>
         <Head name={lang[i].Moksha} navigation={navigation} route={route} />
       </View>
-      <Text style={styles.prayercount}>
+      <View style={styles.countcont}>
+        <Text style={styles.prayercount}>
         {mala} - {prayerCount}
       </Text>
+      </View>
       <View style={styles.greybox}>
         <View style={styles.timerContainer}>
           <Text style={styles.timerText}>
@@ -325,7 +327,13 @@ const { styles } = StyleSheet.create({
     right: 0,
     '@media (min-height: 1920px)': {
       height: 850,
+      width: 100,
+    },
+    '@media (min-height: 761px)': {
+      height: 850,
       width: 120,
+      left: -60,
+      top: 80,
     },
   },
 
@@ -355,13 +363,13 @@ const { styles } = StyleSheet.create({
   },
   prayercount: {
     color: 'white',
-    fontSize: 90,
+    fontSize: 70,
+    lineHeight: 70,
     position: 'absolute',
     marginTop: '70%',
-    marginLeft: '29%',
-    '@media (min-height: 1920px)': {
-      fontSize: 50,
-    },
+  },
+  countcont: {
+    alignItems: 'center',
   },
   overlay: {
     ...Query.absoluteFillObject,
