@@ -266,8 +266,8 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       </View>
       <View style={styles.countcont}>
         <Text style={styles.prayercount}>
-        {mala} - {prayerCount}
-      </Text>
+          {mala} - {prayerCount}
+        </Text>
       </View>
       <View style={styles.greybox}>
         <View style={styles.timerContainer}>
@@ -322,14 +322,13 @@ const { styles } = StyleSheet.create({
     width: 150,
     position: 'absolute',
     zIndex: 2,
-    top: 10,
     left: -80,
     right: 0,
     '@media (min-height: 1920px)': {
       height: 850,
       width: 100,
     },
-    '@media (min-height: 761px)': {
+    '@media (max-height: 760px)': {
       height: 850,
       width: 120,
       left: -60,

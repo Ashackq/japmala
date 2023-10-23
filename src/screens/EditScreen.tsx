@@ -105,14 +105,12 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     const newBead = parseInt(inputbead, 10);
     if (newBead < 11) {
       setShowSnackbar(true);
-      navigation.setParams({ beadcount: 108 });
     } else {
       navigation.setParams({ beadcount: newBead });
       setShowSnackbar(false);
     }
     if (newTarget < 108) {
       setShowSnackbar2(true);
-      navigation.setParams({ target: 100000 });
     } else {
       navigation.setParams({ target: newTarget });
       setShowSnackbar2(false);
