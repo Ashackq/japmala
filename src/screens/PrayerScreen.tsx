@@ -53,15 +53,6 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       console.error('Error saving progress data:', error);
     }
   };
-  console.log(
-    'TImes e- ',
-    '\n',
-    prevmalatime,
-    '\n',
-    esttime,
-    '\n',
-    elapsedTime
-  );
 
   const [sound] = useState(
     new Sound('maladone.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -271,12 +262,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         <Ads />
       </View>
       <View style={styles.head}>
-        <Head
-          ishome={false}
-          name={lang[i].Moksha}
-          navigation={navigation}
-          route={route}
-        />
+        <Head name={lang[i].Moksha} navigation={navigation} route={route} />
       </View>
       <Text style={styles.prayercount}>
         {mala} - {prayerCount}
@@ -342,6 +328,7 @@ const { styles } = StyleSheet.create({
       width: 120,
     },
   },
+
   timerContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -373,7 +360,7 @@ const { styles } = StyleSheet.create({
     marginTop: '70%',
     marginLeft: '29%',
     '@media (min-height: 1920px)': {
-      fontSize: 70,
+      fontSize: 50,
     },
   },
   overlay: {

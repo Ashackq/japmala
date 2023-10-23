@@ -25,12 +25,9 @@ const Help = ({ navigation, route }: HomeProps) => {
   return (
     <View style={styles.container}>
       {/* <Image source={Editback} style={styles.img} /> */}
-      <Head
-        ishome={false}
-        name={lang[i].help}
-        navigation={navigation}
-        route={route}
-      />
+      <View style={styles.head}>
+        <Head name={lang[i].help} navigation={navigation} route={route} />
+      </View>
       <ScrollView contentContainerStyle={styles.scontainer}>
         <View style={styles.content}>
           <Text style={styles.header}>{lang[i].helphead}</Text>
@@ -53,7 +50,8 @@ const Help = ({ navigation, route }: HomeProps) => {
 const styles = StyleSheet.create({
   scontainer: {
     marginHorizontal: 15,
-    marginTop: 20,
+    marginTop: 80,
+    marginBottom: 40,
   },
   container: {
     backgroundColor: '#333333',
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    marginBottom: 40,
+    marginBottom: 80,
   },
   header: {
     fontSize: 24,
@@ -79,6 +77,13 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: 440,
     height: 900,
+  },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 1000,
   },
 });
 

@@ -23,7 +23,6 @@ const Appspolicy = require('../devdata/assets/appspolicy.png');
 
 const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
   const [slideAnim] = useState(new Animated.Value(-300));
-
   const totalcount = route.params.totalcount;
   const beadcount = route.params.beadcount;
   const target = route.params.target;

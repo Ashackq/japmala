@@ -10,12 +10,12 @@ export const languageOptions = [
 ];
 
 export const colors = {
-  headfoot: 'black',
+  headfoot: 'grey',
   headfootbutton: '#4C2E05',
   headfootbuttontext: 'black',
   tintcolor: 'white',
 };
 
 export const env = {
-  version: '1.1',
+  version: '1.0',
 };

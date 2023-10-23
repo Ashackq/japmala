@@ -12,12 +12,9 @@ const AppPolicy = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <Head
-        ishome={false}
-        name={lang[i].appshead}
-        navigation={navigation}
-        route={route}
-      />
+      <View style={styles.head}>
+        <Head name={lang[i].appshead} navigation={navigation} route={route} />
+      </View>
       <ScrollView contentContainerStyle={styles.scontainer}>
         <View style={styles.content}>
           <Text style={styles.paragraph}>{lang[i].appspara1}</Text>
@@ -48,14 +45,14 @@ const styles = StyleSheet.create({
   },
   scontainer: {
     marginHorizontal: 15,
-    marginTop: 20,
+    marginTop: 80,
   },
 
   content: {
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    marginBottom: 40,
+    marginBottom: 80,
   },
 
   header: {
@@ -66,6 +63,13 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 20,
     marginBottom: 10,
+  },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 1000,
   },
 });
 

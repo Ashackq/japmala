@@ -8,13 +8,14 @@ import {
   BackHandler,
   ScrollView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { lang } from '../devdata/constants/languages';
 import { Snackbar } from 'react-native-paper';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Langsel } from '../components';
+import { Head, Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
@@ -26,16 +27,40 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const handleLanguageChange = (value: number) => {
     setSelectedLanguageIndex(value);
   };
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [showSnackbar2, setShowSnackbar2] = useState(false);
+
+  const [inputbead, setInputbead] = useState(beadsInMala.toString());
+  const [inputTarget, setInputTarget] = useState(target.toString());
 
   const malatime = route.params.malatime;
   const elapsedtime = route.params.elapsedtime;
   const esttime = route.params.esttime;
-  console.log('TImes e- ', '\n', malatime, '\n', esttime, '\n', elapsedtime);
+
+  const storeProgressData = async (data) => {
+    try {
+      await AsyncStorage.setItem('progress', JSON.stringify(data));
+      console.log('Progress data saved successfully.');
+      console.log('Progress', data);
+    } catch (error) {
+      console.error('Error saving progress data:', error);
+    }
+  };
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
+        storeProgressData({
+          target: target,
+          totalcount: totalcount,
+          mala: mala,
+          beadcount: beadsInMala,
+          esttime: esttime,
+          elapsedtime: elapsedtime,
+          languageindex: i,
+          malatime: malatime,
+        });
         navigation.replace('Home', {
           target: target,
           beadcount: beadsInMala,
@@ -75,7 +100,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       navigation.setParams({ beadcount: newBead });
       setShowSnackbar(false);
     }
-    if (newTarget <= 108) {
+    if (newTarget < 108) {
       setShowSnackbar2(true);
       navigation.setParams({ target: 100000 });
     } else {
@@ -92,17 +117,26 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     navigation.setParams({ esttime: '00:00:00' });
     navigation.setParams({ totalcount: 0 });
     navigation.setParams({ mala: 0 });
-
+    setInputTarget('100000');
+    setInputbead('108');
+    storeProgressData({
+      target: 100000,
+      totalcount: 0,
+      mala: 0,
+      beadcount: 108,
+      esttime: '00:00:00',
+      languageindex: i,
+      malatime: '00:00:00',
+      elapsedtime: '00:00:00',
+    });
     handleSave();
   };
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const [showSnackbar2, setShowSnackbar2] = useState(false);
-
-  const [inputbead, setInputbead] = useState(beadsInMala.toString());
-  const [inputTarget, setInputTarget] = useState(target.toString());
 
   return (
     <View style={styles.container}>
+      <View style={styles.head}>
+        <Head name={lang[i].edit} navigation={navigation} route={route} />
+      </View>
       <ScrollView style={styles.img}>
         {/* <Image source={Editback} style={styles.img} /> */}
         {/* Contents */}
@@ -174,13 +208,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  head: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 1000,
+  },
   container1: {
     flexGrow: 1,
     padding: 20,
   },
   img: {
     backgroundColor: '#333333',
+    marginTop: 70,
   },
+
   whiteBox: {
     backgroundColor: 'white',
     padding: 20,

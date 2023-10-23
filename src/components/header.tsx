@@ -5,7 +5,7 @@ import Sidemenu from './sidemenu';
 
 const Ham = require('../devdata/assets/ham.png');
 
-const Header = ({ ishome, name, navigation, route }) => {
+const Header = ({  name, navigation, route }) => {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [isMenuOpen, setmenuopen] = useState(false);
 
@@ -17,11 +17,10 @@ const Header = ({ ishome, name, navigation, route }) => {
   };
   return (
     <View style={styles.header}>
-      {ishome && (
-        <TouchableOpacity onPress={toggleSideMenu} style={styles.headerButton}>
-          <Image source={Ham} style={styles.icon} />
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity onPress={toggleSideMenu} style={styles.headerButton}>
+        <Image source={Ham} style={styles.icon} />
+      </TouchableOpacity>
+
       {showSideMenu && (
         <TouchableOpacity
           onPress={toggleSideMenu}

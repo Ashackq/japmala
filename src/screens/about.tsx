@@ -13,12 +13,7 @@ const About = ({ navigation, route }: HomeProps) => {
   return (
     <View style={styles.cont}>
       <View style={styles.head}>
-        <Head
-          ishome={false}
-          name={lang[i].info}
-          navigation={navigation}
-          route={route}
-        />
+        <Head name={lang[i].info} navigation={navigation} route={route} />
       </View>
       <Text style={[styles.alertTitle, styles.text]}>{lang[i].appname}</Text>
       <Text style={[styles.alertVersion, styles.text]}>
