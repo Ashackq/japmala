@@ -12,11 +12,10 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { lang } from '../devdata/constants/languages';
-import { Snackbar } from 'react-native-paper';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { Head, Langsel } from '../components';
+import { Cmodal, Head, Langsel } from '../components';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
@@ -193,26 +192,19 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </View>
       </ScrollView>
-      <Snackbar
+      <Cmodal
         visible={showSnackbar}
         onDismiss={() => setShowSnackbar(false)}
-        action={{
-          label: 'Dismiss',
-          onPress: () => setShowSnackbar(false),
-        }}
-      >
-        {lang[i].snack1}
-      </Snackbar>
-      <Snackbar
+        message={lang[i].snack1}
+        Dismiss={lang[i].dismiss}
+      />
+      <Cmodal
         visible={showSnackbar2}
         onDismiss={() => setShowSnackbar2(false)}
-        action={{
-          label: 'Dismiss',
-          onPress: () => setShowSnackbar2(false),
-        }}
-      >
-        {lang[i].snack2}
-      </Snackbar>
+        message={lang[i].snack2}
+        Dismiss={lang[i].dismiss}
+      />
+
       <Modal visible={showResetModal} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>

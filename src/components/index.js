@@ -6,3 +6,4 @@ export { default as Langsel } from './langselector';
 export { default as Ads } from './adsfullscreen';
 export { default as Smoke } from './smoke';
 export { default as Sidemenu } from './sidemenu';
+export { default as Cmodal } from './custommodal';

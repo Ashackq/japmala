@@ -56,9 +56,10 @@ export const lang = [
     appspara8:
       'If you have any questions about this app, or if you require any support, you can send us an email at support@abcom. com including the app name.',
     cannot: 'Cannot estimate goal time now',
-    snack1: 'Japa Mala:\n Minimum number of beads is 11',
-    snack2: 'Japa Mala:\n Minimum Target is 108',
+    snack1: 'Japa Mala\n Minimum number of beads is 11',
+    snack2: 'Japa Mala\n Minimum Target is 108',
     cancel: 'Cancel',
+    dismiss: 'Dismiss',
   },
   {
     label: 'भाषा चुनें',
@@ -117,9 +118,10 @@ export const lang = [
     appspara8:
       'यदि आपके पास इस ऐप के बारे में कोई सवाल है, या यदि आपको किसी प्रकार की सहायता चाहिए, तो आप हमें सपोर्ट@एबीकॉम. कॉम पर ईमेल कर सकते हैं, जिसमें ऐप का नाम शामिल है।',
     cannot: 'अभी लक्ष्य समय का अनुमान नहीं किया जा सकता है।',
-    snack1: 'जपमाला:\n 11 मनी की न्यूनतम संख्या है',
-    snack2: 'जपमाला:\n 108 का न्यूनतम लक्ष्य है',
+    snack1: 'जपमाला\n 11 मनी की न्यूनतम संख्या है',
+    snack2: 'जपमाला\n 108 का न्यूनतम लक्ष्य है',
     cancel: 'रद्द करें',
+    dismiss: 'खारिज करें',
   },
   {
     label: 'மொழி தேர்ந்தெடு',
@@ -178,9 +180,10 @@ export const lang = [
     appspara8:
       'இந்த பயன்பாடு பற்றி உங்களிடம் எந்த கேள்விகளும் உள்ளடக்கம் இல்லை, அல்லது உங்களுக்கு உதவி தேவை என்றால், நீங்கள் எங்களுக்கு மின்னஞ்சல் அனுப்பலாம் support@abcom.com என்ற மின்னஞ்சல் மூலம் கேட்டிக்கொள்ளலாம், அதில் பயன்பாடு பொய்க்கு என்பது அடிப்படை ஆக்கப்பட்டுள்ளது.',
     cannot: 'இப்போது இல்லை: லக்ஷ்ய நேரம் கருத முடியாது.',
-    snack1: 'ஜப மாலா:\n குழந்தை எண் குறைவாக 11',
-    snack2: 'ஜப மாலா:\n குறைவான இலக்கை 108',
+    snack1: 'ஜப மாலா\n குழந்தை எண் குறைவாக 11',
+    snack2: 'ஜப மாலா\n குறைவான இலக்கை 108',
     cancel: 'ர஦்஦ு செய்',
+    dismiss: 'திராட்டு',
   },
   {
     label: 'मराठी',
@@ -239,9 +242,10 @@ export const lang = [
     appspara8:
       'जर आपल्याला या अॅपबद्दल कोणत्याही किंवा संदेशाची विचारणा असल्यास, आपण समर्थन आवश्यक आहे, तरी तुम्ही समर्थन असल्यास आपल्याला एक ईमेल लिहू शकता support@abcom.com अंतर्गत अॅपचे नाव समावित करू शकता.',
     cannot: 'आत्ताच लक्ष्याचा वेळ किंवा मूल्यमापण संभाव्य नाही.',
-    snack1: 'जप माला:\n 11 वर्षीय आवश्यक असलेली किंमत',
-    snack2: 'जप माला:\n 108 वर्षीय नियमितीस आवश्यक आहे',
+    snack1: 'जप माला\n 11 वर्षीय आवश्यक असलेली किंमत',
+    snack2: 'जप माला\n 108 वर्षीय नियमितीस आवश्यक आहे',
     cancel: 'रद्द करा',
+    dismiss: 'निष्कासित करा',
   },
 
   {
@@ -302,9 +306,10 @@ export const lang = [
     appspara8:
       "Si vous avez des questions concernant cette application, ou si vous avez besoin de soutien, vous pouvez nous envoyer un e-mail à support@abcom.com en indiquant le nom de l'application.",
     cannot: "Impossible d'estimer le temps de l'objectif pour le moment.",
-    snack1: 'Japa Mala:\n Le nombre minimum de perles est de 11',
-    snack2: "Japa Mala:\n L'objectif minimum est de 108",
+    snack1: 'Japa Mala\n Le nombre minimum de perles est de 11',
+    snack2: "Japa Mala\n L'objectif minimum est de 108",
     cancel: 'Annuler',
+    dismiss: 'Rejeter',
   },
 
   {
@@ -363,9 +368,10 @@ export const lang = [
     appspara8:
       'যদি আপনার এই অ্যাপ সম্পর্কে কোনও প্রশ্ন থাকে বা যদি আপনি কোনও সাহায্যের প্রয়োজন পেতেন, তবে আপনি আমাদের এই ইমেল পাঠাতে পারেন support@abcom.com এখানে অ্যাপ নামটি সহ উল্লেখ করে।',
     cannot: 'এখন লক্ষ্যের সময় মূল্যায়ন করা সম্ভব নয়।',
-    snack1: 'জপ মালা:\n কম মৌখিক হলে 11 সিট',
-    snack2: 'জপ মালা:\n সর্বনিম্ন লক্ষ্য 108',
+    snack1: 'জপ মালা\n কম মৌখিক হলে 11 সিট',
+    snack2: 'জপ মালা\n সর্বনিম্ন লক্ষ্য 108',
     cancel: 'বাতিল করুন',
+    dismiss: 'খোকান',
   },
   {
     appname: 'જપમાલા',
@@ -423,8 +429,9 @@ export const lang = [
     appspara8:
       'જો આપની આ એપ્લિકેશન વિશે કોઈ પ્રશ્નો છે, અથવા જો આપનું સપોર્ટ જરૂરી છે, તો આપ અમને આ ઇમેઇલ support@abcom.com પર એપ્લિકેશનનું નામ સાથે ઇમેઇલ કરી શકો છો.',
     cannot: 'હમણાં લક્ષ્ય સમય આંકવું શક્ય નથી.',
-    snack1: 'જપા માળા:\n 11 અથવા તેના નીચેના મણ્યોની મિનિમમ સંખ્યા 11 છે',
-    snack2: 'જપા માળા:\n ન્યૂનતમ લક્ષ્ય 108 છે',
+    snack1: 'જપા માળા\n 11 અથવા તેના નીચેના મણ્યોની મિનિમમ સંખ્યા 11 છે',
+    snack2: 'જપા માળા\n ન્યૂનતમ લક્ષ્ય 108 છે',
     cancel: 'રદ કરો',
+    dismiss: 'ખારીજ કરો',
   },
 ];
