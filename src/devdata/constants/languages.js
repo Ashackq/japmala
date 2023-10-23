@@ -58,6 +58,7 @@ export const lang = [
     cannot: 'Cannot estimate goal time now',
     snack1: 'Japa Mala:\n Minimum number of beads is 11',
     snack2: 'Japa Mala:\n Minimum Target is 108',
+    cancel: 'Cancel',
   },
   {
     label: 'भाषा चुनें',

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   BackHandler,
   ScrollView,
+  Modal,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,9 +34,19 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const [inputbead, setInputbead] = useState(beadsInMala.toString());
   const [inputTarget, setInputTarget] = useState(target.toString());
 
+  const [showResetModal, setShowResetModal] = useState(false);
+
   const malatime = route.params.malatime;
   const elapsedtime = route.params.elapsedtime;
   const esttime = route.params.esttime;
+
+  const handleOpenResetModal = () => {
+    setShowResetModal(true);
+  };
+
+  const handleCloseResetModal = () => {
+    setShowResetModal(false);
+  };
 
   const storeProgressData = async (data) => {
     try {
@@ -173,10 +184,12 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
 
           <View style={styles.resetBox}>
-            <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
+            <TouchableOpacity
+              onPress={handleOpenResetModal}
+              style={styles.resetButton}
+            >
               <Text style={styles.defaultLabel}>{lang[i].reset}</Text>
             </TouchableOpacity>
-            <Text style={styles.warningLabel}>{lang[i].warning}</Text>
           </View>
         </View>
       </ScrollView>
@@ -200,6 +213,28 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       >
         {lang[i].snack2}
       </Snackbar>
+      <Modal visible={showResetModal} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.warningLabel}>{lang[i].warning}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                handleReset();
+                handleCloseResetModal();
+              }}
+              style={styles.resetButton1}
+            >
+              <Text style={styles.buttonLabel}>{lang[i].reset}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleCloseResetModal}
+              style={styles.resetButton1}
+            >
+              <Text style={styles.buttonLabel}>{lang[i].cancel}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -247,6 +282,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 5,
   },
+  buttonLabel: {
+    fontSize: 14,
+    marginBottom: 5,
+    color: 'white',
+  },
   saveButton: {
     backgroundColor: '#3498db',
     padding: 10,
@@ -268,9 +308,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
+  resetButton1: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
   warningLabel: {
-    fontSize: 12,
+    fontSize: 22,
     color: 'red',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    opacity: 0.9,
+  },
+  modalText: {
+    marginBottom: 10,
+    fontSize: 18,
   },
 });
 
