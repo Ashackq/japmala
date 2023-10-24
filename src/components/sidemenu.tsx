@@ -11,7 +11,7 @@ import {
   Image,
   Share as Give,
 } from 'react-native';
-import { lang } from '../devdata/constants/languages';
+import { lang } from '../devdata/constants/languages12';
 import { env, colors } from '../devdata/constants/lang';
 
 const Set = require('../devdata/assets/edit.jpg');
@@ -35,7 +35,7 @@ const SideMenu = ({ toggleSideMenu, isMenuOpen, navigation, route }) => {
 
   const handleIconPress = (iconName: string) => {
     toggleSideMenu();
-    console.log(`${iconName} button pressed.`);
+
     let targetRoute = '';
     if (iconName === 'Edit') {
       targetRoute = 'Edit';

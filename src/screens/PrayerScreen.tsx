@@ -9,11 +9,12 @@ import {
   Image,
   Animated,
   Vibration,
+  Modal,
   TouchableOpacity,
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { lang } from '../devdata/constants/languages';
+import { lang } from '../devdata/constants/languages12';
 import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -43,12 +44,11 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const [timeForOneMala, setTimemala] = useState(0);
   const imagePosition = useRef(new Animated.ValueXY()).current;
   const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const [showResetModal, setShowResetModal] = useState(false);
 
   const storeProgressData = async (data) => {
     try {
       await AsyncStorage.setItem('progress', JSON.stringify(data));
-      console.log('Progress data saved successfully.');
-      console.log('Progress', data);
     } catch (error) {
       console.error('Error saving progress data:', error);
     }
@@ -61,19 +61,22 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
       }
     })
   );
-  useEffect(() => {
-    return () => {
-      sound.release();
-    };
-  }, [sound]);
 
   const handlePauseResume = () => {
     if (isTimerRunning) {
-      console.log('Pausing timer...');
+      storeProgressData({
+        target: target,
+        totalcount: prayerCount,
+        mala: mala,
+        beadcount: beadcount,
+        esttime: esttime,
+        elapsedtime: elapsedTime,
+        languageindex: i,
+        malatime: timeForOneMala,
+      });
       pauseTimeRef.current = new Date().getTime();
       clearInterval(intervalRef.current!);
     } else {
-      console.log('Resuming timer...');
       if (pauseTimeRef.current !== null) {
         const currentTime = new Date().getTime();
         const pausedDuration = currentTime - pauseTimeRef.current;
@@ -94,9 +97,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
   const startTimer = () => {
     intervalRef.current = setInterval(() => {
       const elapsedtime = calculateElapsedTime();
-      const displaytime = calculatedisplayElapsedTime();
       setElapsedTime(elapsedtime);
-      setdisplayTime(displaytime);
     }, 1000);
   };
 
@@ -138,17 +139,27 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   useEffect(() => {
     if (prayerCount === beadcount) {
-      setMala((prevMala) => prevMala + 1);
-
       sound.play((success) => {
         if (!success) {
           console.log('Failed to play the beep sound');
         }
       });
+      setMala((prevMala) => prevMala + 1);
       setPrayerCount(0);
-      console.log('Time for One Mala:', timeForOneMala);
+
       navigation.setParams({ malatime: 0 });
       navigation.setParams({ esttime: formatTime(timeForOneMala) });
+      storeProgressData({
+        target: target,
+        totalcount: prayerCount,
+        mala: mala,
+        beadcount: beadcount,
+        esttime: esttime,
+        elapsedtime: elapsedTime,
+        languageindex: i,
+        malatime: timeForOneMala,
+      });
+
       countertimeref.current = new Date();
     } else {
       const endTime = new Date();
@@ -162,10 +173,28 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
         setTimemala(totalSeconds);
       }
-
-      console.log('secnd  - ', timeForOneMala);
     }
-  }, [beadcount, navigation, prayerCount, prevmalatime, sound, timeForOneMala]);
+  }, [
+    beadcount,
+    elapsedTime,
+    esttime,
+    i,
+    mala,
+    navigation,
+    prayerCount,
+    prevmalatime,
+    sound,
+    target,
+    timeForOneMala,
+  ]);
+
+  useEffect(() => {
+    if (prayerCount + mala * beadcount === target) {
+      setShowResetModal(true);
+      setMala(0);
+      setPrayerCount(0);
+    }
+  }, [beadcount, mala, prayerCount, target]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -222,6 +251,16 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   const handleImagePress = () => {
     if (isTimerRunning) {
+      storeProgressData({
+        target: target,
+        totalcount: prayerCount,
+        mala: mala,
+        beadcount: beadcount,
+        esttime: esttime,
+        elapsedtime: elapsedTime,
+        languageindex: i,
+        malatime: timeForOneMala,
+      });
       if (!hasDragged) {
         setPrayerCount((prevCount) => prevCount + 1);
         const animations = [];
@@ -243,7 +282,11 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#0b78ee' }}>
-      <TouchableOpacity onPress={handleImagePress} style={styles.overlay} />
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={handleImagePress}
+        style={styles.overlay}
+      />
       <TouchableWithoutFeedback>
         <Animated.View
           style={{
@@ -287,6 +330,21 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           )}
         </TouchableOpacity>
       </View>
+      <Modal visible={showResetModal} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.warningLabel}>{lang[i].warning1}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setShowResetModal(false);
+              }}
+              style={styles.resetButton1}
+            >
+              <Text style={styles.buttonLabel}>{lang[i].Ok}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -377,6 +435,38 @@ const { styles } = StyleSheet.create({
     marginLeft: '8%',
     width: 340,
     marginBottom: 110,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    opacity: 0.9,
+  },
+  modalText: {
+    marginBottom: 10,
+    fontSize: 18,
+  },
+  buttonLabel: {
+    fontSize: 14,
+    marginBottom: 5,
+    color: 'white',
+  },
+  resetButton1: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  warningLabel: {
+    fontSize: 22,
+    color: 'red',
   },
 });
 

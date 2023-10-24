@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { lang } from '../devdata/constants/languages';
+import { lang } from '../devdata/constants/languages12';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Help'>;
 

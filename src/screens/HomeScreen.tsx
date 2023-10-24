@@ -6,7 +6,7 @@ const Om = require('../devdata/assets/om.png');
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { lang } from '../devdata/constants/languages';
+import { lang } from '../devdata/constants/languages12';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { languageOptions } from '../devdata/constants/lang';
 
 const LanguageSelectionComponent = ({
@@ -42,17 +42,8 @@ const LanguageSelectionComponent = ({
           });
         }}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <View
-            style={{
-              backgroundColor: '#fff',
-              padding: 20,
-              borderRadius: 10,
-              elevation: 5,
-            }}
-          >
+        <View style={styles.container}>
+          <View style={styles.box}>
             {languageOptions.map(({ id }) => (
               <TouchableOpacity
                 key={id}
@@ -60,7 +51,7 @@ const LanguageSelectionComponent = ({
                   handleLanguageChange(id);
                 }}
               >
-                <Text>{languageOptions[id].label}</Text>
+                <Text style={styles.label}>{languageOptions[id].label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -69,5 +60,21 @@ const LanguageSelectionComponent = ({
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    backgroundColor: '#fff',
+    padding: 40,
+    borderRadius: 10,
+    elevation: 5,
+  },
+  label: {
+    fontSize: 20,
+    marginVertical: 10,
+  },
+});
 export default LanguageSelectionComponent;

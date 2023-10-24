@@ -71,7 +71,7 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
     <View style={styles.container}>
       <Image source={Om} style={styles.img2} />
 
-      <Text style={styles.appby}>A product of ABCOM</Text>
+      <Text style={styles.appby}>A Product of ABCOM</Text>
     </View>
   );
 };
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     top: 120,
     fontWeight: 'bold',
     fontSize: 24,
-    color: 'red',
+    color: 'white',
   },
 });
 

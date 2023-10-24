@@ -11,11 +11,12 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { lang } from '../devdata/constants/languages';
+import { lang } from '../devdata/constants/languages12';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { Cmodal, Head, Langsel } from '../components';
+import { Snackbar } from 'react-native-paper';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Edit'>;
 
 const EditScreen = ({ navigation, route }: HomeProps) => {
@@ -29,7 +30,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   };
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [showSnackbar2, setShowSnackbar2] = useState(false);
-
+  const [showSnackbar1, setShowSnackbar1] = useState(false);
   const [inputbead, setInputbead] = useState(beadsInMala.toString());
   const [inputTarget, setInputTarget] = useState(target.toString());
 
@@ -50,7 +51,6 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const storeProgressData = async (data) => {
     try {
       await AsyncStorage.setItem('progress', JSON.stringify(data));
-      console.log('Progress data saved successfully.');
       console.log('Progress', data);
     } catch (error) {
       console.error('Error saving progress data:', error);
@@ -115,6 +115,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       navigation.setParams({ target: newTarget });
       setShowSnackbar2(false);
     }
+    setShowSnackbar1(true);
     handleSaveReset();
   };
   const handleSaveReset = () => {
@@ -247,6 +248,16 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           </View>
         </View>
       </Modal>
+      <Snackbar
+        visible={showSnackbar1}
+        onDismiss={() => setShowSnackbar1(false)}
+        action={{
+          label: 'Dismiss',
+          onPress: () => setShowSnackbar1(false),
+        }}
+      >
+        {lang[i].settingssave}
+      </Snackbar>
     </View>
   );
 };
