@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { lang } from '../devdata/constants/languages12';
+import { lang } from '../devdata/constants/languages';
 import Sound from 'react-native-sound';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';

@@ -4,7 +4,7 @@ const Home = require('../devdata/assets/Home.png');
 const Edit = require('../devdata/assets/edit.jpg');
 const Help = require('../devdata/assets/help.png');
 import { colors } from '../devdata/constants/lang';
-import { lang } from '../devdata/constants/languages12';
+import { lang } from '../devdata/constants/languages';
 const Footer = ({
   navigation,
   route,

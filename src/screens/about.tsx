@@ -4,7 +4,7 @@ import React from 'react';
 import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { lang } from '../devdata/constants/languages12';
+import { lang } from '../devdata/constants/languages';
 import { env } from '../devdata/constants/lang';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'About'>;
 

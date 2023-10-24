@@ -11,7 +11,7 @@ import {
   Image,
   Share as Give,
 } from 'react-native';
-import { lang } from '../devdata/constants/languages12';
+import { lang } from '../devdata/constants/languages';
 import { env, colors } from '../devdata/constants/lang';
 
 const Set = require('../devdata/assets/edit.jpg');
