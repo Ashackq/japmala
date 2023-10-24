@@ -125,6 +125,8 @@ export const lang = [
     snack2: 'जपमाला\n 108 का न्यूनतम लक्ष्य है',
     cancel: 'रद्द करें',
     dismiss: 'खारिज करें',
+    warning1: 'आपने अपना लक्ष्य पूरा किया है\n शून्य पर रीसेट किया जा रहा है',
+    settingssave: 'सेटिंग सहेजी गई!',
   },
   {
     label: 'மொழி தேர்ந்தெடு',
@@ -187,6 +189,9 @@ export const lang = [
     snack2: 'ஜப மாலா\n குறைவான இலக்கை 108',
     cancel: 'ர஦்஦ு செய்',
     dismiss: 'திராட்டு',
+    warning1:
+      'உங்கள் இலக்ஷியத்தை நீங்கள் முடித்துவிட்டீர்கள்\n பூட்டிக்கொள்ள வேண்டும்',
+    settingssave: 'அமைப்புகள் சேமிக்கப்பட்டன!',
   },
   {
     label: 'मराठी',
@@ -248,8 +253,9 @@ export const lang = [
     snack2: 'जप माला\n 108 वर्षीय नियमितीस आवश्यक आहे',
     cancel: 'रद्द करा',
     dismiss: 'निष्कासित करा',
+    warning1: 'तुम्ही आपल्या उद्देश्याला पूर्ण केलं आहे\n निरूपणात आणता येईल',
+    settingssave: 'सेटिंग्ज सेव्ह केली!',
   },
-
   {
     label: 'Français',
     selectlanguage: 'Select Language(Choisir la langue)',
@@ -312,8 +318,9 @@ export const lang = [
     snack2: "Japa Mala\n L'objectif minimum est de 108",
     cancel: 'Annuler',
     dismiss: 'Rejeter',
+    warning1: 'Vous avez atteint votre objectif\n remise à zéro',
+    settingssave: 'Paramètres enregistrés !',
   },
-
   {
     label: 'বাঙালি',
     selectlanguage: 'Select Language(ভাষা নির্বাচন করুন)',
@@ -374,6 +381,8 @@ export const lang = [
     snack2: 'জপ মালা\n সর্বনিম্ন লক্ষ্য 108',
     cancel: 'বাতিল করুন',
     dismiss: 'খোকান',
+    warning1: 'আপনি আপনার লক্ষ্য পূরণ করেছেন\n সেটিংস শূন্যে রিসেট হচ্ছে',
+    settingssave: 'সেটিংস সেভ করা হয়েছে!',
   },
   {
     appname: 'જપમાલા',
@@ -435,5 +444,7 @@ export const lang = [
     snack2: 'જપા માળા\n ન્યૂનતમ લક્ષ્ય 108 છે',
     cancel: 'રદ કરો',
     dismiss: 'ખારીજ કરો',
+    warning1: 'તમે તમારું લક્ષ્ય પૂરુ કર્યું છે\n શૂન્ય પર રીસેટ કરવામાં આવશે',
+    settingssave: 'સેટિંગ્સ સેવ કરી!',
   },
 ];
