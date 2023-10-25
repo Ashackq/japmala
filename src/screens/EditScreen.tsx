@@ -103,6 +103,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const handleSave = () => {
     const newTarget = parseInt(inputTarget, 10);
     const newBead = parseInt(inputbead, 10);
+
     if (newBead < 11) {
       setShowSnackbar(true);
     } else {
@@ -129,7 +130,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
     navigation.setParams({ esttime: '00:00:00' });
     navigation.setParams({ totalcount: 0 });
     navigation.setParams({ mala: 0 });
-
+    navigation.setParams({ languageindex: i });
     storeProgressData({
       target: newTarget,
       totalcount: 0,
