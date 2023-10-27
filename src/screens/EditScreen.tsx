@@ -197,7 +197,9 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
               onChangeText={(text) => setInputbead(text)}
             />
 
-            <Text style={styles.defaultLabel}>{lang[i].default}: 108</Text>
+            <Text style={styles.defaultLabel}>
+              {lang[i].default}: 108 {lang[i].ahe}
+            </Text>
 
             <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
               <Text style={styles.defaultLabel}>{lang[i].save}</Text>
