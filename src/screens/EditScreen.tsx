@@ -122,25 +122,37 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
   const handleSaveReset = () => {
     const newTarget = parseInt(inputTarget, 10);
     const newBead = parseInt(inputbead, 10);
-
-    navigation.setParams({ beadcount: newBead });
-    navigation.setParams({ target: newTarget });
-    navigation.setParams({ elapsedtime: '00:00:00' });
-    navigation.setParams({ malatime: 0 });
-    navigation.setParams({ esttime: '00:00:00' });
-    navigation.setParams({ totalcount: 0 });
-    navigation.setParams({ mala: 0 });
-    navigation.setParams({ languageindex: i });
-    storeProgressData({
-      target: newTarget,
-      totalcount: 0,
-      mala: 0,
-      beadcount: newBead,
-      esttime: '00:00:00',
-      languageindex: i,
-      malatime: '00:00:00',
-      elapsedtime: '00:00:00',
-    });
+    if (newBead !== beadsInMala || newTarget !== target) {
+      navigation.setParams({ beadcount: newBead });
+      navigation.setParams({ target: newTarget });
+      navigation.setParams({ elapsedtime: '00:00:00' });
+      navigation.setParams({ malatime: 0 });
+      navigation.setParams({ esttime: '00:00:00' });
+      navigation.setParams({ totalcount: 0 });
+      navigation.setParams({ mala: 0 });
+      navigation.setParams({ languageindex: i });
+      storeProgressData({
+        target: newTarget,
+        totalcount: 0,
+        mala: 0,
+        beadcount: newBead,
+        esttime: '00:00:00',
+        languageindex: i,
+        malatime: '00:00:00',
+        elapsedtime: '00:00:00',
+      });
+    } else {
+      storeProgressData({
+        target: target,
+        totalcount: totalcount,
+        mala: mala,
+        beadcount: beadsInMala,
+        esttime: esttime,
+        elapsedtime: elapsedtime,
+        languageindex: i,
+        malatime: malatime,
+      });
+    }
   };
   const handleReset = () => {
     navigation.setParams({ beadcount: 108 });
