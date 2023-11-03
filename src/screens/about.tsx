@@ -23,10 +23,9 @@ const About = ({ navigation, route }: HomeProps) => {
         Copyright@2023 {'\n'}
         ABCOM Information Systems Pvt. Ltd.
       </Text>
-      <Text style={[styles.alertContent, styles.text]}>
+      <Text style={[styles.alertContent1, styles.text]}>
         Credits:{'\n'}
         This App was developed for ABCOM by Akash Patel{'\n'}
-        ABCOM Information Systems Pvt. Ltd.
       </Text>
     </View>
   );
@@ -52,6 +51,10 @@ const styles = StyleSheet.create({
   alertContent: {
     textAlign: 'center',
     marginVertical: 10,
+  },
+  alertContent1: {
+    position: 'absolute',
+    bottom: 0,
   },
   head: {
     position: 'absolute',
