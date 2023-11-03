@@ -23,6 +23,11 @@ const About = ({ navigation, route }: HomeProps) => {
         Copyright@2023 {'\n'}
         ABCOM Information Systems Pvt. Ltd.
       </Text>
+      <Text style={[styles.alertContent, styles.text]}>
+        Credits:{'\n'}
+        This App was developed for ABCOM by Akash Patel{'\n'}
+        ABCOM Information Systems Pvt. Ltd.
+      </Text>
     </View>
   );
 };
