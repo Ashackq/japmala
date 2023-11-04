@@ -11,7 +11,7 @@ export const languageOptions = [
 
 export const colors = {
   headfoot: 'grey',
-  headfootbutton: '#4C2E05',
+  headfootbutton: '#d3d3d3',
   headfootbuttontext: 'black',
   tintcolor: 'white',
 };

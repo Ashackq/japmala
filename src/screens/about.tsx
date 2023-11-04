@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import React from 'react';
 
 import { Head } from '../components';
@@ -10,6 +16,14 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'About'>;
 
 const About = ({ navigation, route }: HomeProps) => {
   const i = route.params.languageindex;
+  const openLinkedInProfile = () => {
+    const linkedInURL = 'https://in.linkedin.com/in/akash-patel-8a6107237';
+    Linking.openURL(linkedInURL);
+  };
+  const openWebsite = () => {
+    const linkedInURL1 = 'http://abcom.com/';
+    Linking.openURL(linkedInURL1);
+  };
   return (
     <View style={styles.cont}>
       <View style={styles.head}>
@@ -21,11 +35,17 @@ const About = ({ navigation, route }: HomeProps) => {
       </Text>
       <Text style={[styles.alertContent, styles.text]}>
         Copyright@2023 {'\n'}
-        ABCOM Information Systems Pvt. Ltd.
+        <TouchableOpacity onPress={openLinkedInProfile} activeOpacity={1}>
+          <Text style={styles.text1}>ABCOM Information Systems Pvt. Ltd.</Text>
+        </TouchableOpacity>
       </Text>
       <Text style={[styles.alertContent1, styles.text]}>
         Credits:{'\n'}
-        This App was developed for ABCOM by Akash Patel{'\n'}
+        This App was developed for ABCOM by{'\n'}
+        <TouchableOpacity onPress={openLinkedInProfile} activeOpacity={1}>
+          <Text style={styles.text1}>Akash Patel</Text>
+        </TouchableOpacity>
+        {'\n'}
       </Text>
     </View>
   );
@@ -70,4 +90,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   text: { color: 'white' },
+  text1: { color: 'pink', textDecorationLine: 'underline' },
 });
