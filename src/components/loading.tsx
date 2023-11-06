@@ -85,16 +85,15 @@ const styles = StyleSheet.create({
   },
   img2: {
     position: 'absolute',
-    height: 350,
-    width: 350,
-    top: 20,
+    top: 0,
+    height: 900,
   },
   appby: {
     position: 'absolute',
-    top: 120,
+    top: 220,
     fontWeight: 'bold',
     fontSize: 24,
-    color: 'white',
+    color: 'black',
   },
 });
 
