@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-const HomeBack = require('../devdata/assets/homeback.jpg');
+const Editback = require('../devdata/assets/editback.jpg');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
@@ -69,7 +69,7 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <Image source={HomeBack} style={styles.img2} />
+      <Image source={Editback} style={styles.img2} />
 
       <Text style={styles.appby}>A Product of ABCOM</Text>
     </View>

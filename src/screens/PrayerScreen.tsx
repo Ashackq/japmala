@@ -24,6 +24,7 @@ import StyleSheet from 'react-native-media-query';
 const Bead = require('../devdata/assets/bead.jpg');
 const Pause = require('../devdata/assets/pause.png');
 const Play = require('../devdata/assets/play.png');
+const HomeBack = require('../devdata/assets/pray.jpg');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Player'>;
 const PrayerScreen = ({ navigation, route }: HomeProps) => {
@@ -282,6 +283,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#0b78ee' }}>
+      <Image source={HomeBack} style={styles.img3} />
       <TouchableOpacity
         activeOpacity={1}
         onPress={handleImagePress}
@@ -361,6 +363,11 @@ const { styles } = StyleSheet.create({
     right: 0,
     left: 0,
     backgroundColor: 'grey',
+  },
+  img3: {
+    position: 'absolute',
+    top: 0,
+    height: 900,
   },
   grey2: {
     color: 'white',

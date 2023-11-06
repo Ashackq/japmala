@@ -97,15 +97,6 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
             {lang[i].totalcount}: {totalcount + mala * beadcount}
           </Text>
           <Text style={styles.text}>
-            {lang[i].target}: {target}
-          </Text>
-          <Text style={styles.text}>
-            {lang[i].beadcont}: {beadcount}
-          </Text>
-        </View>
-
-        <View style={styles.greyBox}>
-          <Text style={styles.text}>
             {lang[i].malascomp}: {mala}
           </Text>
           <Text style={styles.text}>
@@ -133,16 +124,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greyBox: {
-    backgroundColor: '#d3d3d3',
+    // backgroundColor: '#d3d3d3',
     padding: 20,
     borderRadius: 10,
-    marginBottom: 20,
-    opacity: 0.8,
+
+    // opacity: 0.8,
   },
   text: {
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 16,
   },
   img: {
     ...StyleSheet.absoluteFillObject,

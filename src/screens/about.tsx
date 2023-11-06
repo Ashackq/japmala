@@ -38,7 +38,7 @@ const About = ({ navigation, route }: HomeProps) => {
         </Text>
         <Text style={[styles.alertContent, styles.text]}>
           Copyright@2023 {'\n'}
-          <TouchableOpacity onPress={openLinkedInProfile} activeOpacity={1}>
+          <TouchableOpacity onPress={openWebsite} activeOpacity={1}>
             <Text style={styles.text1}>
               ABCOM Information Systems Pvt. Ltd.
             </Text>
