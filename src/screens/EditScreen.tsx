@@ -8,10 +8,12 @@ import {
   BackHandler,
   ScrollView,
   Modal,
+  Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { lang } from '../devdata/constants/languages';
+const Editback = require('../devdata/assets/editback.jpg');
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -181,8 +183,8 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       <View style={styles.head}>
         <Head name={lang[i].edit} navigation={navigation} route={route} />
       </View>
-      <ScrollView style={styles.img}>
-        {/* <Image source={Editback} style={styles.img} /> */}
+      <Image source={Editback} style={styles.img} />
+      <ScrollView style={styles.img1}>
         {/* Contents */}
         <View style={styles.container1}>
           <View style={styles.whiteBox}>
@@ -293,7 +295,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   img: {
-    backgroundColor: '#333333',
+    position: 'absolute',
+    height: 800,
+    width: 500,
+    bottom: 0,
+    right: -50,
+  },
+  img1: {
     marginTop: 70,
   },
 

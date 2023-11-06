@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import React from 'react';
 import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
+const Editback = require('../devdata/assets/editback.jpg');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Tnc'>;
 
@@ -12,6 +13,8 @@ const AppPolicy = ({ navigation, route }: HomeProps) => {
 
   return (
     <View style={styles.container}>
+      <Image source={Editback} style={styles.img} />
+
       <View style={styles.head}>
         <Head name={lang[i].appshead} navigation={navigation} route={route} />
       </View>
@@ -54,7 +57,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 80,
   },
-
+  img: {
+    position: 'absolute',
+    height: 800,
+    width: 500,
+    bottom: 0,
+    right: -50,
+  },
   header: {
     fontSize: 24,
     fontWeight: 'bold',

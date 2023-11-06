@@ -4,9 +4,10 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  Image,
 } from 'react-native';
 import React from 'react';
-
+const Editback = require('../devdata/assets/editback.jpg');
 import { Head } from '../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -29,6 +30,8 @@ const About = ({ navigation, route }: HomeProps) => {
       <View style={styles.head}>
         <Head name={lang[i].info} navigation={navigation} route={route} />
       </View>
+      <Image source={Editback} style={styles.img} />
+
       <Text style={[styles.alertTitle, styles.text]}>{lang[i].appname}</Text>
       <Text style={[styles.alertVersion, styles.text]}>
         (Version: {env.version})
@@ -67,7 +70,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
   },
-
+  img: {
+    position: 'absolute',
+    height: 800,
+    width: 500,
+    bottom: 0,
+    right: -50,
+  },
   alertContent: {
     textAlign: 'center',
     marginVertical: 10,

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 import { Head } from '../components';
 const Om = require('../devdata/assets/om.png');
-
+const HomeBack = require('../devdata/assets/homeback.jpg');
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { lang } from '../devdata/constants/languages';
@@ -87,6 +87,7 @@ const HomeScreen = ({ navigation, route }: HomeProps) => {
         activeOpacity={1}
         style={styles.img}
       />
+      <Image source={HomeBack} style={styles.img3} />
       <View style={styles.omContainer}>
         <View style={styles.greyBox}>
           <Text style={styles.text}>
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0b78ee',
   },
   greyBox: {
     backgroundColor: '#d3d3d3',
@@ -156,7 +156,14 @@ const styles = StyleSheet.create({
   },
   img2: {
     position: 'absolute',
-    top: -50,
+    height: 350,
+    width: 350,
+    top: 20,
+  },
+  img3: {
+    position: 'absolute',
+    top: 0,
+    height: 900,
   },
   omContainer: {
     position: 'absolute',
