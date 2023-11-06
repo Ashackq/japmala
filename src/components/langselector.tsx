@@ -48,10 +48,8 @@ const LanguageSelectionComponent = ({
               onPress={() => {
                 setModalVisible(false);
               }}
-            >
-              <Text>Language Support Will Be Added Soon</Text>
-            </TouchableOpacity>
-            {/* {languageOptions.map(({ id }) => (
+            ></TouchableOpacity>
+            {languageOptions.map(({ id }) => (
               <TouchableOpacity
                 key={id}
                 onPress={() => {
@@ -60,7 +58,7 @@ const LanguageSelectionComponent = ({
               >
                 <Text style={styles.label}>{languageOptions[id].label}</Text>
               </TouchableOpacity>
-            ))} */}
+            ))}
           </View>
         </View>
       </Modal>

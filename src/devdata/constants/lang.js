@@ -1,6 +1,6 @@
 export const languageOptions = [
   { label: 'English', value: 'en', id: 0 },
-  // { label: 'मराठी(Marathi)', value: 'mr', id: 1 },
+  { label: 'मराठी(Marathi)', value: 'mr', id: 1 },
   // { label: 'हिंदी(Hindi)', value: 'hi', id: 2 },
   // { label: 'ગુજરાતી(Gujarati)', value: 'gj', id: 3 },
   // { label: 'বাঙালি(Bengali)', value: 'bn', id: 4 },
