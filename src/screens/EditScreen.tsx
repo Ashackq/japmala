@@ -72,6 +72,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
           elapsedtime: elapsedtime,
           languageindex: i,
           malatime: malatime,
+          langtrue: 1,
         });
         navigation.replace('Home', {
           target: target,
@@ -142,6 +143,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
         languageindex: i,
         malatime: '00:00:00',
         elapsedtime: '00:00:00',
+        langtrue: 1,
       });
     } else {
       storeProgressData({
@@ -153,6 +155,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
         elapsedtime: elapsedtime,
         languageindex: i,
         malatime: malatime,
+        langtrue: 1,
       });
     }
   };
@@ -175,6 +178,7 @@ const EditScreen = ({ navigation, route }: HomeProps) => {
       languageindex: i,
       malatime: '00:00:00',
       elapsedtime: '00:00:00',
+      langtrue: 1,
     });
   };
 

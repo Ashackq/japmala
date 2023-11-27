@@ -74,6 +74,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         elapsedtime: elapsedTime,
         languageindex: i,
         malatime: timeForOneMala,
+        langtrue: 1,
       });
       pauseTimeRef.current = new Date().getTime();
       clearInterval(intervalRef.current!);
@@ -159,6 +160,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         elapsedtime: elapsedTime,
         languageindex: i,
         malatime: timeForOneMala,
+        langtrue: 1,
       });
 
       countertimeref.current = new Date();
@@ -211,6 +213,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
           elapsedtime: elapsedFormatted,
           languageindex: i,
           malatime: timeForOneMala,
+          langtrue: 1,
         });
         navigation.replace('Home', {
           totalcount: prayerCount,
@@ -261,6 +264,7 @@ const PrayerScreen = ({ navigation, route }: HomeProps) => {
         elapsedtime: elapsedTime,
         languageindex: i,
         malatime: timeForOneMala,
+        langtrue: 1,
       });
       if (!hasDragged) {
         setPrayerCount((prevCount) => prevCount + 1);

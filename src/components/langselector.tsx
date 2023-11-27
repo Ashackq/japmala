@@ -44,11 +44,6 @@ const LanguageSelectionComponent = ({
       >
         <View style={styles.container}>
           <View style={styles.box}>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(false);
-              }}
-            ></TouchableOpacity>
             {languageOptions.map(({ id }) => (
               <TouchableOpacity
                 key={id}

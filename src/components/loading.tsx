@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Text } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import React, { useEffect, useState } from 'react';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import { Langsel } from '.';
+import { lang } from '../devdata/constants/languages';
 const Editback = require('../devdata/assets/editback.jpg');
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Loading'>;
@@ -14,9 +16,26 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
   const mala = route.params.mala;
   const esttime = route.params.esttime;
   const elapsedtime = route.params.elapsedtime;
-  const i = route.params.languageindex;
+  const [i, setSelectedLanguageIndex] = useState(route.params.languageindex);
+  const handleLanguageChange = (value: number) => {
+    setSelectedLanguageIndex(value);
+  };
   const malatime = route.params.malatime;
-
+  const [langtrue, setLangTrue] = useState(0);
+  const updateLangTrue = async (newLangTrueValue: number) => {
+    try {
+      const storedProgress = await AsyncStorage.getItem('progress');
+      if (storedProgress) {
+        const progressData = JSON.parse(storedProgress);
+        progressData.langtrue = newLangTrueValue;
+        await AsyncStorage.setItem('progress', JSON.stringify(progressData));
+      } else {
+        console.error('Progress data not found.');
+      }
+    } catch (error) {
+      console.error('Error updating langtrue:', error);
+    }
+  };
   const storeProgressData = async (data) => {
     try {
       await AsyncStorage.setItem('progress', JSON.stringify(data));
@@ -27,24 +46,24 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
   useEffect(() => {
     const loadProgressData = async () => {
       try {
-        // Load the progress data from AsyncStorage
         const storedProgress = await AsyncStorage.getItem('progress');
         if (storedProgress) {
           const progressData = JSON.parse(storedProgress);
-
-          // Navigate to the Home screen with the loaded data
-          setTimeout(() => {
-            navigation.replace('Home', {
-              totalcount: progressData.totalcount,
-              beadcount: progressData.beadcount,
-              target: progressData.target,
-              mala: progressData.mala,
-              esttime: progressData.esttime,
-              elapsedtime: progressData.elapsedtime,
-              languageindex: progressData.languageindex,
-              malatime: progressData.malatime,
-            });
-          }, 2000);
+          setLangTrue(progressData.langtrue);
+          if (langtrue === 1) {
+            setTimeout(() => {
+              navigation.replace('Home', {
+                totalcount: progressData.totalcount,
+                beadcount: progressData.beadcount,
+                target: progressData.target,
+                mala: progressData.mala,
+                esttime: progressData.esttime,
+                elapsedtime: progressData.elapsedtime,
+                languageindex: progressData.languageindex,
+                malatime: progressData.malatime,
+              });
+            }, 2000);
+          }
         } else {
           storeProgressData({
             target: target,
@@ -55,6 +74,7 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
             elapsedtime: elapsedtime,
             languageindex: i,
             malatime: malatime,
+            langtrue: 0,
           });
           loadProgressData();
         }
@@ -63,15 +83,35 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
       }
     };
 
-    // Call the function to load progress data
     loadProgressData();
-  }, [navigation]);
+  }, [navigation, langtrue]);
 
   return (
     <View style={styles.container}>
       <Image source={Editback} style={styles.img2} />
-
-      <Text style={styles.appby}>A Product of ABCOM</Text>
+      {langtrue === 1 ? (
+        <Text style={styles.appby}>A Product of ABCOM</Text>
+      ) : (
+        <View style={styles.container}>
+          <Text style={styles.appby1}>{lang[i].selectlanguage}</Text>
+          <View style={styles.appby2}>
+            <Langsel
+              selectedindex={i}
+              setSelectedindex={handleLanguageChange}
+              navigation={navigation}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              updateLangTrue(1);
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 20, marginTop: -50 }}>
+              {lang[i].set}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -81,7 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0b78ee',
   },
   img2: {
     position: 'absolute',
@@ -94,6 +133,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24,
     color: 'black',
+  },
+  appby1: {
+    position: 'absolute',
+    top: 320,
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: 'white',
+  },
+  appby2: {
+    position: 'absolute',
+    top: 350,
+    backgroundColor: 'white',
   },
 });
 
