@@ -104,6 +104,7 @@ const LoadingScreen = ({ navigation, route }: HomeProps) => {
           <TouchableOpacity
             onPress={() => {
               updateLangTrue(1);
+              setLangTrue(1);
             }}
           >
             <Text style={{ color: 'white', fontSize: 20, marginTop: -50 }}>
